@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.crossit.hcc.dao.NoticeMapper">
+
+	
+	<select id="getNoticeList" resultType="com.crossit.hcc.vo.HCCFmbVO">
+		SELECT b.*
+		FROM (
+			 SELECT 
+    		    @RNUM:=@RNUM+1 AS ROWNUM
+    		    ,  a.*
+			 FROM 
+		    	   (SELECT @RNUM:=0) R
+		    	,  (SELECT * 
+		    	    FROM hcc_fmb_tb 
+		    	    
+		    	    where fmb_status = 'Y'
+		    	    AND   fmb_type ='N'
+		    	    
+		    	    order by fmb_seq DESC
+		    	    ) a 
+			 ) as b 
+		where ROWNUM between #{param1} and #{param2}
+	</select>
+	
+	<select id="getNoticeCount" resultType="int">
+		SELECT COUNT(*) 
+		FROM hcc_fmb_tb 
+		where fmb_status = 'Y' 
+		AND   fmb_type ='N'
+	</select>
+	
+	<insert id="writeNotice">
+		insert 
+		into hcc_fmb_tb
+		(
+		   fmb_title
+		,  fmb_content
+		,  fmb_type
+		,  fmb_status
+		,  fmb_cnt
+		,  fmb_reg_date
+		,  fmb_upd_date
+		) 
+		values
+		(
+		   #{param1}
+		,  #{param2}
+		,  'N'
+		,  'Y'
+		,  0
+		,  NOW()
+		,  NOW()
+		)
+	</insert>
+	
+	<select id="getNoticeContent" resultType="com.crossit.hcc.vo.HCCFmbVO">
+		select * 
+		from hcc_fmb_tb 
+		where fmb_seq = #{param1}
+	</select>
+	
+	<update id="deleteNotice">
+		update 
+		  hcc_fmb_tb 
+		set fmb_status = 'N' 
+		where fmb_seq = #{param1}
+	</update>
+	
+	<update id="updateNotice">
+		update 
+		  hcc_fmb_tb 
+		set fmb_title = #{param2}
+		,   fmb_content = #{param3}
+		,   fmb_upd_date = NOW() 
+		
+		where fmb_seq = #{param1}
+	</update>
+</mapper>	

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.crossit.hcc.dao.BoardMapper">
+
+<!-- 페이지당 보여줄 게시물 셀릭트 -->
+   <select id="selectRecordsPerPage" parameterType="hashmap" resultType="com.crossit.hcc.vo.BoardVO">
+        SELECT *
+        FROM board
+        WHERE board
+        LIMIT #{offset}, #{noOfRecords}        
+    </select>
+ <!-- 전체 게시물 수 셀릭트 -->
+    <select id="selectTotalRecords" resultType="int">
+        SELECT count(*) from board;
+    </select>
+    
+</mapper>
+
