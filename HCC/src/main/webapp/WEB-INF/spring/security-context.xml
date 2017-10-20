@@ -3,41 +3,38 @@
 	xsi:schemaLocation="http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security.xsd
 		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.3.xsd">
 	<http pattern="/resources/**" security="none"></http>
-	<http auto-config="true" use-expressions="true">
+	<http auto-config="true" use-expressions="true" entry-point-ref="userAuthenticationEntryPoint">
 
 		<intercept-url pattern="/main" access="permitAll" />
 		<intercept-url pattern="/idCheck" access="permitAll" />
 		<intercept-url pattern="/regiMail" access="permitAll" />
 		<intercept-url pattern="/register" access="permitAll" />
 		<intercept-url pattern="/regiMail_check" access="permitAll" />
-		
+		<intercept-url pattern="/post" access="hasRole('ROLE_USER')" />
+		<intercept-url pattern="/hospital_info" access="hasRole('ROLE_USER')" />
 		<!-- 공지사항 관련(권한 미설정) -->
-		<intercept-url pattern="/noticeList" access="permitAll"/>
-		<intercept-url pattern="/noticeWritePage" access="permitAll"/>
-		<intercept-url pattern="/noticeWrite" access="permitAll"/>
-		<intercept-url pattern="/noticeContentPage" access="permitAll"/>
-		<intercept-url pattern="/deleteNotice" access="permitAll"/>
-		<intercept-url pattern="/updateNoticePage" access="permitAll"/>
-		<intercept-url pattern="/updateNoitce" access="permitAll"/>
-		
-		
+		<intercept-url pattern="/noticeList" access="permitAll" />
+		<intercept-url pattern="/noticeWritePage" access="permitAll" />
+		<intercept-url pattern="/noticeWrite" access="permitAll" />
+		<intercept-url pattern="/noticeContentPage" access="permitAll" />
+		<intercept-url pattern="/deleteNotice" access="permitAll" />
+		<intercept-url pattern="/updateNoticePage" access="permitAll" />
+		<intercept-url pattern="/updateNoitce" access="permitAll" />
+
 		<intercept-url pattern="/admin/**" access="hasRole('ROLE_ADMIN')" />
 		<intercept-url pattern="/*"
 			access="hasAnyRole('ROLE_ADMIN', 'ROLE_USER')" />
-	
-		<form-login 
-		username-parameter="id" 
-		password-parameter="pw"
-			login-page="/main" 
-			authentication-failure-url="/main?error=true"
+
+		<form-login username-parameter="id" password-parameter="pw"
+			login-page="/main" authentication-failure-url="/main?error=true"
 			authentication-success-handler-ref="userLoginSuccessHandler" />
 
-		<logout logout-url="/logout"
-				logout-success-url="/main" 
-				invalidate-session="true" />
+		<access-denied-handler ref="userDeniedHandler" />
 
-		<access-denied-handler error-page="/denied" />
-		
+		<logout logout-url="/logout" logout-success-url="/main"
+			invalidate-session="true" />
+
+
 		<session-management invalid-session-url="/main">
 			<concurrency-control max-sessions="1"
 				expired-url="/main" />
@@ -46,6 +43,11 @@
 
 	<beans:bean id="userLoginSuccessHandler"
 		class="com.crossit.hcc.service.UserLoginSuccessHandler"></beans:bean>
+
+	<beans:bean id="userDeniedHandler" class="com.crossit.hcc.service.UserDeniedHandler"></beans:bean>
+	
+	<beans:bean id="userAuthenticationEntryPoint"
+		class="com.crossit.hcc.service.UserAuthenticationEntryPoint"></beans:bean>
 
 	<authentication-manager>
 		<authentication-provider user-service-ref="UserLoad" />

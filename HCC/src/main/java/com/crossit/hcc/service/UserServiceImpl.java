@@ -30,7 +30,7 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public void leave(UserVO vo) {
+	public void leave(UserVO vo) {//아이디 삭제
 		// TODO Auto-generated method stub
 		UserVO gotten_vo = userMapper.selectUserByID(vo.getUser_id());
 		if (gotten_vo == null) {
@@ -49,7 +49,7 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public void infoupdate(UserVO vo) {
+	public void infoupdate(UserVO vo) {//회원정보 변경.
 		// TODO Auto-generated method stub
 		userMapper.updateUserByVO(vo);
 		

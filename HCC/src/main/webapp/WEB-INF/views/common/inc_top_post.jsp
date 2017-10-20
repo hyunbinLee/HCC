@@ -3,7 +3,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
 
-
+<!-- 게시판 형식 탑 네비게이션 -->
 <div class="header_wrap m_b30">
 	<div class="logo_area">
 		<a href="#" class="main_logo"><span>건강관리 커뮤니티 사이트</span></a>
@@ -23,10 +23,3 @@
 		</ul>
 	</div>
 </div>
-
-<div class="content_wrap">
-
-	<div class="fixed_nav">
-		<button type="button" class="" id="" title="접혀있는 정보 열고 닫는 아이콘"></button>
-		<a href="" class="" title="마이페이지 이동 아이콘"></a>
-	</div>

@@ -49,33 +49,27 @@
 /*메인*/
 .wrap{width:100%;}
   /*헤더*/
-  .header_wrap {width:100%; height:131px;}
+  .header_wrap {width:100%; height:170px;}
     /*헤더_로고*/
-    .header_wrap > .logo_area > a.main_logo{
-      display:block; width:17%; height:77px; margin:0 auto;text-align:center; background-image:url('../img/logo.png'); background-repeat:no-repeat; background-position:50% -7px; background-size:74%;padding-top: 50px;box-sizing: border-box;
-    }
-    .header_wrap > .logo_area > a.main_logo > span {color:#000000; font-weight:600; font-size:0.9rem;}
+    .header_wrap > .logo_area > a.main_logo{display:block; width:17%; height:114px; margin:0 auto; position:relative; position:relative; text-align:center; background-image:url('../img/logo.png'); background-repeat:no-repeat; background-position:50% -7px;}
+    .header_wrap > .logo_area > a.main_logo > span {position:absolute; left:0; right:0; bottom:16px; color:#000000; font-weight:600; font-size:1.28em;}
     /*헤더_로고 끝*/
     /*헤더_nav*/
-    .header_wrap > .header_nav {width:100%; height:47px; line-height:47px; background-color:#000000; color:#ffffff;-webkit-box-shadow: 0px 5px 5px -2px rgba(25, 25, 25, 0.15);}
+    .header_wrap > .header_nav {width:100%; height:61px; line-height:61px; background-color:#000000; color:#ffffff;-webkit-box-shadow: 0px 5px 5px -2px rgba(25, 25, 25, 0.15);}
     .header_nav > ul {width:70%; margin:0 auto;}
     .header_nav > ul > li {display:inline-block; float:left; font-size:1.28em;}
     .header_nav > ul > li > a.on, .header_nav > ul > li > button.on {background-color:rgb(233, 27, 35);}
-    .header_nav > ul > li > button {padding:14.5px 40px; background:none; border:0; vertical-align:top;}
+    .header_nav > ul > li > button {padding:21.5px 40px; background:none; border:0; vertical-align:top;}
     .header_nav > ul > li > button:hover {background-color:rgb(233, 27, 35);}
-    .header_nav > ul > li > a{color:#ffffff; font-weight:600; padding:10px 70px;}
+    .header_nav > ul > li > a{color:#ffffff; font-weight:600; padding:17px 40px;}
     .header_nav > ul > li > a:hover{background-color:rgb(233, 27, 35);}
     /*헤더_nav 끝 */
 
 
   /*메인 콘텐츠*/
   .content_wrap{width:70%; margin:0 auto;}
-  .content_wrap > .fixed_nav{width:40px; overflow:hidden; position:fixed;right:40px;top:144px;}
-  .content_wrap > .fixed_nav > button {width:40px; height:40px; background-image:url('../img/left_icon1.png'); background-repeat:no-repeat; background-position:0; background-size:100%; border:0;}
-  .content_wrap > .fixed_nav > a {display:block; width:40px; height:40px; background-image:url('../img/left_icon2.png'); background-repeat:no-repeat; background-position:0; background-size:100%;}
-  .content_wrap > .left_area {clear: both; width:40%; float:left;}
-  .content_wrap > .right_area {width:40%; float:right;}
-  .left_area > .login_area {padding:20px 0;}
+  .content_wrap > .left_area, .content_wrap > .right_area {width:40%; float:left;}
+  .left_area > .login_area {border-bottom:1px solid #cccccc; padding:10px 0;}
   .left_area > .login_area > .login_title {font-weight:600; border-bottom:1px solid #cccccc;}
   .login_area > .login_title > span {border-bottom:2px solid rgb(233, 27, 35);}
   .login_area > .login_box {overflow:hidden;}
@@ -88,10 +82,6 @@
   .other_login > div >input[type="checkbox"] {vertical-align:middle;}
   .other_login > a:hover, .other_login > button:hover{color:#367ce3;}
 
-  .left_area > .banner_area {width:100%; height:110px; border:1px solid #cccccc;}
-  .left_area > .banner_area li {width:100%; height:110px; display:none;}
-  .left_area > .banner_area li:first-child {display:block;}
-  .left_area > .banner_area img {width:100%; height:100%;}
   .notice_board_wrap {padding-top:20px;} .notice_board_wrap > .notice_board_title {font-weight:600; border-bottom:1px solid #cccccc; margin-bottom:10px;}
   .notice_board_wrap > .notice_board_title > span {border-bottom:2px solid rgb(233, 27, 35);}
 
@@ -107,7 +97,91 @@
   .notice_board > ul > li {padding:10px 10px 10px 50px; border:1px solid #cccccc; border-bottom:0; background-image:url('../img/board_icon.png'); background-repeat:no-repeat; background-position:3% 70%;}
 
   .notice_board > ul > li:last-child {border-bottom:1px solid #cccccc;}
-  .notice_board > ul > li:hover{background-color:#cccccc; font-weight:bold;}
+  .notice_board > ul > li:hover, .notice_board > ul > li.on {background-color:#cccccc; font-weight:bold;}
   .notice_board > ul > li > span.board_date{float:right; font-size:0.8em;}
 
   /*메인 콘텐츠 끝*/
+  
+  
+/***************** 게시판 ************************/
+ /*contents*/
+#contents{width: 70%;height: 750px;margin: 0 auto}
+/*공통*/
+#search{width: 70%;height: 200px;float: left}
+#search>div{height: 25%;border-bottom: 2px solid black}
+.search_nav{height: 50px;border-bottom: 1px solid #cccccc;}
+.search_nav>p{width: 70px;height: 50px;border-bottom:2px solid rgb(233, 27, 35);font-weight: 600;line-height: 60px;}
+table>thead>tr>td{height: 50px;border-bottom: 0.5px solid #ccc}
+table>tbody>tr>td{height: 50px;}
+.num{text-align: center;width: 5%;}
+.title{text-align: center;width: 40%}
+.grade{text-align: center;width: 15%}
+.name{text-align: center;width: 10%}
+.day{text-align: center;width: 20%;}
+.re{text-align: center;width: 10%;}
+.number{width: 50px;text-align: center}
+.rank_num{text-align: right}
+/*search부분*/
+.search_box{margin-top: 1%;padding-bottom:12%;border: 0.5px solid #cccccc;background-color: #e8e7e7;}
+.search_box>div>input:nth-child(1){margin-left: 20px;margin-top: 20px;}
+#select{margin-left: 20px;margin-top: 4%;height: 40px;width: 110px;font-size: 1.02em}
+.search{width: 29%;height: 35px;left: 25%;position: absolute;margin-top: 2%;}
+#search_btn{width: 7%;height: 40px;left: 56%;margin-top: 2%;position: absolute;border: none;background-color: #bc1a1a;color: white;font-size: 1.05em; background-image: url(../img/search.png); background-position: 20% 58%; background-repeat: no-repeat;}
+
+/*name*/
+#name{width: 27%;height: 200px;float: right}
+#name_box{height: 135px;margin-top: 10px;border: 1px solid #ccc;}
+#top{height: 70px;}
+#top>div:nth-child(1){width: 25%;height: 70px;background-color: #cccccc;float: left;border-bottom: 0.5px solid #ccc;background-image:url(../img/member%20icon.png); background-repeat: no-repeat; background-position: center;}
+#top>div:nth-child(2){width: 74%;height: 70px;float: left;line-height: 50px;}
+#bottom{height: 50px}
+#bottom>p{width: 27%;margin-top: 18px;text-decoration: underline}
+#bottom>p:nth-child(1){width: 35%;float: left;}
+#bottom>p:nth-child(2){width: 35%;float: right;}
+
+/*게시판*/
+#list_box{height: 240px;margin-top: 10%;}
+#adult{width: 150px;height: 50px;float: left;text-align: center;line-height: 50px;font-size: 1.5em;background-color: #ccc;border: 0.5px solid #555555;border-bottom: none;border-right: none}
+#adult:hover{border: 2px solid black;border-bottom: none;background-color: #fff;}
+#teenager{width: 150px;height: 50px;float: left;text-align: center;line-height: 50px;font-size: 1.5em;background-color: #ccc;border: 0.5px solid #555555;border-bottom: none}
+#teenager:hover{border: 2px solid black;border-bottom: none;background-color: #fff;}
+table{width: 100%;border-collapse: collapse}
+#search>table>tbody>tr:hover{background-color: #ccc;}
+#search>table>tbody>tr:hover .title{color: red}
+
+/*rank*/
+#rank_box{height: 240px;margin-top: 27%;}
+#rank_top{height: 240px;margin-top: 5%;}
+#rank_top>table{border-collapse: collapse}
+
+
+
+/*post*/
+.post{width: 70%;height: 300px;float: left;margin-top: 2%;}
+.post_top{height: 50px;background-color: #cccccc;margin-top: 2%;border-bottom: 1px solid black}
+.post_name{width: 12%;text-align: center;height: 50px;line-height: 50px;float: left}
+.post_text{width: 12%;text-align: center;height: 50px;line-height: 50px;float: left;margin-left: 50px;background-image: url(../img/comment.png);background-repeat: no-repeat; background-position: left;}
+.post_see{width: 12%;text-align: center;height: 50px;line-height: 50px;float: left;margin-left: 10px;background-image: url(../img/eye.png);background-repeat: no-repeat; background-position: left;}
+.post_up{width: 12%;text-align: center;height: 50px;line-height: 50px;float: left;margin-left: 10px;background-image: url(../img/Good.png);background-repeat: no-repeat; background-position: left;}
+.post_down{width: 12%;text-align: center;height: 50px;line-height: 50px;float: left;margin-left: 10px;background-image: url(../img/bad.png);background-repeat: no-repeat; background-position: left;}
+.post_date{width: 20%;text-align: center;height: 50px;line-height: 50px;float: right;}
+.post_mid{height: 300px;line-height: 200px;border-bottom: 1px solid black}
+.post_bottom{height: 40px;border-bottom: 1px solid black;}
+.post_bottom_like{width: 12%;height: 40px;text-align: center;line-height: 40px;float: left;margin-left: 50px; background-image: url(../img/Good.png);background-repeat: no-repeat; background-position: left;}
+.post_bottom_bad{width: 12%;height: 40px;text-align: center;line-height: 40px;float: left;margin-left: 50px;  background-image: url(../img/bad.png);background-repeat: no-repeat; background-position: left;}
+.post_bottom_text{width: 15%;height: 40px;text-align: center;line-height: 40px;float: left;margin-left: 50px; background-image: url(../img/comment.png);background-repeat: no-repeat; background-position: left;}
+.mod{width: 12%;height: 40px;text-align: center;line-height: 40px;float: right;}
+.del{width: 12%;height: 40px;text-align: center;line-height: 40px;float: right;}
+
+
+/* 댓글 */
+.comments{background: #E8E7E7;}
+.comments_list{border-bottom : 1px dashed #1245AB;padding: 1% 1% 1% 1%;}
+.comments_span{ background-image: url(../img/assistant.svg);background-repeat: no-repeat; background-position: left;}
+.comments_info{padding-left:3%;}
+.comments_fun{padding-left: 43%;}
+.comments_text{padding: 1% 1% 1% 1%;}
+.comment{width:80%;height:70px;padding:1%;border:1px solid #e2e2e2;line-height:1.4;color:#000000;overflow-x:hidden; overflow-y:hidden;}
+.inHere{padding: 2% 2% 2% 5%;}
+#comment_btn{width: 7%;height: 60px;left: 56%;margin-top: 1%;position: absolute;border: none;background-color: #bc1a1a;color: white;font-size: 1.05em;   background-position: 20% 58%; background-repeat: no-repeat;}
+/***************** 게시판 끝************************/
