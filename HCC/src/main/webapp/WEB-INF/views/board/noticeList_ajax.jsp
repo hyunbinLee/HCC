@@ -24,49 +24,50 @@
 		</c:forEach>
 	</table>
 	<a href="./noticeWritePage" class="">글쓰기</a> <br />
+	
+	
+	----------------------------------------------------------------------------------------------<br/>
+	
 
-	<c:if test="${block == 1}">
-		<button type="button" disabled>
-			<i class="fa fa-angle-double-left" aria-hidden="true"></i>
+	<c:if test="${page==1 || page == null}">
+		<button type="button" 
+			onclick="javascript:location.href='./noticeList?page=1'">처음
 		</button>
-		<button type="button" disabled>
-			<i class="fa fa-angle-left" aria-hidden="true"></i>
+		<button type="button" 
+			onclick="javascript:location.href='./noticeList?page=1">이전
 		</button>
 	</c:if>
-
-	<c:if test="${block > 1 }">
-		<button type="button"
-			onclick="javascript:location.href='./noticeList?block=1'">
-			<i class="fa fa-angle-double-left" aria-hidden="true"></i>
+	<c:if test="${page>1 }">
+		<button type="button" 
+			onclick="javascript:location.href='./noticeList?page=1'">처음
 		</button>
-		<button type="button"
-			onclick="javascript:location.href='./noticeList?block=${block -1}'">
-			<i class="fa fa-angle-left" aria-hidden="true"></i>
+		<button type="button" 
+			onclick="javascript:location.href='./noticeList?page=${page-1}'">이전
 		</button>
 	</c:if>
-
-	<c:forEach begin="1" end="${pages}" var="pages">
-		<a href="noticeList?block=${block }&page=${pages }">${pages }</a>
+	
+	<!---------------- 페이지 넘버링 ----------------->
+	<c:forEach begin="${startPage }" end="${endPage }" var="pages">
+		<a href="noticeList?page=${pages }">${pages }</a>
 	</c:forEach>
 
-	<c:if test="${block == blocks }">
-		<button type="button" disabled>
+
+	<c:if test="${page == lastPage }">
+		<button type="button"
+			onclick="javascript:location.href='./noticeList?page=${lastPage}'">다음
 			<i class="fa fa-angle-right" aria-hidden="true"></i>
 		</button>
-		<button type="button" disabled>
-			<i class="fa fa-angle-double-right" aria-hidden="true"></i>
-		</button>
 	</c:if>
-	<c:if test="${block != blocks }">
+	<c:if test="${page != lastPage }">
 		<button type="button"
-			onclick="javascript:location.href='./noticeList?block=${block+1}'">
+			onclick="javascript:location.href='./noticeList?page=${page+1}'">다음
 			<i class="fa fa-angle-right" aria-hidden="true"></i>
 		</button>
+	</c:if>
 		<button type="button"
-			onclick="javascript:location.href='./noticeList?block=${blocks}'">
+			onclick="javascript:location.href='./noticeList?page=${lastPage}'">끝
 			<i class="fa fa-angle-double-right" aria-hidden="true"></i>
 		</button>
-	</c:if>
 	<br />
 	----------------------------------------------------------------------------------------------
 </form>

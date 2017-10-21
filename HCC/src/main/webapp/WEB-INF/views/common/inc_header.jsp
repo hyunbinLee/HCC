@@ -28,3 +28,4 @@
     
 <script type="text/javascript" src="resources/js/registerCheck.js?ver=1"></script>
 <script type="text/javascript" src="resources/js/main.js?ver=1"></script>
+<script type="text/javascript" src="resources/js/reply.js"></script>

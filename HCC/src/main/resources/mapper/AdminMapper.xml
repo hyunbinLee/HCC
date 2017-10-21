@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.crossit.hcc.dao.AdminMapper">
+
+
+	<select id="getUserList" resultType="com.crossit.hcc.vo.UserVO" parameterType="HashMap">
+		SELECT b.*
+		FROM (
+			 SELECT 
+    		    @RNUM:=@RNUM+1 AS ROWNUM
+    		    ,  a.*
+			 FROM 
+		    	   (SELECT @RNUM:=0) R
+		    	,  (SELECT user_id
+		    	,user_pw
+		    	,user_kind
+		    	,user_gender
+		    	,user_name
+		    	,user_birth
+		    	,user_phone
+		    	,user_email
+		    	,user_apply
+		    	,user_blame_cnt
+		    	,user_status
+		    	,user_reg_seq
+		    	,user_reg_date
+		    	,user_upd_seq
+		    	,user_upd_date
+		    	    FROM hcc_user_tb 
+		    	    
+		    	    where user_kind = #{param3}
+		    	    order by user_seq DESC
+		    	    ) a 
+			 ) as b 
+		where ROWNUM between #{param1} and #{param2}
+	</select>
+
+	<select id="getUserCount" resultType="int">
+		SELECT COUNT(*) 
+		FROM hcc_user_tb 
+		where user_kind = #{param1}
+	</select>
+
+</mapper>	

@@ -3,7 +3,7 @@
 <mapper namespace="com.crossit.hcc.dao.NoticeMapper">
 
 	
-	<select id="getNoticeList" resultType="com.crossit.hcc.vo.HCCFmbVO">
+	<select id="getNoticeList" resultType="com.crossit.hcc.vo.HCCFmbVO" parameterType="HashMap">
 		SELECT b.*
 		FROM (
 			 SELECT 
@@ -30,7 +30,7 @@
 		AND   fmb_type ='N'
 	</select>
 	
-	<insert id="writeNotice">
+	<insert id="writeNotice" parameterType="HashMap">
 		insert 
 		into hcc_fmb_tb
 		(

@@ -63,7 +63,8 @@
 						님 환영합니다!
 						<div class="other_login">
 							<div class="left">
-								<a href="#" class="" id="">마이 페이지 </a>
+								<c:url value="/myPage" var="myPage"/>
+								<a href="${myPage }" class="" id="">마이 페이지 </a>
 							</div>
 							<input type="submit" class="right" value="Logout">
 						</div>
@@ -85,11 +86,9 @@
 
 
 			<!--병원 정보 공유 게시판-->
-			<c:url value="/hospital_info" var="hospital_info" />
 			<div class="notice_board_wrap">
 				<div class="notice_board_title p_b5">
-					<span class="p_b5">병원정보 공유</span> <a href="${hospital_info }"
-						class="right"><span>+ 더보기</span></a>
+					<span class="p_b5">병원정보 공유</span> <a href="#" class="right"><span>+ 더보기</span></a>
 				</div>
 				<div class="notice_board">
 					<ul>
@@ -106,10 +105,10 @@
 
 		<div class="right_area">
 			<!--병에 대한 후기 게시판-->
-			<c:url value="/post" var="post" />
+			<c:url value="/fmbList" var="fmbList" />
 			<div class="notice_board_wrap m_b80">
 				<div class="notice_board_title p_b5">
-					<span class="p_b5">병에 대한 후기</span> <a href="${post }" class="right"><span>+더보기</span></a>
+					<span class="p_b5">병에 대한 후기</span> <a href="${fmbList }" class="right"><span>+더보기</span></a>
 				</div>
 				<div class="notice_board_tap">
 					<ul>
@@ -133,7 +132,7 @@
 			<div class="notice_board_wrap">
 				<div class="notice_board_title p_b5">
 					<span class="p_b5">게시판</span> 
-					<a href="${post }" class="right"><span>+더보기</span></a>
+					<a href="${fmbList }" class="right"><span>+더보기</span></a>
 				</div>
 				<div class="notice_board_tap">
 					<ul>

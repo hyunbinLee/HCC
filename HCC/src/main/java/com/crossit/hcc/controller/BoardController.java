@@ -2,19 +2,113 @@ package com.crossit.hcc.controller;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.crossit.hcc.vo.BoardVO;
+import com.crossit.hcc.dao.BoardMapperImpl;
 import com.crossit.hcc.service.BoardService;
-import com.crossit.hcc.util.PageNavigation;;
+import com.crossit.hcc.util.PageNavigation;
+import com.crossit.hcc.vo.BoardVO;;
 
 @Controller
 public class BoardController {
 
+	
+	@Autowired
+	private BoardMapperImpl boardDao;
+	
+	@RequestMapping(value = "/fmbList", method=RequestMethod.GET)
+	public String fmbList(HttpSession session,Model model,
+	         @RequestParam(value = "page", required = false) String page)
+	{
+		model.addAttribute("page", page);		
+		
+		BoardService pagingImpl = new BoardService(page);
+		
+		int start = pagingImpl.getStart();
+		int end = pagingImpl.getEnd();
+		
+		//전체 게시물 수
+		pagingImpl.setNumberOfRecords(boardDao.getfmbCount());
+		//마지막 페이지 번호
+		
+		pagingImpl.makePaging();
+		
+		model.addAttribute("startPage", pagingImpl.getStartPageNo());
+		model.addAttribute("endPage", pagingImpl.getEndPageNo());
+		model.addAttribute("fmb",boardDao.getfmbList(start, end));
+		model.addAttribute("lastPage", pagingImpl.getFinalPageNo());
+
+		return "board/fmbList_ajax";
+	}
+	
+	@RequestMapping(value="/fmbWritePage", method=RequestMethod.GET)
+	public String fmbWritePage(HttpSession session) {
+		
+		return "board/fmb_writePage";
+	}
+	
+	@RequestMapping(value="/fmbWrite", method=RequestMethod.GET)
+	public String fmbWriteAction(HttpSession session,HttpServletRequest request) throws Exception {
+		request.setCharacterEncoding("utf-8");
+
+		String title = request.getParameter("title");
+		title =new String(title.getBytes("8859_1"),"utf-8");
+		String content = request.getParameter("content");
+		content = new String(content.getBytes("8859_1"),"utf-8");
+		
+		boardDao.writefmb(title, content);
+		
+		return "redirect:fmbList?page=1";
+	}
+	
+	@RequestMapping(value="/fmbContentPage", method=RequestMethod.GET)
+	public String fmbContentPage(HttpSession session,HttpServletRequest request,Model model) {
+		String seq = request.getParameter("seq");
+		model.addAttribute("fmb", boardDao.getfmbContent(seq));
+		
+		//boardDao.updateHit(seq); //조회수 증가
+		
+		return "board/fmbContentPage";
+	}
+	
+	@RequestMapping(value ="/deleteList")
+	public String deleteListAction(HttpSession session,HttpServletRequest request) {
+		String seq = request.getParameter("seq");
+		boardDao.deleteList(seq);
+		
+		return "redirect:fmbList?page=1";
+	}
+	
+	@RequestMapping(value="/updateListPage")
+	public String updateListPage(HttpServletRequest request,Model model) {
+	
+		String seq = request.getParameter("seq");
+		model.addAttribute("fmb", boardDao.getfmbContent(seq));
+		
+		return "board/update_fmbPage";
+	}
+	
+	@RequestMapping(value="/updateList")
+	public String updateList(HttpServletRequest request) throws Exception {
+		
+		String seq = request.getParameter("seq");
+		String title = request.getParameter("title");
+		title =new String(title.getBytes("8859_1"),"utf-8");
+		String content = request.getParameter("content");
+		content =new String(content.getBytes("8859_1"),"utf-8");
+		boardDao.updateList(seq, title, content);
+		
+		return "redirect:fmbList?page=1";
+	}
+	
 	@RequestMapping(value = "/showboard", method = RequestMethod.GET)
 	public String register(@RequestParam int pages, @RequestParam int lines, Model model) {
 

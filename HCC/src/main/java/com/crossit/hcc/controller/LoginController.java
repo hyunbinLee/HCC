@@ -27,6 +27,7 @@ public class LoginController {
 	@RequestMapping(value = "/main", method = RequestMethod.GET)
 	public String login(HttpSession session) {
 		logger.info("Welcome login! {}", session.getId());
+
 		return "main";
 	}
 

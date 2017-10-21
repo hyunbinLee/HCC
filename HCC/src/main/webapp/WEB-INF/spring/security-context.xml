@@ -10,17 +10,25 @@
 		<intercept-url pattern="/regiMail" access="permitAll" />
 		<intercept-url pattern="/register" access="permitAll" />
 		<intercept-url pattern="/regiMail_check" access="permitAll" />
-		<intercept-url pattern="/post" access="hasRole('ROLE_USER')" />
-		<intercept-url pattern="/hospital_info" access="hasRole('ROLE_USER')" />
 		<!-- 공지사항 관련(권한 미설정) -->
-		<intercept-url pattern="/noticeList" access="permitAll" />
-		<intercept-url pattern="/noticeWritePage" access="permitAll" />
-		<intercept-url pattern="/noticeWrite" access="permitAll" />
-		<intercept-url pattern="/noticeContentPage" access="permitAll" />
-		<intercept-url pattern="/deleteNotice" access="permitAll" />
-		<intercept-url pattern="/updateNoticePage" access="permitAll" />
-		<intercept-url pattern="/updateNoitce" access="permitAll" />
+		<intercept-url pattern="/noticeList" access="hasRole('ROLE_USER')" />
+		<intercept-url pattern="/noticeWritePage" access="hasRole('ROLE_USER')" />
+		<intercept-url pattern="/noticeWrite" access="hasRole('ROLE_USER')" />
+		<intercept-url pattern="/noticeContentPage" access="hasRole('ROLE_USER')" />
+		<intercept-url pattern="/deleteNotice" access="hasRole('ROLE_USER')" />
+		<intercept-url pattern="/updateNoticePage" access="hasRole('ROLE_USER')" />
+		<intercept-url pattern="/updateNoitce" access="hasRole('ROLE_USER')" />
 
+<!-- 자유게시판 관련(권한 미설정) -->
+		<intercept-url pattern="/fmbList" access="hasRole('ROLE_USER')"/>
+		<intercept-url pattern="/fmbWritePage" access="hasRole('ROLE_USER')"/>
+		<intercept-url pattern="/fmbWrite" access="hasRole('ROLE_USER')"/>
+		<intercept-url pattern="/fmbContentPage" access="hasRole('ROLE_USER')"/>
+		<intercept-url pattern="/deleteList" access="hasRole('ROLE_USER')"/>
+		<intercept-url pattern="/updateListPage" access="hasRole('ROLE_USER')"/>
+		<intercept-url pattern="/updateList" access="hasRole('ROLE_USER')"/>
+		<intercept-url pattern="/showboard" access="hasRole('ROLE_USER')"/>
+		
 		<intercept-url pattern="/admin/**" access="hasRole('ROLE_ADMIN')" />
 		<intercept-url pattern="/*"
 			access="hasAnyRole('ROLE_ADMIN', 'ROLE_USER')" />

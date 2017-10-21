@@ -41,7 +41,6 @@
 					</div>
 				</form>
 				
-	<%@ include file="common/inc_join.jsp"%>
 
 </body>
 </html>
