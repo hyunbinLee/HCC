@@ -13,9 +13,12 @@
 	<select id="compareUserByID" parameterType="String" resultType="String">
 		select user_name
 		from hcc_user_tb
-		<if test="value != null and value != '' ">
-			where user_id=#{value}
-		</if>
+			where user_id=#{user_id}
+	</select>
+	<select id="compareUserByPW" parameterType="HashMap" resultType="String">
+		select user_name
+		from hcc_user_tb
+		where user_pw=#{pw} and user_id=#{id}
 	</select>
 
 	<insert id="insertUserVO" parameterType="com.crossit.hcc.vo.UserVO">
@@ -28,7 +31,8 @@
 		, user_name
 		, user_birth
 		, user_phone
-		, user_email
+		,
+		user_email
 		)
 		values
 		(
@@ -44,19 +48,18 @@
 	</insert>
 
 	<delete id="deleteUserByVO" parameterType="String">
-		delete from hcc_user_tb where user_id=#{user_id}
+		delete from
+		hcc_user_tb where user_id=#{user_id}
 	</delete>
-	
-	<update id="updateUserByVO" parameterType="com.crossit.hcc.vo.UserVO" >
-	update hcc_user_tb set
-		(
+
+	<update id="updateUserByVO" parameterType="com.crossit.hcc.vo.UserVO">
+		update hcc_user_tb 
+		set
 		user_pw=#{user_pw},
-		user_gender=#{user_gender},
-		user_name=#{user_name},
-		user_birth=#{user_birth},
 		user_phone=#{user_phone},
-		user_email=#{user_email})
-		where user_id=#{user_id};
+		user_email=#{user_email}
+		where
+		user_id=#{user_id};
 	</update>
 
 </mapper>	

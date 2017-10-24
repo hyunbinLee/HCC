@@ -22,7 +22,6 @@ public class UserLoginSuccessHandler implements AuthenticationSuccessHandler {
 			throws IOException, ServletException {
 		
 //		 vo= (UserVO)auth.getPrincipal();
-//		 System.out.println(vo.getUser_id()+"");
 		
 		req.getRequestDispatcher("/WEB-INF/views/main.jsp").forward(req, res);
 	}

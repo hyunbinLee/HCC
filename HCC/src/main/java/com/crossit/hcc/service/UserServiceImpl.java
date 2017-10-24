@@ -1,5 +1,7 @@
 package com.crossit.hcc.service;
 
+import java.util.HashMap;
+
 import com.crossit.hcc.dao.UserMapperImpl;
 import com.crossit.hcc.vo.UserVO;
 
@@ -24,35 +26,34 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
+	public boolean pwCheck(String user_id,String user_pw) {
+		// TODO Auto-generated method stub
+		HashMap<String,String> map=new HashMap();
+		map.put("id",user_id);
+		map.put("pw",user_pw);
+		
+		return userMapper.compareUserByPW(map);
+	}
+
+	@Override
 	public void register(UserVO vo) {
 		// TODO Auto-generated method stub
 		userMapper.insertUserVO(vo);
 	}
 
 	@Override
-	public void leave(UserVO vo) {//아이디 삭제
+	public void leave(UserVO vo) {// 아이디 삭제
 		// TODO Auto-generated method stub
-		UserVO gotten_vo = userMapper.selectUserByID(vo.getUser_id());
-		if (gotten_vo == null) {
-			System.out.println("아이디 틀렸슴.");
-		} 
-		else 
-		{
-			if(gotten_vo.getUser_pw().equals(vo.getUser_pw()))
-			{
-				System.out.println("비밀번호 틀렸슴.");
-			}
-			else{
-				userMapper.deleteUserByID(gotten_vo.getUser_id());
-			}
-		}
+
+		userMapper.deleteUserByID(vo.getUser_id());
+
 	}
 
 	@Override
-	public void infoupdate(UserVO vo) {//회원정보 변경.
+	public void infoupdate(UserVO vo) {// 회원정보 변경.
 		// TODO Auto-generated method stub
 		userMapper.updateUserByVO(vo);
-		
+
 	}
 
 }

@@ -5,7 +5,6 @@
 	uri="http://www.springframework.org/security/tags"%>
 
 
-<%@ include file="../common/inc_common.jsp"%>
 
 <%@ include file="../common/inc_header.jsp"%>
 
@@ -33,10 +32,12 @@
 						</div>
 					</div>
 					<div class="myinfo_bottom">
+					<c:url value="/leavecheck" var="leavecheck"/>
+					<c:url value="/infoupdatecheck" var="infoupdatecheck"/>
 						<p>
 							<a href="#" class="" id="">마이 페이지 </a><br/>
-							<a href="#" class="" id="">회원 정보 수정 </a><br/>
-							<a href="#" class="" id="">회원 탈퇴</a>
+							<a href="${infoupdatecheck }" class="" id="">회원 정보 수정 </a><br/>
+							<a href="${leavecheck }" class="" id="">회원 탈퇴</a>
 
 						</p>
 
@@ -129,6 +130,6 @@
 		</div>
 
 	</div>
-	</div>
+	
 </body>
 </html>

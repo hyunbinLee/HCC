@@ -89,3 +89,53 @@ function checkfield(){
 
 	
 }
+
+function checkModify(){
+	
+	if(document.regiform.user_pw.value==""){
+		alert("비밀번호를 입력하세요");
+		document.regiform.user_pw.focus();
+		return false;
+		
+	}else if(document.regiform.regi_pw2.value==""){
+		alert("비밀번호확인을 입력하세요");
+		document.regiform.regi_pw2.focus();
+		return false;
+		
+	}else if(document.regiform.user_pw.value!=document.regiform.regi_pw2.value){
+		//비밀번호와 비밀번호확인의 값이 다를 경우
+		
+		alert("입력한 2개의 비밀번호가 일치하지 않습니다.");
+		document.regiform.user_pw.focus();
+		return false;
+		
+	}
+	else if(document.regiform.user_phone.value==""){
+		alert("핸드폰 번호를 입력하세요");
+		document.regiform.user_phone.focus();
+		return false;
+	}else if(document.regiform.regi_email_f.value==""){
+		alert("이메일을 입력하세요");
+		document.regiform.regi_email_f.focus();
+		return false;
+		
+	}else if(document.regiform.regi_email_b.value==""){
+		alert("이메일을 선택하세요");
+		document.regiform.regi_email_b.focus();
+		return false;
+		
+	}
+	else if(document.regiform.authCheck.value=="false"){
+		alert("이메일 인증을 완료 하세요");
+		document.regiform.input_code.focus();     // id 텍스트박스에 커서를 위치
+		return false;
+	}
+	
+
+	else
+	return true;
+	
+	
+
+	
+}

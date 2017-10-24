@@ -31,18 +31,6 @@ public class LoginController {
 		return "main";
 	}
 
-
-//	@RequestMapping(value = "/login_success", method = RequestMethod.GET)
-//	public String login_success(HttpSession session) {
-//
-//		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-//		UserDetail ud = (UserDetail) auth.getPrincipal();
-//		UserVO uv = ud.getUser();
-//		logger.info("Welcome login_success! {}, {}", uv.getUser_id(), session.getId());
-//
-//		return "main";
-//	}
-
 	@RequestMapping(value = "/denied", method = RequestMethod.POST)
 	public String denied(Model model, Authentication auth, HttpServletRequest req) {
 		
