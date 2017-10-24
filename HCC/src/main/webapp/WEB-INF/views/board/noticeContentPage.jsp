@@ -10,17 +10,91 @@
 </head>
 <body>
 	<div class="wrap">
-	
-		<h1>내용</h1>
-		<br /><br />
-		<textarea cols="50" rows="1" id="title" name="title" value="">${notice.fmb_title }</textarea>
-		<br /><br />
-		<textarea cols="50" rows="40" id="content" name="content" value="">${notice.fmb_content }</textarea>
-		<br /><br />
+		<%@ include file="../common/inc_top.jsp"%>
+		 
 		
-		<a href="./deleteNotice?seq=${notice.fmb_seq }">삭제</a>&nbsp;&nbsp;
-		<a href="./updateNoticePage?seq=${notice.fmb_seq }">수정</a>&nbsp;&nbsp;
-		<a href="./noticeList">목록</a>
+          <div class="post">
+              <div class="search_nav">
+                    <h2>${fmb.fmb_title}</h2>
+              </div>
+              <div class="post_top">
+                  <div class="post_name">
+                      <p>운영자</p>
+                  </div>
+                  <div class="post_text">
+                      <p>댓글수</p>
+                  </div>
+                  <div class="post_see">
+                      <p>${fmb.fmb_cnt }</p>
+                  </div>
+                  <div class="post_up">
+                      <p>${fmb.fmb_like_cnt }</p>
+                  </div>
+                  <div class="post_down">
+                      <p>${fmb.fmb_unlike_cnt }</p>
+                  </div>
+                  <div class="post_date">
+                      <p>${fmb.fmb_reg_date }</p>
+                  </div>
+              </div>
+              <div class="post_mid">
+                  ${fmb.fmb_title }
+              </div>
+              <div class="post_bottom">
+                  <div class="post_bottom_like">
+                                         좋아요
+                  </div>
+                  <div class="post_bottom_bad">
+                                         싫어요
+                  </div>
+                  <div class="post_bottom_text" id="post_bottom_text">
+                       <a href="javascript:Open();">댓글열기</a>
+                  </div>
+                  <div class="del">
+                      <a href="./deleteNotice?seq=${fmb.fmb_seq }">삭제</a>
+                  </div>
+                  <div class="mod">
+                      <a href="./updateNoticePage?seq=${fmb.fmb_seq }">수정</a>
+                  </div>
+              </div>
+			  
+			 
+               <div class="comments" >
+                <span id=test1_1 ></span> 
+   
+                <span id=test1_2  style="DISPLAY: none;">
+                     <div class="comments_list">
+                       <span class="comments_span">
+                              <a class="comments_info">유인준&nbsp;&nbsp;&nbsp;&nbsp;Date : 2017-10-07</a>
+                              <span class="comments_fun">
+                                 <!--testInnerHTML('댓글번호','댓글내용','댓글시퀀스','사용자시퀀스');" -->
+								 <a href="javascript:testInnerHTML('1','test','1','1');" >Update</a>&nbsp;&nbsp;
+								 <!--commentDelete('댓글시퀀스','사용자시퀀스');" -->
+                                 <a href="javascript:commentDelete('1','1');">Delete</a>&nbsp;&nbsp;
+								 <!--cencleInnerHTML('댓글번호','댓글내용');" -->
+                                 <a href="javascript:cencleInnerHTML('1','test');">Cancel</a>
+						      </span> 
+                       </span>
+                       <div class="inHere" id="inHere1" >
+                         <a>test</a> 
+                       </div>
+                     </div> 
+
+                     <div class="comments_text" >
+                       <textarea id="comment" class="comment" name="comment" maxlength="250" ></textarea>
+					   <input type="button" id="comment_btn" value="Register" >
+                     </div> 
+                </span> 
+ 
+              </div> 
+            
+			 
+          </div>
+		  
+   			<%@ include file="../common/inc_right.jsp"%>
+   
+		  
+      </div>
 
 	</div>
 </body>

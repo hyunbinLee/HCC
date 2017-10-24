@@ -12,7 +12,6 @@ import com.crossit.hcc.dao.AdminMapperImple;
 import com.crossit.hcc.service.AdminService;
 
 @Controller
-@RequestMapping("/admin")
 public class AdminController {
 
 	@Autowired
