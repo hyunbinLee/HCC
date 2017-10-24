@@ -1,5 +1,7 @@
 package com.crossit.hcc.controller;
 
+import java.io.UnsupportedEncodingException;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
@@ -29,7 +31,9 @@ public class NoticeController {
 	public String noticeList(HttpSession session,Model model,
 	         @RequestParam(value = "page", required = false) String page)
 	{
-		
+		if(page == null) {
+			page = "1";
+		}
 		
 		model.addAttribute("page", page);		
 		
@@ -48,7 +52,7 @@ public class NoticeController {
 		
 		model.addAttribute("startPage", pagingImpl.getStartPageNo());
 		model.addAttribute("endPage", pagingImpl.getEndPageNo());
-		model.addAttribute("list",noticeDao.getNoticeList(start, end));
+		model.addAttribute("fmb",noticeDao.getNoticeList(start, end));
 		model.addAttribute("lastPage", pagingImpl.getFinalPageNo());
 
 		return "board/noticeList_ajax";
@@ -64,9 +68,9 @@ public class NoticeController {
 	}
 	
 	@RequestMapping(value="/noticeWrite", method=RequestMethod.GET)
-	public String noticeWriteAction(HttpSession session,HttpServletRequest request) throws Exception {
+	public String noticeWriteAction(HttpSession session,HttpServletRequest request) throws UnsupportedEncodingException {
 		request.setCharacterEncoding("utf-8");
-		
+
 		logger.info("공지사항 작성 {}", session.getId());
 		
 		String title = request.getParameter("title");
@@ -79,13 +83,16 @@ public class NoticeController {
 		return "redirect:noticeList?page=1";
 	}
 	
+	
 	@RequestMapping(value="/noticeContentPage", method=RequestMethod.GET)
 	public String noticeContentPage(HttpSession session,HttpServletRequest request,Model model) {
 		
 		logger.info("공지사항 내용{}", session.getId());
 		
 		String seq = request.getParameter("seq");
-		model.addAttribute("notice", noticeDao.getNoticeContent(seq));
+		noticeDao.updateHit(seq);
+		
+		model.addAttribute("fmb", noticeDao.getNoticeContent(seq));
 		
 		return "board/noticeContentPage";
 	}

@@ -5,11 +5,14 @@
 	<http pattern="/resources/**" security="none"></http>
 	<http auto-config="true" use-expressions="true" entry-point-ref="userAuthenticationEntryPoint">
 
+		<intercept-url pattern="/write" access="permitAll"/>
+
 		<intercept-url pattern="/main" access="permitAll" />
 		<intercept-url pattern="/idCheck" access="permitAll" />
 		<intercept-url pattern="/regiMail" access="permitAll" />
 		<intercept-url pattern="/register" access="permitAll" />
 		<intercept-url pattern="/regiMail_check" access="permitAll" />
+		
 		<!-- 공지사항 관련(권한 미설정) -->
 		<intercept-url pattern="/noticeList" access="hasRole('ROLE_USER')" />
 		<intercept-url pattern="/noticeWritePage" access="hasRole('ROLE_USER')" />
@@ -19,7 +22,7 @@
 		<intercept-url pattern="/updateNoticePage" access="hasRole('ROLE_USER')" />
 		<intercept-url pattern="/updateNoitce" access="hasRole('ROLE_USER')" />
 
-<!-- 자유게시판 관련(권한 미설정) -->
+		<!-- 자유게시판 관련(권한 미설정) -->
 		<intercept-url pattern="/fmbList" access="hasRole('ROLE_USER')"/>
 		<intercept-url pattern="/fmbWritePage" access="hasRole('ROLE_USER')"/>
 		<intercept-url pattern="/fmbWrite" access="hasRole('ROLE_USER')"/>
@@ -28,6 +31,8 @@
 		<intercept-url pattern="/updateListPage" access="hasRole('ROLE_USER')"/>
 		<intercept-url pattern="/updateList" access="hasRole('ROLE_USER')"/>
 		<intercept-url pattern="/showboard" access="hasRole('ROLE_USER')"/>
+		
+		<intercept-url pattern="memberManagement" access="hasRole('ROLE_ADMIN')"/>
 		
 		<intercept-url pattern="/admin/**" access="hasRole('ROLE_ADMIN')" />
 		<intercept-url pattern="/*"

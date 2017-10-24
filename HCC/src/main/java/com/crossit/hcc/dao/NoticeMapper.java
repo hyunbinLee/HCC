@@ -12,4 +12,6 @@ public interface NoticeMapper {
 	public HCCFmbVO getNoticeContent(String seq);
 	public void deleteNotice(String seq);
 	public void updateNotice(String seq,String title,String content);
+	
+	public void updateHit(String seq);
 }

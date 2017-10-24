@@ -42,7 +42,7 @@ public class NoticeMapperImple implements NoticeMapper {
 		params.put("param1", title);
 		params.put("param2", content);
 		
-		sqlSessionTemplate.insert("com.crossit.hcc.dao.NoticeMapper.wirteNotice",params);
+		sqlSessionTemplate.insert("com.crossit.hcc.dao.NoticeMapper.writeNotice",params);
 	}
 
 	@Override
@@ -54,7 +54,7 @@ public class NoticeMapperImple implements NoticeMapper {
 	@Override
 	public void deleteNotice(String seq) {
 		// TODO Auto-generated method stub
-		sqlSessionTemplate.delete("com.crossit.hcc.dao.NoticeMapper.getNoticeContent", seq);
+		sqlSessionTemplate.update("com.crossit.hcc.dao.NoticeMapper.deleteNotice", seq);
 		
 	}
 
@@ -66,7 +66,13 @@ public class NoticeMapperImple implements NoticeMapper {
 		params.put("param2", title);
 		params.put("param3", content);
 		
-		sqlSessionTemplate.update("com.crossit.hcc.dao.NoticeMapper.getNoticeContent", params);
+		sqlSessionTemplate.update("com.crossit.hcc.dao.NoticeMapper.updateNotice", params);
 	}
 	
+	
+	@Override
+	public void updateHit(String seq) {
+		// TODO Auto-generated method stub
+		sqlSessionTemplate.update("com.crossit.hcc.dao.NoticeMapper.updateHit",seq);
+	}
 }
