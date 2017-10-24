@@ -12,9 +12,10 @@
 				<button type="button" onclick="lay_pop_close()">X</button>
 			</div>
 			<c:url value="/register" var="regiUrl"></c:url>
-			<form name="regiform" action="${regiUrl }" method="get">
+			<form name="regiform" action="${regiUrl }" method="post">
 			<input type="hidden" id="dupCheck" name="dupCheck" value="false">	
  			<input type="hidden" id="authCheck" name="authCheck" value="false"> 
+ 			<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
 			<div class="login_content">
 				<input type="text" id="user_id" name="user_id" class="" value="" placeholder="아이디">
 				<input type="button" id="regi_id_auth" name="regi_id_auth" class="" value="중복확인">

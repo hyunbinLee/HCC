@@ -1,5 +1,7 @@
 package com.crossit.hcc.dao;
 
+import java.util.HashMap;
+
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Configurable;
 import org.springframework.stereotype.Service;
@@ -53,6 +55,16 @@ public class UserMapperImpl implements UserMapper{
 	public void updateUserByVO(UserVO vo) {//vo로 업데이트하기
 		// TODO Auto-generated method stub
 		sqlSessionTemplate.update("com.crossit.hcc.dao.UserMapper.updateUserByVO",vo);
+	}
+
+	@Override
+	public boolean compareUserByPW(HashMap map) {
+		// TODO Auto-generated method stub
+		if(sqlSessionTemplate.selectOne("com.crossit.hcc.dao.UserMapper.compareUserByPW",map)!=null)
+			return true;
+		else
+			return false;	
+	
 	}
 	
 	

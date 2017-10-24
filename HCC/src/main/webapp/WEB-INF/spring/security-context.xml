@@ -39,8 +39,7 @@
 
 		<access-denied-handler ref="userDeniedHandler" />
 
-		<logout logout-url="/logout" logout-success-url="/main"
-			invalidate-session="true" />
+		<logout success-handler-ref="userLogoutSuccessHandler" invalidate-session="true" />
 
 
 		<session-management invalid-session-url="/main">
@@ -51,15 +50,18 @@
 
 	<beans:bean id="userLoginSuccessHandler"
 		class="com.crossit.hcc.service.UserLoginSuccessHandler"></beans:bean>
+	<beans:bean id="userLogoutSuccessHandler"
+		class="com.crossit.hcc.service.UserLogoutSuccessHandler"></beans:bean>
 
 	<beans:bean id="userDeniedHandler" class="com.crossit.hcc.service.UserDeniedHandler"></beans:bean>
-	
+
 	<beans:bean id="userAuthenticationEntryPoint"
 		class="com.crossit.hcc.service.UserAuthenticationEntryPoint"></beans:bean>
 
 	<authentication-manager>
 		<authentication-provider user-service-ref="UserLoad" />
 	</authentication-manager>
+
 
 
 
