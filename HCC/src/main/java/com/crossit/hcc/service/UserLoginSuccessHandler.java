@@ -21,9 +21,8 @@ public class UserLoginSuccessHandler implements AuthenticationSuccessHandler {
 	public void onAuthenticationSuccess(HttpServletRequest req, HttpServletResponse res, Authentication auth)
 			throws IOException, ServletException {
 		
-//		 vo= (UserVO)auth.getPrincipal();
 		
-		req.getRequestDispatcher("/WEB-INF/views/main.jsp").forward(req, res);
+		 res.sendRedirect("/hcc/main");
 	}
 	
 	

@@ -117,22 +117,23 @@
 					</ul>
 				</div>
 				<div class="notice_board">
+				<c:url var="fcontenturl" value="/fmbContentPage"/>
 					<ul>
-						<li class="on">test <span class="board_date">2017-08-11</span></li>
-						<li>test <span class="board_date">2017-08-11</span></li>
-						<li>test <span class="board_date">2017-08-11</span></li>
-						<li>test <span class="board_date">2017-08-11</span></li>
-						<li>test <span class="board_date">2017-08-11</span></li>
+						<c:forEach var="list" items="${fmb }">
+							<li><a href="${fcontenturl }?seq=${list.fmb_seq}">${list.fmb_title }</a> <span class="board_date">${list.fmb_reg_date }</span></li>
+						</c:forEach>
+						
 					</ul>
 				</div>
 			</div>
 			<!--병에 대한 후기 게시판 끝-->
 
 			<!--게시판-->
+			<c:url value="/noticeList" var="noticeList" />
 			<div class="notice_board_wrap">
 				<div class="notice_board_title p_b5">
 					<span class="p_b5">게시판</span> 
-					<a href="${fmbList }" class="right"><span>+더보기</span></a>
+					<a href="${noticeList }" class="right"><span>+더보기</span></a>
 				</div>
 				<div class="notice_board_tap">
 					<ul>
@@ -141,12 +142,11 @@
 					</ul>
 				</div>
 				<div class="notice_board">
+				<c:url var="ncontenturl" value="/noticeContentPage"/>
 					<ul>
-						<li>test <span class="board_date">2017-08-11</span></li>
-						<li class="on">test <span class="board_date">2017-08-11</span></li>						
-						<li>test <span class="board_date">2017-08-11</span></li>
-						<li>test <span class="board_date">2017-08-11</span></li>
-						<li>test <span class="board_date">2017-08-11</span></li>
+						<c:forEach var="list" items="${notice }">
+							<li><a href="${ncontenturl }?seq=${list.fmb_seq}">${list.fmb_title }</a> <span class="board_date">${list.fmb_reg_date }</span></li>
+						</c:forEach>
 					</ul>
 				</div>
 			</div>
