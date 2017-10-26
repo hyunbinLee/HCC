@@ -13,6 +13,7 @@
 		    	    FROM hcc_fmb_tb 
 		    	    
 		    	    where fmb_status = 'Y'
+		    	    AND   fmb_type ='D'
 		    	    <!--
 		    	    AND   fmb_type =#{param}
 		    	    mysql type,status not null 
