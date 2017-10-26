@@ -39,7 +39,7 @@
 						<c:forEach items="${list}" var="list">
 							<tr>
 								<td class="title"><b><a
-										href="./userInfo?seq=${list.user_id}">${list.user_id}</a></b></td>
+										href="./userInfo?id=${list.user_id}">${list.user_id}</a></b></td>
 								<!-- td class="grade"><b>평점</b></td>
                           <td class="name"><b>유인준</b></td -->
 								<td class="day"><b>${list.user_name}</b></td>

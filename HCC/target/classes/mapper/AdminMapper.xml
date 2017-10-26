@@ -41,4 +41,35 @@
 		where user_kind = #{param1}
 	</select>
 
+	<select id="getUserInfo" resultType="com.crossit.hcc.vo.UserVO">
+		SELECT user_id
+		    	,user_pw
+		    	,user_kind
+		    	,user_gender
+		    	,user_name
+		    	,user_birth
+		    	,user_phone
+		    	,user_email
+		    	,user_apply
+		    	,user_blame_cnt
+		    	,user_status
+		    	,user_reg_seq
+		    	,user_reg_date
+		    	,user_upd_seq
+		    	,user_upd_date
+		FROM hcc_user_tb
+		where user_id = #{param1}
+	</select>
+	
+	<delete id="deleteUser">
+		DELETE
+		FROM hcc_user_tb
+		where user_id = #{param1}
+	</delete>
+	
+	<update id="changePassword" parameterType="HashMap">
+		UPDATE hcc_user_tb
+		SET user_pw = #{param2}
+		WHERE user_id = #{param1}
+	</update>
 </mapper>	
