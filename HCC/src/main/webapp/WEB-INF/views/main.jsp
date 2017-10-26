@@ -66,6 +66,13 @@
 								<c:url value="/myPage" var="myPage"/>
 								<a href="${myPage }" class="" id="">마이 페이지 </a>
 							</div>
+							&nbsp;
+							<div class="left">
+								<sec:authorize access="hasRole('ROLE_ADMIN')">
+									<c:url value="./memberManagement" var="memberManagement"/>
+									<a href="${memberManagement }">회원 관리</a>
+								</sec:authorize>
+							</div>
 							<input type="submit" class="right" value="Logout">
 						</div>
 					</div>

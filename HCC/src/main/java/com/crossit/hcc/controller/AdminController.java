@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.crossit.hcc.dao.AdminMapperImple;
@@ -50,4 +51,31 @@ public class AdminController {
 		return "/admin/memberManagement";
 	}
 	
+	@RequestMapping(value="/userInfo")
+	public String UserInfo(HttpSession session, Model model,
+			@RequestParam(value = "id",required = false) String id) {
+		
+		model.addAttribute("user", adminDao.getUserInfo(id));
+		
+		return "/admin/userInfo";
+	}
+	
+	@RequestMapping(value="/deleteUser")
+	public String deleteUser(HttpSession session, Model model,
+			@RequestParam(value = "id",required = false) String id) {
+		
+		adminDao.deleteUser(id);
+		
+		return "redirect:memberManagement";
+	}
+	
+	@RequestMapping(value="/changePassword", method=RequestMethod.GET)
+	public String changePassword(HttpSession session,Model model,
+			@RequestParam(value = "id",required = false) String id,
+			@RequestParam(value = "newPassword",required = false) String password) {
+		
+		adminDao.changePassword(id,password);
+		
+		return "redirect:memberManagement";
+	}
 }

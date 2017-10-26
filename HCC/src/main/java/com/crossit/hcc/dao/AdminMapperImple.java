@@ -35,5 +35,26 @@ public class AdminMapperImple implements AdminMapper {
 		// TODO Auto-generated method stub
 		return sqlSessionTemplate.selectOne("com.crossit.hcc.dao.AdminMapper.getUserCount", kind);
 	}
-
+	
+	@Override
+	public UserVO getUserInfo(String id) {
+		// TODO Auto-generated method stub
+		return sqlSessionTemplate.selectOne("com.crossit.hcc.dao.AdminMapper.getUserInfo", id);
+	}
+	
+	@Override
+	public void deleteUser(String id) {
+		// TODO Auto-generated method stub
+		sqlSessionTemplate.delete("com.crossit.hcc.dao.AdminMapper.deleteUser", id);
+	}
+	
+	@Override
+	public void changePassword(String id,String password) {
+		HashMap<String, String> params = new HashMap<String, String>();
+		params.put("param1", id);
+		params.put("param2", password);
+		
+		// TODO Auto-generated method stub
+		sqlSessionTemplate.update("com.crossit.hcc.dao.AdminMapper.changePassword",params);
+	}
 }

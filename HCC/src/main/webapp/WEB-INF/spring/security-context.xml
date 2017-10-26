@@ -33,6 +33,9 @@
 		<intercept-url pattern="/showboard" access="hasRole('ROLE_USER')"/>
 		
 		<intercept-url pattern="memberManagement" access="hasRole('ROLE_ADMIN')"/>
+		<intercept-url pattern="userInfo" access="hasRole('ROLE_ADMIN')"/>
+		<intercept-url pattern="deleteUser" access="hasRole('ROLE_ADMIN')"/>
+		<intercept-url pattern="changePassword" access="hasRole('ROLE_USER')"/>
 		
 		<intercept-url pattern="/admin/**" access="hasRole('ROLE_ADMIN')" />
 		<intercept-url pattern="/*"
