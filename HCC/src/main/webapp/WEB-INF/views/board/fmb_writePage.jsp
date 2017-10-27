@@ -22,6 +22,17 @@
 		<form action="./fmbWrite" method="get">
 			<textarea cols="50" rows="1" id="title" name="title" placeholder="제목"></textarea>
 			<br/><br/>
+			
+			<select name="select" id="select">
+			<option value="P">환자</option>
+			<option value="D">의사</option>
+			<option value="N">공지</option>
+			</select>
+			<br/><br/>
+			<input type="radio" name="status" id="status" value="Y">활성화
+			<input type="radio" name="status" id="status" value="N">비활성화
+			<br/><br/>
+			
 			<textarea cols="50" rows="40" id="content" name="content" placeholder="내용"></textarea>
 			<br/><br/>
 			<input type="submit" value="글쓰기">

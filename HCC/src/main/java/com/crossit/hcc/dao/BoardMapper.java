@@ -10,10 +10,12 @@ public interface BoardMapper {
 	public int selectTotalRecords();
 	
 	public HCCFmbVO getfmbContent(String seq);
-	public void writefmb(String title,String content);
+	public void writefmb(String title,String content,int user_seq, String type, String status);
 	public int getfmbCount();
 	public void deleteList(String seq);
 	public List<HCCFmbVO> getfmbList(int start,int end);
 	public void updateList(String seq,String title,String content);
 	public int updateHit(String seq);
+	public int likeList(String seq);
+	public int unlikeList(String seq);
 }

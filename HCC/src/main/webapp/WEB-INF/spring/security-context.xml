@@ -14,28 +14,28 @@
 		<intercept-url pattern="/regiMail_check" access="permitAll" />
 		
 		<!-- 공지사항 관련(권한 미설정) -->
-		<intercept-url pattern="/noticeList" access="hasRole('ROLE_USER')" />
-		<intercept-url pattern="/noticeWritePage" access="hasRole('ROLE_USER')" />
-		<intercept-url pattern="/noticeWrite" access="hasRole('ROLE_USER')" />
-		<intercept-url pattern="/noticeContentPage" access="hasRole('ROLE_USER')" />
-		<intercept-url pattern="/deleteNotice" access="hasRole('ROLE_USER')" />
-		<intercept-url pattern="/updateNoticePage" access="hasRole('ROLE_USER')" />
-		<intercept-url pattern="/updateNoitce" access="hasRole('ROLE_USER')" />
+		<intercept-url pattern="/noticeList" access="hasAnyRole('ROLE_ADMIN', 'ROLE_USER')" />
+		<intercept-url pattern="/noticeWritePage" access="hasAnyRole('ROLE_ADMIN', 'ROLE_USER')" />
+		<intercept-url pattern="/noticeWrite" access="hasAnyRole('ROLE_ADMIN', 'ROLE_USER')" />
+		<intercept-url pattern="/noticeContentPage" access="hasAnyRole('ROLE_ADMIN', 'ROLE_USER')" />
+		<intercept-url pattern="/deleteNotice" access="hasAnyRole('ROLE_ADMIN', 'ROLE_USER')" />
+		<intercept-url pattern="/updateNoticePage" access="hasAnyRole('ROLE_ADMIN', 'ROLE_USER')" />
+		<intercept-url pattern="/updateNoitce" access="hasAnyRole('ROLE_ADMIN', 'ROLE_USER')" />
 
 		<!-- 자유게시판 관련(권한 미설정) -->
-		<intercept-url pattern="/fmbList" access="hasRole('ROLE_USER')"/>
-		<intercept-url pattern="/fmbWritePage" access="hasRole('ROLE_USER')"/>
-		<intercept-url pattern="/fmbWrite" access="hasRole('ROLE_USER')"/>
-		<intercept-url pattern="/fmbContentPage" access="hasRole('ROLE_USER')"/>
-		<intercept-url pattern="/deleteList" access="hasRole('ROLE_USER')"/>
-		<intercept-url pattern="/updateListPage" access="hasRole('ROLE_USER')"/>
-		<intercept-url pattern="/updateList" access="hasRole('ROLE_USER')"/>
-		<intercept-url pattern="/showboard" access="hasRole('ROLE_USER')"/>
+		<intercept-url pattern="/fmbList" access="hasAnyRole('ROLE_ADMIN', 'ROLE_USER')"/>
+		<intercept-url pattern="/fmbWritePage" access="hasAnyRole('ROLE_ADMIN', 'ROLE_USER')"/>
+		<intercept-url pattern="/fmbWrite" access="hasAnyRole('ROLE_ADMIN', 'ROLE_USER')"/>
+		<intercept-url pattern="/fmbContentPage" access="hasAnyRole('ROLE_ADMIN', 'ROLE_USER')"/>
+		<intercept-url pattern="/deleteList" access="hasAnyRole('ROLE_ADMIN', 'ROLE_USER')"/>
+		<intercept-url pattern="/updateListPage" access="hasAnyRole('ROLE_ADMIN', 'ROLE_USER')"/>
+		<intercept-url pattern="/updateList" access="hasAnyRole('ROLE_ADMIN', 'ROLE_USER')"/>
+		<intercept-url pattern="/showboard" access="hasAnyRole('ROLE_ADMIN', 'ROLE_USER')"/>
 		
 		<intercept-url pattern="memberManagement" access="hasRole('ROLE_ADMIN')"/>
 		<intercept-url pattern="userInfo" access="hasRole('ROLE_ADMIN')"/>
 		<intercept-url pattern="deleteUser" access="hasRole('ROLE_ADMIN')"/>
-		<intercept-url pattern="changePassword" access="hasRole('ROLE_USER')"/>
+		<intercept-url pattern="changePassword" access="hasAnyRole('ROLE_ADMIN', 'ROLE_USER')"/>
 		
 		<intercept-url pattern="/admin/**" access="hasRole('ROLE_ADMIN')" />
 		<intercept-url pattern="/*"

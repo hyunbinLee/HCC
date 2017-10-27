@@ -15,46 +15,45 @@
 		
           <div class="post">
               <div class="search_nav">
-                    <h2>제목 넣으셈</h2>
+                    <h2>${fmb.fmb_title }</h2>
               </div>
               <div class="post_top">
                   <div class="post_name">
-                      <p>이름 넣으셈</p>
+                      <p>${fmb.user_name}</p>
                   </div>
                   <div class="post_text">
                       <p>댓글수</p>
                   </div>
                   <div class="post_see">
-                      <p>조회수</p>
+                      <p>${fmb.fmb_cnt}</p>
                   </div>
                   <div class="post_up">
-                      <p>좋아요수</p>
+                      <p>${fmb.fmb_like_cnt}</p>
                   </div>
                   <div class="post_down">
-                      <p>싫어요수</p>
+                      <p>${fmb.fmb_unlike_cnt}</p>
                   </div>
                   <div class="post_date">
-                      <p>등록일 넣고</p>
+                      <p>${fmb.fmb_reg_date}</p>
                   </div>
               </div>
               <div class="post_mid">
-                  ${fmb.fmb_title }
+                   ${fmb.fmb_content }
               </div>
               <div class="post_bottom">
                   <div class="post_bottom_like">
-                                         좋아요
+                     <a href="./likeList?seq=${fmb.fmb_seq}">좋아요</a>
                   </div>
                   <div class="post_bottom_bad">
-                                         싫어요
+                     <a href="./unlikeList?seq=${fmb.fmb_seq}">싫어요</a>
                   </div>
                   <div class="post_bottom_text" id="post_bottom_text">
                        <a href="javascript:Open();">댓글열기</a>
                   </div>
                   <div class="del">
-                      <a href="./deleteList?seq=${fmb.fmb_seq }">삭제</a>
-                  </div>
+					  <a href="./deleteList?seq=${fmb.fmb_seq}">삭제</a>                  </div>
                   <div class="mod">
-                      <a href="./fmbList">수정</a>
+                      <a href="./updateListPage?seq=${fmb.fmb_seq }">수정</a>
                   </div>
               </div>
 			  
@@ -91,7 +90,7 @@
 			 
           </div>
 		  
-   			<%@ include file="../common/inc_right.jsp"%>
+		  <%@ include file="../common/inc_right.jsp"%>
    
 		  
       </div>

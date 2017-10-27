@@ -16,6 +16,13 @@ public class HCCFmbVO {
 	private Timestamp fmb_reg_date;
 	private int fmb_upd_seq;
 	private Timestamp fmb_upd_date;
+	private String user_name;
+	public String getUser_name() {
+		return user_name;
+	}
+	public void setUser_name(String user_name) {
+		this.user_name = user_name;
+	}
 	public int getFmb_seq() {
 		return fmb_seq;
 	}
