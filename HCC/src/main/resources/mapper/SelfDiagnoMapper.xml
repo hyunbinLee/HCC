@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.crossit.hcc.dao.SelfDiagnoImpl">
+
+	<!-- 상세 페이지 - 게시글 등록 -->
+	<insert id="insertSelfDiagno" parameterType="hashmap">
+		INSERT INTO 
+		hcc_self_diagno_tb
+		(
+			self_diagno_uer_seq, 
+			self_diagno_date, 
+			self_diagno_q1,
+			self_diagno_q2,
+			self_diagno_q3,
+			self_diagno_q4,
+			self_diagno_q5,
+			self_diagno_q6,
+			self_diagno_q7,
+			self_diagno_q8,
+			self_diagno_q9,
+			self_diagno_q10,
+			self_diagno_result
+		)
+		VALUES 
+		(
+			#{userseq}, 
+			SYSDATE,
+			#{q1}, 
+			#{q2}, 
+			#{q3}, 
+			#{q4}, 
+			#{q5}, 
+			#{q6}, 
+			#{q7}, 
+			#{q8}, 
+			#{q9}, 
+			#{resultCase}
+		)
+	</insert>	
+</mapper>
+	

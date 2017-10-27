@@ -12,6 +12,7 @@
 		<intercept-url pattern="/regiMail" access="permitAll" />
 		<intercept-url pattern="/register" access="permitAll" />
 		<intercept-url pattern="/regiMail_check" access="permitAll" />
+		<intercept-url pattern="/hospInfoBoard" access="hasAnyRole('ROLE_ADMIN', 'ROLE_USER')" />
 		
 		<!-- 공지사항 관련(권한 미설정) -->
 		<intercept-url pattern="/noticeList" access="hasAnyRole('ROLE_ADMIN', 'ROLE_USER')" />

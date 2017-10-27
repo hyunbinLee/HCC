@@ -6,6 +6,8 @@
 
 <div class="header_wrap m_b30">
 		<c:url value="/main" var="main"></c:url>
+		<c:url value="/selfDiagno_detail" var="self"></c:url>
+		<c:url value="/hospInfoBoard" var="hosp"></c:url>
 		<c:url value="/fmbList" var="fmbList"></c:url>
 		<c:url value="/noticeList" var="noticeList"></c:url>
 	<div class="logo_area">
@@ -16,8 +18,8 @@
 		<ul>
 			<li><a href="${main }" class="on">홈 버튼</a></li>
 			<li><button type="button">리스트</button></li>
-			<li><a href="#" class="">자가진단</a></li>
-			<li><a href="#" class="">병원정보공유</a></li>
+			<li><a href="${self }" class="">자가진단</a></li>
+			<li><a href="${hosp }" class="">병원정보공유</a></li>
 			<li><a href="${fmbList }" class="">병에대한후기</a></li>
 			<li><a href="${noticeList }" class="">게시판</a></li>
 		</ul>
