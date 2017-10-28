@@ -51,9 +51,7 @@
 
 		<!-- Top Menu -->
 		<%@ include file="../common/inc_top.jsp"%>
-
-
-			<h1>공지사항</h1>
+ 
 			
 			<div id="list_div"></div>
 

@@ -12,21 +12,36 @@
 </head>
 <body>
 	<div class="wrap">
-
-		<!-- Top Menu -->
 		<%@ include file="../common/inc_top.jsp"%>
-		
-		<h1>글쓰기 페이지</h1>
-		<br />
-		<br />
-		<form action="./noticeWrite" method="get">
-			<textarea cols="50" rows="1" id="title" name="title" placeholder="제목"></textarea>
-			<br/><br/>
-			<textarea cols="50" rows="40" id="content" name="content" placeholder="내용"></textarea>
-			<br/><br/>
-			<input type="submit" value="글쓰기">
-		</form>
 
+
+		<div class=write_page>
+			<form action="./noticeWrite" method="get">
+				<div class="search_nav">
+					<h2>게시판 글쓰기</h2>
+				</div>
+
+				<div class="write_top">
+					<input type="text" id="title" name="title" class="write_input2"	placeholder="제목"> 
+				</div>
+
+				<div class="write_mid">
+					<textarea cols="50" rows="40" id="content" name="content" class="content"
+						placeholder="내용"></textarea>
+				</div>
+				<div class="write_bottom">
+					<div class="reg">
+                     <input type="submit" value="글쓰기" id="reg_btn">
+                    </div>
+				</div>
+
+			</form>
+		</div>
+
+		<%@ include file="../common/inc_right.jsp"%>
+
+
+	</div>
 
 	</div>
 </body>

@@ -2,7 +2,8 @@
 
 /*기본 세팅*/
 *{margin:0; padding:0;  list-style:none; text-decoration:none;}
-
+html, body {width:100%; height:100%;}
+ul, ol, dl, dt, dd, li {list-style:none;}
   /*정렬*/
   .txt_left{text-align:left;}
   .txt_center{text-align:center;}
@@ -16,6 +17,19 @@
   .btn_grey{background-color:#cccccc; border:1px solid #a2a2a2}
   .btn_red{background-color:rgba(25, 25, 25, 0.15); border:1px solid rgba(25, 25, 25, 0.15);}
   .btn_white{background-color:#ffffff; border:1px solid: #cccccc;}
+   .selfcheck_btn { width: 462px; height: 58px; line-height: 58px; display: block;
+    text-align: center; margin: 0 auto;
+    font-size: 20px; color:white;background: #bc1a1a;
+  }
+  .selfcheck_btn:active {background:#000; color:#fff;}
+  .text-ox-btn {display:inline-block; padding: 0 3px;}
+  .test-ox-btn > button{width: 80px; height: 80px; background: #fff; border: 1px solid #ccc;
+    color:#aaa; text-align: center; font-size: 54px; float: left;}
+  .test-ox-btn > button.on{color:#bc1a1a; border:1px solid #bc1a1a;}
+  .test-ox-btn > button:active{color:#bc1a1a; border:1px solid #bc1a1a;}
+  .btn_close{position:absolute; right:0; top:0; font-weight:bold;
+    display:inline-block; font-size:25px; background:none; border:0; padding:3px 10px;
+  }
   /*버튼 끝*/
 
   /*box-size*/
@@ -59,7 +73,7 @@
     /*헤더_nav*/
     .header_wrap > .header_nav {width:100%; height:47px; line-height:47px; background-color:#000000; color:#ffffff;-webkit-box-shadow: 0px 5px 5px -2px rgba(25, 25, 25, 0.15);}
     .header_nav > ul {width:70%; margin:0 auto;}
-    .header_nav > ul > li {display:inline-block; float:left; font-size:1.28em;}
+    .header_nav > ul > li {width:25%;display:inline-block; float:left; font-size:1.28em;}
     .header_nav > ul > li > a.on, .header_nav > ul > li > button.on {background-color:rgb(233, 27, 35);}
     .header_nav > ul > li > button {padding:14.5px 40px; background:none; border:0; vertical-align:top;}
     .header_nav > ul > li > button:hover {background-color:rgb(233, 27, 35);}
@@ -121,7 +135,7 @@
 #search{width: 70%;height: 200px;float: left}
 #search>div{height: 25%;border-bottom: 2px solid black}
 .search_nav{height: 50px;border-bottom: 1px solid #cccccc;}
-.search_nav>p{width: 70px;height: 50px;border-bottom:2px solid rgb(233, 27, 35);font-weight: 600;line-height: 60px;}
+.search_nav>p{width: 25%;height: 50px;border-bottom:2px solid rgb(233, 27, 35);font-weight: 600;line-height: 60px;}
 table>thead>tr>td{height: 50px;border-bottom: 0.5px solid #ccc}
 table>tbody>tr>td{height: 50px;}
 .num{text-align: center;width: 5%;}
@@ -137,6 +151,7 @@ table>tbody>tr>td{height: 50px;}
 .search_box>div>input:nth-child(1){margin-left: 20px;margin-top: 20px;}
 #select{margin-left: 20px;margin-top: 4%;height: 40px;width: 110px;font-size: 1.02em}
 .search{width: 29%;height: 35px;left: 25%;position: absolute;margin-top: 2%;}
+.search_noti{width: 37%;height: 35px;left: 17%;position: absolute;margin-top: 2%;}
 #search_btn{width: 7%;height: 40px;left: 56%;margin-top: 2%;position: absolute;border: none;background-color: #bc1a1a;color: white;font-size: 1.05em; background-image: url(../img/search.png); background-position: 20% 58%; background-repeat: no-repeat;}
 
 /*name*/
@@ -167,6 +182,18 @@ table{width: 100%;border-collapse: collapse}
 #rank_top{height: 240px;margin-top: 5%;}
 #rank_top>table{border-collapse: collapse}
 
+/*write*/
+.write_page{width: 70%;height: 300px;float: left;margin-top: 2%;}
+.write_top{height: 50px;background-color: white;margin-top: 2%;border-bottom: 1px solid black}
+.write_mid{height: 300px;line-height: 200px;border-bottom: 1px solid black}
+.write_bottom{height: 40px;border-bottom: 1px solid black;}
+.write_input{width: 38%;height: 35px;left: 25%;position: absolute;}
+.write_input2{width: 49%;height: 35px;left: 15%;position: absolute;}
+#write_select{margin-left: 10px;width: 120px;height: 35px;font-size: 1.02em}
+.content{width: 100%;height: 280px;margin-top: 1%;}
+.status{margin-top: 1%;}
+.reg{width: 12%;height: 40px;text-align: center;line-height: 40px;float: right; }
+#reg_btn{width: 7%;height: 40px;left: 56%; position: absolute;border: none;background-color: #bc1a1a;color: white;font-size: 1.05em;  background-repeat: no-repeat;}
 
 
 /*post*/
@@ -225,4 +252,59 @@ table{width: 100%;border-collapse: collapse}
 
 
 /***************** 게시판 끝************************/
+
+
+
+/*자가진단*/
+.select_area{width:100%; height:100%; background-image:url('../img/body.png');
+background-repeat:no-repeat; background-position:50% 100%; background-color:#f6f6f6; padding:30px;}
+.select_area > h1 {font-weight:normal; padding-bottom:20px; border-bottom:1px solid #000;}
+.select_area > div {width:100%; height:162px; position:relative;}
+
+.select_area > div > .select_circle {width: 100px; height: 100px; line-height:100px;
+  border: 2px solid #ccc; border-radius: 100px; font-size:30px; background:#fff; text-decoration:none;
+  color:#000;
+}
+.select_area > div > .select_circle:active  {background-color:#000; color:#fff;}
+
+.select_area > div.select_circle_wrap1 > .select_circle:nth-child(1){position:absolute; left:15%; top:20px;}
+.select_area > div.select_circle_wrap1 > .select_circle:nth-child(2){position:absolute; right:15%; top:20px;}
+.select_area > div.select_circle_wrap2 > .select_circle:nth-child(1){position:absolute; left:25%; top:20px;}
+.select_area > div.select_circle_wrap2 > .select_circle:nth-child(2){position:absolute; right:25%; top:20px;}
+.select_area > div.select_circle_wrap3 > .select_circle:nth-child(1){position:absolute; left:15%; top:20px;}
+.select_area > div.select_circle_wrap3 > .select_circle:nth-child(2){position:absolute; right:15%; top:20px;}
+
+/*자가진단 끝*/
+.question_area{width:100%; height:auto; background-color:#f6f6f6; padding: 10px 15%; box-sizing: border-box;}
+.question_box{width:48%; height:auto; padding:30px; margin:5px; text-align:center; display:inline-block; box-sizing: border-box; background:#fff; border: 1px solid #bc1a1a;}
+.question_box.on {background:#ccc}
+.question_box > div { width: 85%; margin: 0 auto; overflow: hidden;}
+.question_box > h1 {font-size:15px; }
+.question_box > div >  p {display:inline-block; overflow:hidden; margin-top:15px;}
+
+/*자가진단 레이어 팝업*/
+.back_screen{width:100%; height:100%; background:#000; position:absolute; top:0;  opacity:0.3; z-index:9}
+.test-result-laypop {
+  background-color:#fff; padding:30px; position:absolute;
+  top:0; left:0; right:0; bottom:0; margin:auto; width:50%; height:354px;
+  min-height:354px; border: 1px solid #ccc; z-index:10;
+}
+.test-result-txtbox {
+  background: #fff; margin: 20px 0; padding: 35px 65px 65px;
+  text-align: center; font-size: 18px;
+  -webkit-box-sizing: border-box; -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+.test-result-txtbox dt {
+  border-bottom: 1px solid #ccc;
+    line-height: 30px;
+    font-size: 26px;
+    padding-bottom: 18px;
+    font-weight: bold;
+    color: #111;
+}
+.test-result-txtbox dd{ padding-top:10px; line-height:32px;}
+.test-result-txtbox dd.test-result-txtbox-def {font-size:20px; color:#111; padding-top:35px;}
+.test-result-txtbox dd.test-result-txtbox-def strong {color:#64ab19;}
+
   

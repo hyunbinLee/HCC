@@ -18,7 +18,7 @@
 		
 			<div id="search">
 				<div class="search_nav">
-					<p>검색</p>
+					<p>병에 대한 후기</p>
 				</div>
 				<div class="search_box">
 					<div>

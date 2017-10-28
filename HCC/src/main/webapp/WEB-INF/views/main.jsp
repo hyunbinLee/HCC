@@ -14,7 +14,7 @@
 		<!-- Top Menu -->
 		<%@ include file="common/inc_top.jsp"%>
 
-		<div class="left_area m_r140 left">
+		<div class="left_area">
 
 			<!--회원센터 영역 -->
 			<sec:authorize access="isAnonymous()">
@@ -22,7 +22,7 @@
 				<form name="f" action="${loginUrl}" method="post">
 					<input type="hidden" name="${_csrf.parameterName}"
 						value="${_csrf.token}" />
-					<div class="login_area m_b80">
+					<div class="login_area m_b30">
 						<div class="login_title m_b10 p_b5">
 							<span class="p_b5">회원센터</span>
 						</div>
