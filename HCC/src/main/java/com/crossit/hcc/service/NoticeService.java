@@ -9,7 +9,7 @@ public class NoticeService{
 	int recordsPerPage;
 	int start;
 	int end;
-	public NoticeService(String page) {
+	public void paging(String page) {
 		try {
 			currentPageNo = Integer.parseInt(page);
 		} catch (NumberFormatException e) {

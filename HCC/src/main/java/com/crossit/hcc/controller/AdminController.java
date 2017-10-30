@@ -2,6 +2,8 @@ package com.crossit.hcc.controller;
 
 import javax.servlet.http.HttpSession;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -17,6 +19,8 @@ public class AdminController {
 
 	@Autowired
 	private AdminMapperImple adminDao;
+
+	private static final Logger logger = LoggerFactory.getLogger(LoginController.class);
 
 	
 	@RequestMapping(value = "/memberManagement")
@@ -69,12 +73,16 @@ public class AdminController {
 		return "redirect:memberManagement";
 	}
 	
-	@RequestMapping(value="/changePassword", method=RequestMethod.GET)
+	@RequestMapping(value="/changePassword", method=RequestMethod.POST)
 	public String changePassword(HttpSession session,Model model,
 			@RequestParam(value = "id",required = false) String id,
 			@RequestParam(value = "newPassword",required = false) String password) {
 		
-		adminDao.changePassword(id,password);
+		logger.info("{} 비밀번호 변경 : {}", id ,session.getId());
+
+		
+		
+		adminDao.changePassword(id, password);
 		
 		return "redirect:memberManagement";
 	}

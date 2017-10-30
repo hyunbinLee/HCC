@@ -8,6 +8,7 @@
 <%@ include file="../common/inc_header.jsp"%>
   
 </head>
+
 <body>
 	<div class="wrap">
 	
@@ -40,7 +41,7 @@
 							<tr>
 								<td class="num"><b>${fmb.fmb_seq}</b></td>
 								<td class="title"><b><a
-										href="./noticeContentPage?seq=${fmb.fmb_seq}">${fmb.fmb_title}</a></b></td>
+										href="./noticeContentPage?seq=${fmb.fmb_seq}&code=1&regSeq=11">${fmb.fmb_title}</a></b></td>
 								<!-- td class="grade"><b>평점</b></td>
                           <td class="name"><b>유인준</b></td -->
 								<td class="day"><b>${fmb.fmb_reg_date}</b></td>
