@@ -6,6 +6,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -14,8 +16,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.crossit.hcc.dao.BoardMapperImpl;
 import com.crossit.hcc.service.BoardService;
+import com.crossit.hcc.service.UserDetail;
 import com.crossit.hcc.util.PageNavigation;
-import com.crossit.hcc.vo.BoardVO;;
+import com.crossit.hcc.vo.BoardVO;
+import com.crossit.hcc.vo.UserVO;;
 
 @Controller
 public class BoardController {
@@ -64,7 +68,15 @@ public class BoardController {
 		String content = request.getParameter("content");
 		content = new String(content.getBytes("8859_1"),"utf-8");
 		
-		boardDao.writefmb(title, content);
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+	    UserDetail vo = (UserDetail)auth.getPrincipal();
+	      
+	    UserVO v1 = vo.getUser();
+	    int user_seq = v1.getUser_seq();
+		String type = request.getParameter("select");
+		String status = request.getParameter("status");
+		
+		boardDao.writefmb(title, content,user_seq,type,status);
 		
 		return "redirect:fmbList?page=1";
 	}
@@ -72,9 +84,10 @@ public class BoardController {
 	@RequestMapping(value="/fmbContentPage", method=RequestMethod.GET)
 	public String fmbContentPage(HttpSession session,HttpServletRequest request,Model model) {
 		String seq = request.getParameter("seq");
+		boardDao.updateHit(seq); //조회수 증가
+		
 		model.addAttribute("fmb", boardDao.getfmbContent(seq));
 		
-		//boardDao.updateHit(seq); //조회수 증가
 		
 		return "board/fmbContentPage";
 	}
@@ -85,6 +98,21 @@ public class BoardController {
 		boardDao.deleteList(seq);
 		
 		return "redirect:fmbList?page=1";
+	}
+	
+	@RequestMapping(value ="/likeList")
+	public String likeList(HttpSession session,HttpServletRequest request) {
+		String seq = request.getParameter("seq");
+		boardDao.likeList(seq);
+		
+		return "redirect:fmbContentPage?seq=" + seq;
+	}
+	@RequestMapping(value ="/unlikeList")
+	public String unlikeList(HttpSession session,HttpServletRequest request) {
+		String seq = request.getParameter("seq");
+		boardDao.unlikeList(seq);
+		
+		return "redirect:fmbContentPage?seq=" + seq;
 	}
 	
 	@RequestMapping(value="/updateListPage")
@@ -108,12 +136,13 @@ public class BoardController {
 		
 		return "redirect:fmbList?page=1";
 	}
-	
 	@RequestMapping(value = "/showboard", method = RequestMethod.GET)
 	public String register(@RequestParam int pages, @RequestParam int lines, Model model) {
 
 		String url = "";
 		PageNavigation paging = new PageNavigation(pages, lines);
+		
+		/////오류?
 		BoardService service = new BoardService();
 		int offset = (paging.getCurrentPageNo() - 1) * paging.getRecordsPerPage();
 		List<BoardVO> bookList = service.selectRecordsPerPage(offset, paging.getRecordsPerPage());

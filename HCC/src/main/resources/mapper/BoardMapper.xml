@@ -10,14 +10,9 @@
 			 FROM 
 		    	   (SELECT @RNUM:=0) R
 		    	,  (SELECT * 
-		    	    FROM hcc_fmb_tb 
-		    	    
+		    	    FROM hcc_fmb_tb, hcc_user_tb     
 		    	    where fmb_status = 'Y'
-		    	    AND   fmb_type ='D'
-		    	    <!--
-		    	    AND   fmb_type =#{param}
-		    	    mysql type,status not null 
-		    	    -->
+		    	    AND   fmb_type =#{param} AND (fmb_reg_seq = user_seq)
 		    	    order by fmb_seq DESC
 		    	    ) a 
 			 ) as b 
@@ -41,17 +36,18 @@
 		,  fmb_status
 		,  fmb_cnt
 		,  fmb_reg_date
+		,  fmb_reg_seq
 		,  fmb_upd_date
 		) 
 		values
 		(
-		   #{param1}
-		,  #{param2}
-		,  'D'
-		<!-- 다시 -->
-		,  'Y'
+		   #{title}
+		,  #{content}
+		,  #{type}
+		,  #{status}
 		,  0
 		,  NOW()
+		,  #{user_seq}
 		,  NOW()
 		)
 	</insert>
@@ -72,8 +68,17 @@
 		set fmb_title = #{param2}
 		,   fmb_content = #{param3}
 		,   fmb_upd_date = NOW() 
-		
 		where fmb_seq = #{param1}
+	</update>
+	<update id="likeList">
+		update hcc_fmb_tb 
+		set fmb_like_cnt = fmb_like_cnt + 1
+		where fmb_seq = #{seq}
+	</update>
+		<update id="unlikeList">
+		update hcc_fmb_tb 
+		set fmb_unlike_cnt = fmb_unlike_cnt + 1
+		where fmb_seq = #{seq}
 	</update>
 <!-- 페이지당 보여줄 게시물 셀릭트 -->
    <select id="selectRecordsPerPage" parameterType="hashmap" resultType="com.crossit.hcc.vo.BoardVO">

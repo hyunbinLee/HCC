@@ -6,14 +6,14 @@
 		select *
 		from hcc_user_tb
 		<if test="value != null and value != '' ">
-			where user_id=#{value}
+	    where user_id=#{value}
 		</if>
 	</select>
 
 	<select id="compareUserByID" parameterType="String" resultType="String">
 		select user_name
 		from hcc_user_tb
-			where user_id=#{user_id}
+		where user_id=#{user_id}
 	</select>
 	<select id="compareUserByPW" parameterType="HashMap" resultType="String">
 		select user_name
@@ -31,18 +31,16 @@
 		, user_name
 		, user_birth
 		, user_phone
-		,
-		user_email
+		, user_email
 		)
 		values
 		(
-		#{user_id}
+		  #{user_id}
 		, #{user_pw}
 		, #{user_gender}
 		, #{user_name}
 		, #{user_birth}
-		,
-		#{user_phone}
+		, #{user_phone}
 		, #{user_email}
 		);
 	</insert>

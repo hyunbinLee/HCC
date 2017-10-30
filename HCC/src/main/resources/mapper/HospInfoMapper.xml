@@ -1,0 +1,239 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.crossit.hcc.dao.HospInfoMapperImpl">
+
+	<!-- String이나 hashmap으로 넘겨야 if문 쓸 수 있음 -->
+
+	<select id="selectHospInfoBoardList" resultType="com.crossit.hcc.vo.HospInfoVO">
+		SELECT * 
+		FROM hcc_hospital_info_tb
+		ORDER BY hospital_info_reg_date DESC
+	</select>
+	
+	<select id="getHospInfoCount" resultType="int">
+		SELECT count(*)
+		FROM hcc_hospital_tb
+		
+	</select>
+	
+	<select id="getHospInfoList" resultType="com.crossit.hcc.vo.HospInfoVO" parameterType="HashMap">
+		SELECT b.*
+		FROM (
+			 SELECT 
+    		    @RNUM:=@RNUM+1 AS ROWNUM
+    		    ,  a.*
+			 FROM 
+		    	   (SELECT @RNUM:=0) R
+		    	,  (SELECT * 
+		    	    FROM hcc_hospital_info_tb
+		    	    
+		    	    WHERE hospital_info_status = 'Y'
+		    	    
+		    	    ORDER BY hospital_info_reg_date DESC
+		    	    ) a 
+			 ) as b 
+		WHERE ROWNUM BETWEEN #{start} AND #{end}
+	</select>
+	
+	<select id="selectHospInfoTop5List" resultType="com.crossit.hcc.vo.HospInfoVO">
+		
+	</select>
+	
+	<select id="countArticle" resultType="int">
+		SELECT count(*)
+		FROM hcc_hospital_info_tb
+	</select>
+	
+	<!-- 조회수 올리기 -->
+    <update id="updateHitCount" parameterType="int">
+		UPDATE hcc_hospital_info_tb
+		SET hospital_info_cnt = (
+								 SELECT hospital_info_cnt 
+								 FROM hcc_hospital_info_tb 
+								 WHERE hospital_info_seq = #boardseq# 
+								) + 1
+		WHERE hospital_info_seq = #{boardseq}
+	</update>
+	
+	<!-- 상세 페이지 - 게시글 조회   현재 boardseq에 맞는 게시글 불러오기-->
+    <select id="returnDetail" parameterType="int" resultType="com.crossit.hcc.vo.HospInfoVO">
+		SELECT a.*, b.user_name
+		FROM hcc_hospital_info_tb a, hcc_user_tb b
+		WHERE a.hospital_info_seq = #{boardseq} 
+			AND a.user_seq = b.user_seq 
+			AND b.user_status = 'Y' 
+			AND a.hospital_info_status = 'Y'
+	</select>
+	
+	<!-- 상세 페이지 - 댓글 불러오기 -->
+	<select id="returnComm" parameterType="int" resultType="com.crossit.hcc.vo.HospInfoReplVO">
+		SELECT a.*, b.user_name
+		FROM hcc_hospital_info_reply_tb a, hcc_user_tb b
+		WHERE a.hospital_info_seq = #{boardseq} 
+		  AND a.user_seq = b.user_seq 
+		  AND a.user_status = 'Y' 
+		  AND a.hospital_info_status = 'Y'
+		ORDER BY hospital_info_reply_reg_date DESC
+	</select>
+	
+	<!-- 상세 페이지 - 게시글 등록 -->
+	<insert id="writeHospInfo" parameterType="hashmap">
+		INSERT INTO 
+		hcc_hospital_info_tb
+		(
+			hospital_info_title, 
+			hospital_info_content, 
+			hospital_info_score, 
+			hospital_info_reg_seq, 
+			hospital_info_reg_date
+		)
+		VALUES 
+		(
+			#{title}, 
+			#{content}, 
+			#{star}, 
+			#{writerseq}, 
+			SYSDATE
+		)
+	</insert>	
+	
+	<!-- 상세 페이지 - 게시글 수정 -->
+	<update id="modifyHospInfo" parameterType="hashmap">
+		UPDATE hcc_hospital_info_tb
+		SET hospital_info_title = #{title}, 
+			hospital_info_content = #{content}, 
+			hospital_info_score = #{star}, 
+			hospital_info_upd_seq = #{writerseq}, 
+			hospital_info_upd_date = SYSDATE
+		WHERE hospital_info_seq = #{boardseq}
+	</update>
+	
+	<!-- 상세 페이지 - 게시글 삭제 -->
+    <update id="deleteHospInfo" parameterType="int">
+		UPDATE hcc_hospital_info_tb
+		SET hospital_info_status = 'N'
+		WHERE hospital_info_seq = #{boardseq}
+	</update>
+	
+	<!-- 상세 페이지 - 댓글 등록 -->
+	<insert id="writeHospInfoRepl" parameterType="hashmap">
+		INSERT INTO 
+		hcc_hospital_info_reply_tb
+		(
+			hospital_info_seq, 
+			hospital_info_reply_seq,
+			hospital_info_reply_comment, 
+			hospital_info_reply_reg_seq, 
+			hospital_info_reply_reg_date
+		)
+		VALUES 
+		(
+			#{boardseq}, 
+			(
+					SELECT NVL(MAX(hospital_info_reply_seq) , 0) 
+					FROM hcc_hospital_info_reply_tb
+			) + 1,
+			#{comment}, 
+			#{writerseq}, 
+			SYSDATE
+		)
+	</insert>
+	
+	<!-- 상세 페이지 - 댓글 삭제 -->
+	<update id="deleteHospInfoRepl" parameterType="hashmap">
+		UPDATE hcc_hospital_info_reply_tb
+		SET hospital_info_reply_status = 'N'
+		WHERE hospital_info_seq = #{boardseq} 
+		  AND hospital_info_reply_seq = #{replyseq}
+	</update>
+	
+	<!-- 상세 페이지 - 대댓글 등록 -->
+	<insert id="writeHospInfoReRepl" parameterType="hashmap">
+		INSERT INTO 
+		hcc_hospital_info_reply_tb
+		(
+			hospital_info_seq, 
+			hospital_info_reply_seq, 
+			hospital_info_reply_subseq,
+			hospital_info_reply_comment, 
+			hospital_info_reply_reg_seq, 
+			hospital_info_reply_reg_date
+		)
+		VALUES 
+		(
+			#{boardseq}, 
+			#{replyseq}, 
+			(
+				SELECT NVL(MAX(hospital_info_reply_subseq) , 0) 
+				FROM hcc_hospital_info_reply_tb
+			) + 1,
+			#{comment}, 
+			#{writerseq}, 
+			SYSDATE
+		)
+	</insert>
+	
+	<!-- 상세 페이지 - 대댓글 삭제 -->
+	<update id="deleteHospInfoSubRepl" parameterType="hashmap">
+		UPDATE hcc_hospital_info_reply_tb
+		SET hospital_info_reply_status = 'N'
+		WHERE hospital_info_seq = #{boardseq} 
+		  AND hospital_info_reply_seq = #{replyseq} 
+		  AND hospital_info_reply_subseq = #{replysubseq}
+	</update>
+	
+	<!-- 상세 페이지 - 게시글 신고 -->
+	<update id="reportHospInfo" parameterType="int">
+		UPDATE hcc_hospital_info_tb
+		SET 
+		(
+			SELECT hospital_info_blame_cnt 
+			FROM hcc_hospital_info_tb 
+			WHERE hospital_info_seq = #{boardseq}
+		) + 1
+		WHERE hospital_info_seq = #{boardseq}
+	</update>
+	
+	<!-- 상세 페이지 - 댓글 신고 -->
+	<update id="reportHospInfoRepl" parameterType="hashmap">
+		UPDATE hcc_hospital_info_reply_tb
+		SET 
+		(
+			SELECT hospital_info_reply_blame_cnt 
+			FROM hcc_hospital_info_reply_tb 
+			WHERE hospital_info_seq = #{boardseq} 
+			  AND hospital_info_reply_seq = #{replyseq}
+		) + 1
+		WHERE hospital_info_seq = #{boardseq} 
+		  AND hospital_info_reply_seq = #{replyseq}
+	</update>
+	
+	<!-- 상세 페이지 - 대댓글 신고 -->
+	<update id="reportHospInfoSubRepl" parameterType="hashmap">
+		UPDATE hcc_hospital_info_reply_tb
+		SET 
+		(
+			SELECT hospital_info_reply_blame_cnt 
+			FROM hcc_hospital_info_reply_tb 
+			WHERE hospital_info_seq = #{boardseq} 
+			  AND hospital_info_reply_seq = #{replyseq} 
+			  AND hospital_info_reply_subseq = #{replysubseq}
+		) + 1
+		WHERE hospital_info_seq = #{boardseq} 
+		  AND hospital_info_reply_seq = #{replyseq} 
+		  AND hospital_info_reply_subseq = #{replysubseq}
+	</update>
+	
+	<!-- 상세 페이지 - 신고횟수 증가 -->
+	<update id="updateReportCount" parameterType="int">
+		UPDATE hcc_user_tb
+		SET 
+		(
+			SELECT user_blame_cnt 
+			FROM hcc_user_tb 
+			WHERE user_seq = #{userseq}
+		) + 1
+ 		WHERE user_seq = #{userseq}
+	</update>
+</mapper>	

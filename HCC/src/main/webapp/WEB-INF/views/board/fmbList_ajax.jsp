@@ -18,7 +18,7 @@
 		
 			<div id="search">
 				<div class="search_nav">
-					<p>검색</p>
+					<p>병에 대한 후기</p>
 				</div>
 				<div class="search_box">
 					<div>
@@ -28,7 +28,7 @@
 					<select name="select" id="select">
 						<option value="흉부외과">흉부외과</option>
 						<option value="흉부외과">정형외과</option>
-						<option value="흉부외과">이빈인후과</option>
+						<option value="흉부외과">이비인후과</option>
 						<option value="흉부외과">내과</option>
 					</select> 
 					<input type="text" placeholder="검색어 입력" class="search"> 
@@ -36,8 +36,8 @@
 				</div>
 
 				<div id="list_box">
-					<div id="adult">성인</div>
-					<div id="teenager">소아/청소년</div>
+					<div id="adult"><a href="">환자</a></div>
+					<div id="teenager"><a href="">의사</a></div>
 					<div class="write"><a href="./fmbWritePage">글쓰기</a></div>
 				</div>
 				<table>
@@ -48,7 +48,7 @@
 							<!-- td class="grade"><b>평점</b></td>
                           <td class="name"><b>이름</b></td -->
 							<td class="day"><b>게시 날짜</b></td>
-							<td class="day"><b>최종 수정 날짜</b></td>
+							<td class="day"><b>작성자</b></td>
 							<td class="re"><b>조회수</b></td>
 						</tr>
 						<tr>
@@ -62,7 +62,8 @@
 								<!-- td class="grade"><b>평점</b></td>
                           <td class="name"><b>유인준</b></td -->
 								<td class="day"><b>${fmb.fmb_reg_date}</b></td>
-								<td class="day"><b>${fmb.fmb_upd_date}</b></td>
+								<!-- td class="day"><b>${fmb.fmb_upd_date}</b></td -->
+								<td class="day"><b>${fmb.user_name}</b></td>
 								<td class="re"><b>${fmb.fmb_cnt}</b></td>
 							</tr>
 						</c:forEach>

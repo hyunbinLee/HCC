@@ -17,10 +17,19 @@
 		
 		
 			<div id="search">
-				
+				<div class="search_nav">
+					<p>게시판</p>
+				</div>
+				<div class="search_box">
+					<div>
+						<input type="checkbox" value="제목"> 제목 
+						<input type="checkbox" value="작성자"> 작성자
+					</div>
+					<input type="text" placeholder="검색어 입력" class="search_noti"> 
+					<input type="button" id="search_btn" value="검색">
+				</div>
 
 				<div id="list_box">
-					<div id=" ">공지사항</div>
 					<div class="write"><a href="./noticeWritePage">글쓰기</a></div>
 				</div>
 				<table>

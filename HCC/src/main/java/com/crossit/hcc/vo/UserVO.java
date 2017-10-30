@@ -1,13 +1,5 @@
 package com.crossit.hcc.vo;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
-
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.core.userdetails.UserDetails;
-
 public class UserVO {
 	/**
 	 * 
@@ -15,6 +7,7 @@ public class UserVO {
 	private static final long serialVersionUID = 1L;
 
 	private String user_id;
+	private int user_seq;
 	private String user_pw;
 	private String user_kind;
 	private String user_gender;
@@ -29,6 +22,14 @@ public class UserVO {
 	private String user_reg_date;
 	private int user_upd_seq;
 	private String user_upd_date;
+
+	public int getUser_seq() {
+		return user_seq;
+	}
+
+	public void setUser_seq(int user_seq) {
+		this.user_seq = user_seq;
+	}
 
 	public String getUser_id() {
 		return user_id;

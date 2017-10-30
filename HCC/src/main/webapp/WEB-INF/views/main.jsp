@@ -1,4 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
+	<%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags"%>
@@ -14,7 +14,7 @@
 		<!-- Top Menu -->
 		<%@ include file="common/inc_top.jsp"%>
 
-		<div class="left_area m_r140 left">
+		<div class="left_area">
 
 			<!--회원센터 영역 -->
 			<sec:authorize access="isAnonymous()">
@@ -22,7 +22,7 @@
 				<form name="f" action="${loginUrl}" method="post">
 					<input type="hidden" name="${_csrf.parameterName}"
 						value="${_csrf.token}" />
-					<div class="login_area m_b80">
+					<div class="login_area m_b30">
 						<div class="login_title m_b10 p_b5">
 							<span class="p_b5">회원센터</span>
 						</div>
@@ -94,8 +94,9 @@
 
 			<!--병원 정보 공유 게시판-->
 			<div class="notice_board_wrap">
+			<c:url value="/hospInfoBoard" var="hospList" />
 				<div class="notice_board_title p_b5">
-					<span class="p_b5">병원정보 공유</span> <a href="#" class="right"><span>+ 더보기</span></a>
+					<span class="p_b5">병원정보 공유</span> <a href="${hospList }?page=1" class="right"><span>+ 더보기</span></a>
 				</div>
 				<div class="notice_board">
 					<ul>
