@@ -24,7 +24,6 @@ public class AdminService {
 		
 		paging = new PageNavigation(currentPageNo, recordsPerPage);
 	}
-	
 	public int getStart() {
 		return start;
 	}
@@ -47,4 +46,8 @@ public class AdminService {
 	public int getEndPage() {
 		return paging.getEndPageNo();
 	}
+	
+	
+	
+	
 }

@@ -15,6 +15,16 @@
 		<intercept-url pattern="/regiMail_check" access="permitAll" />
 		<intercept-url pattern="/hospInfoBoard" access="hasAnyRole('ROLE_ADMIN', 'ROLE_USER')" />
 		
+		<!-- 공지사항 -->
+		<intercept-url pattern="/noticeList" access="hasAnyRole('ROLE_USER','ROLE_ADMIN')" />
+		<intercept-url pattern="/noticeWritePage" access="hasRole('ROLE_ADMIN')" />
+		<intercept-url pattern="/noticeWrite" access="hasRole('ROLE_ADMIN')" />
+		<intercept-url pattern="/noticeContentPage" access="hasAnyRole('ROLE_USER','ROLE_ADMIN')" />
+		<intercept-url pattern="/deleteNotice" access="hasRole('ROLE_ADMIN')" />
+		<intercept-url pattern="/updateNoticePage" access="hasRole('ROLE_ADMIN')" />
+		<intercept-url pattern="/updateNoitce" access="hasRole('ROLE_ADMIN')" />
+		<intercept-url pattern="/likeAction" access="hasRole('ROLE_ADMIN')"/>
+
 		<!-- 공지사항 관련(권한 미설정) -->
 		<intercept-url pattern="/noticeList" access="hasAnyRole('ROLE_ADMIN', 'ROLE_USER')" />
 		<intercept-url pattern="/noticeWritePage" access="hasAnyRole('ROLE_ADMIN', 'ROLE_USER')" />
@@ -34,10 +44,17 @@
 		<intercept-url pattern="/updateList" access="hasAnyRole('ROLE_ADMIN', 'ROLE_USER')"/>
 		<intercept-url pattern="/showboard" access="hasAnyRole('ROLE_ADMIN', 'ROLE_USER')"/>
 		
+		<!-- 관리자 페이지 -->
+		<intercept-url pattern="/memberManagement" access="hasRole('ROLE_ADMIN')"/>
+		<intercept-url pattern="/userInfo" access="hasRole('ROLE_ADMIN')"/>
+		<intercept-url pattern="/deleteUser" access="hasRole('ROLE_ADMIN')"/>
+		<intercept-url method="POST" pattern="/changePassword" access="hasAnyRole('ROLE_ADMIN')"/>
+
 		<intercept-url pattern="memberManagement" access="hasRole('ROLE_ADMIN')"/>
 		<intercept-url pattern="userInfo" access="hasRole('ROLE_ADMIN')"/>
 		<intercept-url pattern="deleteUser" access="hasRole('ROLE_ADMIN')"/>
 		<intercept-url pattern="changePassword" access="hasAnyRole('ROLE_ADMIN', 'ROLE_USER')"/>
+
 		
 		<intercept-url pattern="/admin/**" access="hasRole('ROLE_ADMIN')" />
 		<intercept-url pattern="/*" access="hasAnyRole('ROLE_ADMIN', 'ROLE_USER')" />

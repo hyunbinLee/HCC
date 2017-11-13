@@ -37,8 +37,8 @@ public class NoticeController {
 		
 		model.addAttribute("page", page);		
 		
-		NoticeService pagingImpl = new NoticeService(page);
-		
+		NoticeService pagingImpl = new NoticeService();
+		pagingImpl.paging(page);
 		
 		int start = pagingImpl.getStart();
 		int end = pagingImpl.getEnd();
@@ -94,6 +94,16 @@ public class NoticeController {
 		
 		model.addAttribute("fmb", noticeDao.getNoticeContent(seq));
 		
+		String like_seq = request.getParameter("seq");
+		String like_code = request.getParameter("code");
+		String like_reg_seq = request.getParameter("regSeq");
+		
+		boolean likeStatus = false;
+		if(noticeDao.checkLike(like_seq, like_code, like_reg_seq) != null) {
+			likeStatus = true;
+		};
+		model.addAttribute("likeStatus", likeStatus);
+		
 		return "board/noticeContentPage";
 	}
 	
@@ -127,5 +137,20 @@ public class NoticeController {
 		noticeDao.updateNotice(seq, title, content);
 		
 		return "redirect:noticeList?page=1";
+	}
+	
+	
+	@RequestMapping(value="/likeAction", method=RequestMethod.GET)
+	public String like(HttpServletRequest request)
+	{
+		String like_seq = request.getParameter("seq");
+		String like_code = request.getParameter("code");
+		String like_reg_seq = request.getParameter("regSeq");
+		
+		noticeDao.addLikeList(like_seq, like_code, like_reg_seq);
+		noticeDao.updateNoticeLike(like_seq);
+		
+		
+		return "redirect:noticeContentPage?seq="+like_seq+"&code=1&regSeq=11";
 	}
 }

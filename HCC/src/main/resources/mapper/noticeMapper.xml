@@ -39,6 +39,7 @@
 		,  fmb_type
 		,  fmb_status
 		,  fmb_cnt
+		,  fmb_like_cnt
 		,  fmb_reg_date
 		,  fmb_upd_date
 		) 
@@ -48,6 +49,7 @@
 		,  #{param2}
 		,  'N'
 		,  'Y'
+		,  0
 		,  0
 		,  NOW()
 		,  NOW()
@@ -84,4 +86,35 @@
 		where fmb_seq = #{param1}
 	</update>
 	
+	
+	<select id="checkLike" resultType="com.crossit.hcc.vo.LikeVO" parameterType="HashMap">
+		select *
+		from hcc_like_tb
+		where like_seq = #{param1}
+		and like_code = #{param2}
+		and like_reg_seq = #{param3}
+	</select>
+	
+	<insert id="addLikeList" parameterType="HashMap">
+		insert
+		into hcc_like_tb
+		(
+			like_seq,
+			like_code,
+			like_reg_seq,
+			like_reg_date
+		)
+		values
+		(
+			#{param1},
+			#{param2},
+			#{param3},
+			NOW()
+		);
+	</insert>
+	<update id="updateNoticeLike">
+		update hcc_fmb_tb
+		set fmb_like_cnt = fmb_like_cnt+1
+		where fmb_seq = #{param1}
+	</update>
 </mapper>	

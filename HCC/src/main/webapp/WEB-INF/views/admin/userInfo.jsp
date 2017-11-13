@@ -22,7 +22,8 @@
 
 <a href="./deleteUser?id=${user.user_id }">탈퇴</a> &nbsp;&nbsp;
 <a href="./memberManagement">회원목록</a> &nbsp;&nbsp;
-<form action="./changePassword" method="get">
+<form action="./changePassword" method="post">
+	<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
 	<input type="hidden" id="id" name="id" value = "${user.user_id }">
 	<input type="text" id="newPassword" name="newPassword" width="10">
 	<input type="submit" value="비밀번호 변경">

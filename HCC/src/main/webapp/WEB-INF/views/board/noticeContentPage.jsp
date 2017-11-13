@@ -7,6 +7,19 @@
 
 <%@ include file="../common/inc_header.jsp"%>
 
+<script>
+	document.getElementById('likeButton').addEventListener('click', function(event){
+		var xhr = new new XMLHttpRequest();
+		xhr.open('GET','./likeAction'){
+			xhr.onreadystatechange = function(){
+				if(xhr.readyState === 4 && xhr.status === 200){
+					
+				}
+			}
+		}
+	})
+</script>
+
 </head>
 <body>
 	<div class="wrap">
@@ -27,7 +40,7 @@
                   <div class="post_see">
                       <p>${fmb.fmb_cnt }</p>
                   </div>
-                  <div class="post_up">
+                  <div class="post_up" id="like_cnt">
                       <p>${fmb.fmb_like_cnt }</p>
                   </div>
                   <div class="post_down">
@@ -42,7 +55,14 @@
               </div>
               <div class="post_bottom">
                   <div class="post_bottom_like">
-                                         좋아요
+                  <c:if test="${likeStatus == false}" >
+                  	<a href="./likeAction?seq=${fmb.fmb_seq}&code=1&regSeq=11">좋아요</a>
+               	  </c:if>
+               	  
+                  <c:if test="${likeStatus == true}" >
+                  	좋아요
+               	  </c:if>
+               	  
                   </div>
                   <div class="post_bottom_bad">
                                          싫어요

@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Configurable;
 import org.springframework.stereotype.Service;
 
 import com.crossit.hcc.vo.HCCFmbVO;
+import com.crossit.hcc.vo.LikeVO;
 
 @Service
 @Configurable
@@ -74,5 +75,35 @@ public class NoticeMapperImple implements NoticeMapper {
 	public void updateHit(String seq) {
 		// TODO Auto-generated method stub
 		sqlSessionTemplate.update("com.crossit.hcc.dao.NoticeMapper.updateHit",seq);
+	}
+	
+	@Override
+	public LikeVO checkLike(String like_seq, String like_code, String like_reg_seq) {
+		// TODO Auto-generated method stub
+		HashMap<String, String> params = new HashMap<String, String>();
+		params.put("param1", like_seq);
+		params.put("param2", like_code);
+		params.put("param3", like_reg_seq);
+		
+		
+		return sqlSessionTemplate.selectOne("com.crossit.hcc.dao.NoticeMapper.checkLike", params);
+	}
+	
+	@Override
+	public void addLikeList(String like_seq, String like_code, String like_reg_seq) {
+		// TODO Auto-generated method stub
+		HashMap<String, String> params = new HashMap<String, String>();
+		params.put("param1", like_seq);
+		params.put("param2", like_code);
+		params.put("param3", like_reg_seq);
+		
+		sqlSessionTemplate.insert("com.crossit.hcc.dao.NoticeMapper.addLikeList",params);
+	}
+
+	@Override
+	public void updateNoticeLike(String like_seq) {
+		// TODO Auto-generated method stub
+		
+		sqlSessionTemplate.update("com.crossit.hcc.dao.NoticeMapper.updateNoticeLike",like_seq);
 	}
 }
