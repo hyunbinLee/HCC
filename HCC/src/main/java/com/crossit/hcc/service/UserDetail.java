@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
-import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -19,6 +18,7 @@ public class UserDetail implements UserDetails {
 
 	public UserDetail(UserVO uv) {
 
+		
 		this.uv = uv;
 		authority = new ArrayList<GrantedAuthority>();
 		String[] roles = uv.getUser_kind().split(",");
