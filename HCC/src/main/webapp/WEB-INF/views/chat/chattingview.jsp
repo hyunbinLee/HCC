@@ -8,8 +8,8 @@
 <script type="text/javascript" src="resources/js/jquery-3.2.0.min.js"></script>
 <script type="text/javascript" src="resources/js/sockjs.min.js"></script>
 <script type="text/javascript">
-var sock = new SockJS("<c:url value="/echo"/>");
 
+var sock = new SockJS("/hcc/echo");
 sock.onmessage = onMessage;
 sock.onclose = onClose;
 
@@ -74,9 +74,10 @@ function onClose(evt){
 </head>
 <body>
 
+	<input type="hidden" id="sessionuserid" value="${userid }">
     <input type="text" id="message"/>
     <input type="button" id="sendBtn" value="전송"/>
-    <div id="data"></div>
+    <div id="chatdata"></div>
 
 
 </body>

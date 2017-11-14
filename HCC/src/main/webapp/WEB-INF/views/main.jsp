@@ -160,7 +160,10 @@
 			</div>
 			<!--게시판 끝-->
 		</div>
+		<c:url var="test" value="/chatting"/>
+	<a href="${ test}">채팅하기</a>
 	</div>
+	
 
 	<!-- 회원가입 부분(레이어 팝업) -->
 	<%@ include file="common/inc_join.jsp"%>
