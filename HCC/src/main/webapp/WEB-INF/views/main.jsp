@@ -162,7 +162,10 @@
 		</div>
 		<c:url var="test" value="/chatting"/>
 	<a href="${ test}">채팅하기</a>
-	</div>
+	<c:forEach items="${userList }" var="userElement">
+		${userElement }
+	</c:forEach>
+		</div>
 	
 
 	<!-- 회원가입 부분(레이어 팝업) -->
