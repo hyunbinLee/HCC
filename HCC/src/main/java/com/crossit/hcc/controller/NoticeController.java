@@ -14,14 +14,18 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.crossit.hcc.dao.NoticeMapperImple;
-import com.crossit.hcc.service.NoticeService;
+import com.crossit.hcc.dao.NoticeMapperImpl;
+import com.crossit.hcc.service.PagingService;
 
 @Controller
 public class NoticeController {
 	
+
 	@Autowired
-	private NoticeMapperImple noticeDao;
+	private NoticeMapperImpl noticeDao;
+	
+	
+	private PagingService pagingService;
 	
 
 	private static final Logger logger = LoggerFactory.getLogger(LoginController.class);
@@ -31,31 +35,26 @@ public class NoticeController {
 	public String noticeList(HttpSession session,Model model,
 	         @RequestParam(value = "page", required = false) String page)
 	{
-		if(page == null) {
-			page = "1";
+		if(page != null) {
+			model.addAttribute("page", page);
+		}else {
+			model.addAttribute("page", "1");
 		}
 		
-		model.addAttribute("page", page);		
-		
-		NoticeService pagingImpl = new NoticeService();
-		pagingImpl.paging(page);
-		
-		int start = pagingImpl.getStart();
-		int end = pagingImpl.getEnd();
-		
-		
-		//전체 게시물 수
-		pagingImpl.setNumberOfRecords(noticeDao.getNoticeCount());
-		//마지막 페이지 번호
-		
-		pagingImpl.makePaging();
-		
-		model.addAttribute("startPage", pagingImpl.getStartPageNo());
-		model.addAttribute("endPage", pagingImpl.getEndPageNo());
-		model.addAttribute("fmb",noticeDao.getNoticeList(start, end));
-		model.addAttribute("lastPage", pagingImpl.getFinalPageNo());
+		//페이지당 5개의 글
+		pagingService = new PagingService(5);
 
-		return "board/noticeList_ajax";
+		int noticeCount = noticeDao.getNoticeCount();
+		pagingService.paging(page,noticeCount);
+		
+		
+		
+		model.addAttribute("startPage", pagingService.startPageNo());
+		model.addAttribute("endPage", pagingService.endPageNo());
+		model.addAttribute("fmb",noticeDao.getNoticeList(pagingService.getStart(), pagingService.getEnd()));
+		model.addAttribute("lastPage", pagingService.getFinalPageNo());
+
+		return "notice/noticeList_ajax";
 	}
 	
 	
@@ -64,7 +63,7 @@ public class NoticeController {
 		logger.info("공지사항 작성 페이지 {}", session.getId());
 
 		
-		return "board/writePage";
+		return "notice/writePage";
 	}
 	
 	@RequestMapping(value="/noticeWrite", method=RequestMethod.GET)
@@ -104,7 +103,7 @@ public class NoticeController {
 		};
 		model.addAttribute("likeStatus", likeStatus);
 		
-		return "board/noticeContentPage";
+		return "notice/noticeContentPage";
 	}
 	
 	@RequestMapping(value ="/deleteNotice")
@@ -123,7 +122,7 @@ public class NoticeController {
 		String seq = request.getParameter("seq");
 		model.addAttribute("notice", noticeDao.getNoticeContent(seq));
 		
-		return "board/updatePage";
+		return "notice/updatePage";
 	}
 	
 	@RequestMapping(value="/updateNoitce")

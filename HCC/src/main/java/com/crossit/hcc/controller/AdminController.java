@@ -11,14 +11,17 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.crossit.hcc.dao.AdminMapperImple;
-import com.crossit.hcc.service.AdminService;
+import com.crossit.hcc.dao.AdminMapperImpl;
+import com.crossit.hcc.service.PagingService;
 
 @Controller
 public class AdminController {
 
 	@Autowired
-	private AdminMapperImple adminDao;
+	private AdminMapperImpl adminDao;
+	
+	private PagingService pagingService;
+	
 
 	private static final Logger logger = LoggerFactory.getLogger(LoginController.class);
 
@@ -28,12 +31,11 @@ public class AdminController {
 			@RequestParam(value = "page", required = false) String page,
 			@RequestParam(value = "kind", required = false) String kind) 
 	{
-		model.addAttribute("page", page);
-		
-		AdminService service = new AdminService(page);
-		
-		int start = service.getStart();
-		int end = service.getEnd();
+		if(page != null) {
+			model.addAttribute("page", page);
+		}else {
+			model.addAttribute("page", "1");
+		}
 		
 		String userKind;
 		if(kind != null) {
@@ -42,15 +44,18 @@ public class AdminController {
 			userKind = "U";
 		}
 		
-		model.addAttribute("list", adminDao.getUserList(start, end, userKind));
+		//회원 10명
+		pagingService = new PagingService(10);
+
+		int userCount = adminDao.getUserCount(userKind);
+		pagingService.paging(page,userCount);
 		
-		service.setNumberOfRecords(adminDao.getUserCount(userKind)); //총 회원수
 		
-		service.makePage();
 		
-		model.addAttribute("startPage", service.getStartPage());
-		model.addAttribute("endPage", service.getEndPage());
-		model.addAttribute("lastPage", service.getFinalPageNo());
+		model.addAttribute("startPage", pagingService.startPageNo());
+		model.addAttribute("endPage", pagingService.endPageNo());
+		model.addAttribute("list", adminDao.getUserList(pagingService.getStart(), pagingService.getEnd(), userKind));
+		model.addAttribute("lastPage", pagingService.getFinalPageNo());
 		
 		return "/admin/memberManagement";
 	}

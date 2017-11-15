@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.crossit.hcc.dao.BoardMapperImpl;
-import com.crossit.hcc.dao.NoticeMapperImple;
+import com.crossit.hcc.dao.NoticeMapperImpl;
 
 /**
  * Handles requests for the application home page.
@@ -24,7 +24,7 @@ public class LoginController {
 	@Autowired
 	private BoardMapperImpl boardDao;
 	@Autowired
-	private NoticeMapperImple noticeDao;
+	private NoticeMapperImpl noticeDao;
 	
 	private static final Logger logger = LoggerFactory.getLogger(LoginController.class);
 

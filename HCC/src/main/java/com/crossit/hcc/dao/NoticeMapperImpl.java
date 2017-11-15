@@ -12,7 +12,7 @@ import com.crossit.hcc.vo.LikeVO;
 
 @Service
 @Configurable
-public class NoticeMapperImple implements NoticeMapper {
+public class NoticeMapperImpl implements NoticeMapper {
 
 	private SqlSessionTemplate sqlSessionTemplate;
 	
