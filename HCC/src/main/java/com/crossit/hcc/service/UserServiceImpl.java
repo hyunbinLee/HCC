@@ -5,27 +5,29 @@ import java.util.HashMap;
 import com.crossit.hcc.dao.UserMapperImpl;
 import com.crossit.hcc.vo.UserVO;
 
-public class UserServiceImpl implements UserService {
 
+public class UserServiceImpl {
+	
+//	@Autowired
+//	private SessionHandler sessionHandler;
+	
 	private UserMapperImpl userMapper;
+	
 
 	public void setUserMapper(UserMapperImpl userMapper) {
 		this.userMapper = userMapper;
 	}
 
-	@Override
 	public UserVO getUser(String user_id) {
 		// TODO Auto-generated method stub
 		return userMapper.selectUserByID(user_id);
 	}
 
-	@Override
 	public boolean idCheck(String user_id) {
 		// TODO Auto-generated method stub
 		return userMapper.compareUserByID(user_id);
 	}
 
-	@Override
 	public boolean pwCheck(String user_id,String user_pw) {
 		// TODO Auto-generated method stub
 		HashMap<String,String> map=new HashMap();
@@ -35,13 +37,11 @@ public class UserServiceImpl implements UserService {
 		return userMapper.compareUserByPW(map);
 	}
 
-	@Override
 	public void register(UserVO vo) {
 		// TODO Auto-generated method stub
 		userMapper.insertUserVO(vo);
 	}
 
-	@Override
 	public void leave(UserVO vo) {// 아이디 삭제
 		// TODO Auto-generated method stub
 
@@ -49,11 +49,19 @@ public class UserServiceImpl implements UserService {
 
 	}
 
-	@Override
 	public void infoupdate(UserVO vo) {// 회원정보 변경.
 		// TODO Auto-generated method stub
 		userMapper.updateUserByVO(vo);
 
 	}
-
+//	public String[] getAllUserDetails(){
+//		List<SessionInformation> result = sessionHandler.getAllSessions();
+//		String [] userList = new String[result.size()];
+//		for(int i=0; i<result.size();i++){
+//		UserDetail user = (UserDetail) result.get(i).getPrincipal();
+//		userList[i]=user.getUsername();
+//		}
+//		
+//		return userList;
+//	}
 }

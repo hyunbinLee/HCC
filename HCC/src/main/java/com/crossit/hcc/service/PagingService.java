@@ -1,9 +1,6 @@
 package com.crossit.hcc.service;
 
-import java.util.List;
-
 import com.crossit.hcc.util.PageNavigation;
-import com.crossit.hcc.vo.HCCFmbVO;
 
 
 public class PagingService{
@@ -21,6 +18,8 @@ public class PagingService{
 		//페이지당 글수 생성자에서 관리
 	}
 	
+	
+	//페이징
 	public void paging(String page,int noticeCount) {
 		try {
 			currentPageNo = Integer.parseInt(page);
@@ -41,25 +40,24 @@ public class PagingService{
 		pageNav.makePaging();
 	}
 	
+	//시작 넘버
 	public int getStart() {
 		return start;
 	}
 
+	//끝넘버
 	public int getEnd() {
 		return end;
 	}
-
+	
 	public int startPageNo() {
 		return pageNav.getStartPageNo();
 	}
-	
+
 	public int endPageNo() {
 		return pageNav.getEndPageNo();
 	}
 	
-	public List<HCCFmbVO> getList(){
-		return null;
-	}
 	
 	public int getFinalPageNo() {
 		return pageNav.getFinalPageNo();

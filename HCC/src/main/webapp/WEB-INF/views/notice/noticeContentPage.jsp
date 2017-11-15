@@ -28,7 +28,7 @@
 		
           <div class="post">
               <div class="search_nav">
-                    <h2>${fmb.fmb_title}</h2>
+                    <h2>${fmb.notice_title}</h2>
               </div>
               <div class="post_top">
                   <div class="post_name">
@@ -38,25 +38,25 @@
                       <p>댓글수</p>
                   </div>
                   <div class="post_see">
-                      <p>${fmb.fmb_cnt }</p>
+                      <p>${fmb.notice_cnt }</p>
                   </div>
                   <div class="post_up" id="like_cnt">
-                      <p>${fmb.fmb_like_cnt }</p>
+                      <p>${fmb.notice_like_cnt }</p>
                   </div>
                   <div class="post_down">
-                      <p>${fmb.fmb_unlike_cnt }</p>
+                      <p>${fmb.notice_unlike_cnt }</p>
                   </div>
                   <div class="post_date">
-                      <p>${fmb.fmb_reg_date }</p>
+                      <p>${fmb.notice_reg_date }</p>
                   </div>
               </div>
               <div class="post_mid">
-                  ${fmb.fmb_title }
+                  ${fmb.notice_title }
               </div>
               <div class="post_bottom">
                   <div class="post_bottom_like">
                   <c:if test="${likeStatus == false}" >
-                  	<a href="./likeAction?seq=${fmb.fmb_seq}&code=1&regSeq=11">좋아요</a>
+                  	<a href="./likeAction?seq=${fmb.notice_seq}&code=1">좋아요</a>
                	  </c:if>
                	  
                   <c:if test="${likeStatus == true}" >
@@ -71,10 +71,10 @@
                        <a href="javascript:Open();">댓글열기</a>
                   </div>
                   <div class="del">
-                      <a href="./deleteNotice?seq=${fmb.fmb_seq }">삭제</a>
+                      <a href="./deleteNotice?seq=${fmb.notice_seq }">삭제</a>
                   </div>
                   <div class="mod">
-                      <a href="./updateNoticePage?seq=${fmb.fmb_seq }">수정</a>
+                      <a href="./updateNoticePage?seq=${fmb.notice_seq }">수정</a>
                   </div>
               </div>
 			  

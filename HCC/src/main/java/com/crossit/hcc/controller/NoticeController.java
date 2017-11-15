@@ -8,6 +8,8 @@ import javax.servlet.http.HttpSession;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -16,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.crossit.hcc.dao.NoticeMapperImpl;
 import com.crossit.hcc.service.PagingService;
+import com.crossit.hcc.service.UserDetail;
 
 @Controller
 public class NoticeController {
@@ -77,7 +80,11 @@ public class NoticeController {
 		String content = request.getParameter("content");
 		content = new String(content.getBytes("8859_1"),"utf-8");
 		
-		noticeDao.writeNotice(title, content);
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+	    UserDetail userdetail = (UserDetail)auth.getPrincipal();
+		
+		
+		noticeDao.writeNotice(title, content,userdetail.getUser().getUser_seq());
 		
 		return "redirect:noticeList?page=1";
 	}
@@ -95,7 +102,11 @@ public class NoticeController {
 		
 		String like_seq = request.getParameter("seq");
 		String like_code = request.getParameter("code");
-		String like_reg_seq = request.getParameter("regSeq");
+		
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+	    UserDetail userdetail = (UserDetail)auth.getPrincipal();
+		
+		String like_reg_seq = "" + userdetail.getUser().getUser_seq();
 		
 		boolean likeStatus = false;
 		if(noticeDao.checkLike(like_seq, like_code, like_reg_seq) != null) {
@@ -125,7 +136,7 @@ public class NoticeController {
 		return "notice/updatePage";
 	}
 	
-	@RequestMapping(value="/updateNoitce")
+	@RequestMapping(value="/updateNotice")
 	public String updateNoitce(HttpServletRequest request) throws Exception {
 		
 		String seq = request.getParameter("seq");
@@ -144,7 +155,11 @@ public class NoticeController {
 	{
 		String like_seq = request.getParameter("seq");
 		String like_code = request.getParameter("code");
-		String like_reg_seq = request.getParameter("regSeq");
+		
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+	    UserDetail userdetail = (UserDetail)auth.getPrincipal();
+		
+		String like_reg_seq = "" + userdetail.getUser().getUser_seq();
 		
 		noticeDao.addLikeList(like_seq, like_code, like_reg_seq);
 		noticeDao.updateNoticeLike(like_seq);

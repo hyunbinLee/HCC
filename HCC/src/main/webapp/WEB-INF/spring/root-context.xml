@@ -29,6 +29,9 @@
 	<bean id="hospInfoMapper" class="com.crossit.hcc.dao.HospInfoMapperImpl">
 		<property name="sqlSessionTemplate" ref="sqlSessionTemplate"></property>
 	</bean>	
-  
+	<bean id="sessionHandler" class="com.crossit.hcc.util.SessionHandler">
+		<property name="sessionRegistry" ref="sessionRegistry"></property>
+	</bean>	
+ 
 
 </beans>

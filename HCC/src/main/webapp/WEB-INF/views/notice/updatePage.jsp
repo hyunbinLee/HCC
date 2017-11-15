@@ -19,11 +19,11 @@
 		<h1>수정 페이지</h1>
 		<br />
 		<br />
-		<form action="./updateNoitce" method="get">
-			<input type="hidden" id="seq" name="seq" value="${notice.fmb_seq }" />
-			<textarea cols="50" rows="1" id="title" name="title">${notice.fmb_title }</textarea>
+		<form action=./updateNotice method="get">
+			<input type="hidden" id="seq" name="seq" value="${notice.notice_seq }" />
+			<textarea cols="50" rows="1" id="title" name="title">${notice.notice_title }</textarea>
 			<br /><br />
-			<textarea cols="50" rows="40" id="content" name="content">${notice.fmb_content }</textarea>
+			<textarea cols="50" rows="40" id="content" name="content">${notice.notice_content }</textarea>
 			<br /><br />
 			<input type="submit" value="수정하기">
 		</form>
