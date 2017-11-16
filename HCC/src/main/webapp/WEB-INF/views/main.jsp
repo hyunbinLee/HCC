@@ -153,7 +153,7 @@
 				<c:url var="ncontenturl" value="/noticeContentPage"/>
 					<ul>
 						<c:forEach var="list" items="${notice }">
-							<li><a href="${ncontenturl }?seq=${list.fmb_seq}">${list.fmb_title }</a> <span class="board_date">${list.fmb_reg_date }</span></li>
+							<li><a href="${ncontenturl }?seq=${list.notice_seq}&code=1">${list.notice_title }</a> <span class="board_date">${list.notice_reg_date }</span></li>
 						</c:forEach>
 					</ul>
 				</div>

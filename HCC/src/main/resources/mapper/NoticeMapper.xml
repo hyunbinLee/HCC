@@ -3,7 +3,7 @@
 <mapper namespace="com.crossit.hcc.dao.NoticeMapper">
 
 	
-	<select id="getNoticeList" resultType="com.crossit.hcc.vo.HCCFmbVO" parameterType="HashMap">
+	<select id="getNoticeList" resultType="com.crossit.hcc.vo.NoticeVO" parameterType="HashMap">
 		SELECT b.*
 		FROM (
 			 SELECT 
@@ -12,12 +12,12 @@
 			 FROM 
 		    	   (SELECT @RNUM:=0) R
 		    	,  (SELECT * 
-		    	    FROM hcc_fmb_tb 
+		    	    FROM hcc_notice_tb 
 		    	    
-		    	    where fmb_status = 'Y'
-		    	    AND   fmb_type ='N'
+		    	    where notice_status = 'Y'
+		    	    AND   notice_type ='N'
 		    	    
-		    	    order by fmb_seq DESC
+		    	    order by notice_seq DESC
 		    	    ) a 
 			 ) as b 
 		where ROWNUM between #{param1} and #{param2}
@@ -25,23 +25,24 @@
 	
 	<select id="getNoticeCount" resultType="int">
 		SELECT COUNT(*) 
-		FROM hcc_fmb_tb 
-		where fmb_status = 'Y' 
-		AND   fmb_type ='N'
+		FROM hcc_notice_tb 
+		where notice_status = 'Y' 
+		AND   notice_type ='N'
 	</select>
 	
 	<insert id="writeNotice" parameterType="HashMap">
 		INSERT
-		INTO hcc_fmb_tb
+		INTO hcc_notice_tb
 		(
-		   fmb_title
-		,  fmb_content
-		,  fmb_type
-		,  fmb_status
-		,  fmb_cnt
-		,  fmb_like_cnt
-		,  fmb_reg_date
-		,  fmb_upd_date
+		   notice_title
+		,  notice_content
+		,  notice_type
+		,  notice_status
+		,  notice_cnt
+		,  notice_like_cnt
+		,  notice_reg_seq
+		,  notice_reg_date
+		,  notice_upd_date
 		) 
 		VALUES
 		(
@@ -51,39 +52,40 @@
 		,  'Y'
 		,  0
 		,  0
+		,  #{param3}
 		,  NOW()
 		,  NOW()
 		)
 	</insert>
 	
-	<select id="getNoticeContent" resultType="com.crossit.hcc.vo.HCCFmbVO">
+	<select id="getNoticeContent" resultType="com.crossit.hcc.vo.NoticeVO">
 		select * 
-		from hcc_fmb_tb 
-		where fmb_seq = #{param1}
+		from hcc_notice_tb 
+		where notice_seq = #{param1}
 	</select>
 	
 	<update id="deleteNotice">
 		update
-		 hcc_fmb_tb
-		set fmb_status = 'N'
-		where fmb_seq = #{param1}
+		 hcc_notice_tb
+		set notice_status = 'N'
+		where notice_seq = #{param1}
 	</update>
 	
 	<update id="updateNotice" parameterType="HashMap">
 		update 
-		  hcc_fmb_tb 
-		set fmb_title = #{param2}
-		,   fmb_content = #{param3}
-		,   fmb_upd_date = NOW() 
+		  hcc_notice_tb 
+		set notice_title = #{param2}
+		,   notice_content = #{param3}
+		,   notice_upd_date = NOW() 
 		
-		where fmb_seq = #{param1}
+		where notice_seq = #{param1}
 	</update>
 	
 	<update id="updateHit">
 		update
-		 hcc_fmb_tb
-		set fmb_cnt = fmb_cnt + 1
-		where fmb_seq = #{param1}
+		 hcc_notice_tb
+		set notice_cnt = notice_cnt + 1
+		where notice_seq = #{param1}
 	</update>
 	
 	
@@ -113,8 +115,8 @@
 		);
 	</insert>
 	<update id="updateNoticeLike">
-		update hcc_fmb_tb
-		set fmb_like_cnt = fmb_like_cnt+1
-		where fmb_seq = #{param1}
+		update hcc_notice_tb
+		set notice_like_cnt = notice_like_cnt+1
+		where notice_seq = #{param1}
 	</update>
 </mapper>	

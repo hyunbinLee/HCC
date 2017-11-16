@@ -11,7 +11,7 @@ import com.crossit.hcc.vo.UserVO;
 
 @Service
 @Configurable
-public class AdminMapperImple implements AdminMapper {
+public class AdminMapperImpl implements AdminMapper {
 
 	private SqlSessionTemplate sqlSessionTemplate;
 	

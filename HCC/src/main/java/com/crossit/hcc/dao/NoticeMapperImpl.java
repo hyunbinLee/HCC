@@ -7,12 +7,12 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Configurable;
 import org.springframework.stereotype.Service;
 
-import com.crossit.hcc.vo.HCCFmbVO;
 import com.crossit.hcc.vo.LikeVO;
+import com.crossit.hcc.vo.NoticeVO;
 
 @Service
 @Configurable
-public class NoticeMapperImple implements NoticeMapper {
+public class NoticeMapperImpl implements NoticeMapper {
 
 	private SqlSessionTemplate sqlSessionTemplate;
 	
@@ -21,7 +21,7 @@ public class NoticeMapperImple implements NoticeMapper {
 	}
 	
 	@Override
-	public List<HCCFmbVO> getNoticeList(int start, int end) {
+	public List<NoticeVO> getNoticeList(int start, int end) {
 		// TODO Auto-generated method stub	
 		HashMap<String,String> params = new HashMap<String, String>();
 		params.put("param1", String.valueOf(start));
@@ -37,17 +37,18 @@ public class NoticeMapperImple implements NoticeMapper {
 		}
 
 	@Override
-	public void writeNotice(String title, String content) {
+	public void writeNotice(String title, String content, int regSeq) {
 		// TODO Auto-generated method stub
-		HashMap<String, String> params = new HashMap<String, String>();
+		HashMap<String, Object> params = new HashMap<String, Object>();
 		params.put("param1", title);
 		params.put("param2", content);
+		params.put("param3", regSeq);
 		
 		sqlSessionTemplate.insert("com.crossit.hcc.dao.NoticeMapper.writeNotice",params);
 	}
 
 	@Override
-	public HCCFmbVO getNoticeContent(String seq) {
+	public NoticeVO getNoticeContent(String seq) {
 		// TODO Auto-generated method stub
 		return sqlSessionTemplate.selectOne("com.crossit.hcc.dao.NoticeMapper.getNoticeContent", seq);
 	}

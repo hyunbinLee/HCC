@@ -22,7 +22,7 @@
 		<intercept-url pattern="/noticeContentPage" access="hasAnyRole('ROLE_USER','ROLE_ADMIN')" />
 		<intercept-url pattern="/deleteNotice" access="hasRole('ROLE_ADMIN')" />
 		<intercept-url pattern="/updateNoticePage" access="hasRole('ROLE_ADMIN')" />
-		<intercept-url pattern="/updateNoitce" access="hasRole('ROLE_ADMIN')" />
+		<intercept-url pattern="/updateNotice" access="hasRole('ROLE_ADMIN')" />
 		<intercept-url pattern="/likeAction" access="hasRole('ROLE_ADMIN')"/>
 
 		<!-- 공지사항 관련(권한 미설정) -->
@@ -32,7 +32,7 @@
 		<intercept-url pattern="/noticeContentPage" access="hasAnyRole('ROLE_ADMIN', 'ROLE_USER')" />
 		<intercept-url pattern="/deleteNotice" access="hasAnyRole('ROLE_ADMIN', 'ROLE_USER')" />
 		<intercept-url pattern="/updateNoticePage" access="hasAnyRole('ROLE_ADMIN', 'ROLE_USER')" />
-		<intercept-url pattern="/updateNoitce" access="hasAnyRole('ROLE_ADMIN', 'ROLE_USER')" />
+		<intercept-url pattern="/updateNotice" access="hasAnyRole('ROLE_ADMIN', 'ROLE_USER')" />
 
 		<!-- 자유게시판 관련(권한 미설정) -->
 		<intercept-url pattern="/fmbList" access="hasAnyRole('ROLE_ADMIN', 'ROLE_USER')"/>

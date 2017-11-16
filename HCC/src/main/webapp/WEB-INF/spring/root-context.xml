@@ -20,10 +20,10 @@
 	<bean id="UserLoad" class="com.crossit.hcc.service.UserLoad">
 		<property name="userDao" ref="userDao"></property>
 	</bean>
-	<bean id="noticeDao" class="com.crossit.hcc.dao.NoticeMapperImple">
+	<bean id="noticeDao" class="com.crossit.hcc.dao.NoticeMapperImpl">
 		<property name="sqlSessionTemplate" ref="sqlSessionTemplate"></property>
 	</bean>
-	<bean id="adminDao" class="com.crossit.hcc.dao.AdminMapperImple">
+	<bean id="adminDao" class="com.crossit.hcc.dao.AdminMapperImpl">
 		<property name="sqlSessionTemplate" ref="sqlSessionTemplate"></property>
 	</bean>
 	<bean id="hospInfoMapper" class="com.crossit.hcc.dao.HospInfoMapperImpl">

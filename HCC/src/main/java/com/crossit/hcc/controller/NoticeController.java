@@ -8,20 +8,27 @@ import javax.servlet.http.HttpSession;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.crossit.hcc.dao.NoticeMapperImple;
-import com.crossit.hcc.service.NoticeService;
+import com.crossit.hcc.dao.NoticeMapperImpl;
+import com.crossit.hcc.service.PagingService;
+import com.crossit.hcc.service.UserDetail;
 
 @Controller
 public class NoticeController {
 	
+
 	@Autowired
-	private NoticeMapperImple noticeDao;
+	private NoticeMapperImpl noticeDao;
+	
+	
+	private PagingService pagingService;
 	
 
 	private static final Logger logger = LoggerFactory.getLogger(LoginController.class);
@@ -31,31 +38,26 @@ public class NoticeController {
 	public String noticeList(HttpSession session,Model model,
 	         @RequestParam(value = "page", required = false) String page)
 	{
-		if(page == null) {
-			page = "1";
+		if(page != null) {
+			model.addAttribute("page", page);
+		}else {
+			model.addAttribute("page", "1");
 		}
 		
-		model.addAttribute("page", page);		
-		
-		NoticeService pagingImpl = new NoticeService();
-		pagingImpl.paging(page);
-		
-		int start = pagingImpl.getStart();
-		int end = pagingImpl.getEnd();
-		
-		
-		//전체 게시물 수
-		pagingImpl.setNumberOfRecords(noticeDao.getNoticeCount());
-		//마지막 페이지 번호
-		
-		pagingImpl.makePaging();
-		
-		model.addAttribute("startPage", pagingImpl.getStartPageNo());
-		model.addAttribute("endPage", pagingImpl.getEndPageNo());
-		model.addAttribute("fmb",noticeDao.getNoticeList(start, end));
-		model.addAttribute("lastPage", pagingImpl.getFinalPageNo());
+		//페이지당 5개의 글
+		pagingService = new PagingService(5);
 
-		return "board/noticeList_ajax";
+		int noticeCount = noticeDao.getNoticeCount();
+		pagingService.paging(page,noticeCount);
+		
+		
+		
+		model.addAttribute("startPage", pagingService.startPageNo());
+		model.addAttribute("endPage", pagingService.endPageNo());
+		model.addAttribute("fmb",noticeDao.getNoticeList(pagingService.getStart(), pagingService.getEnd()));
+		model.addAttribute("lastPage", pagingService.getFinalPageNo());
+
+		return "notice/noticeList_ajax";
 	}
 	
 	
@@ -64,7 +66,7 @@ public class NoticeController {
 		logger.info("공지사항 작성 페이지 {}", session.getId());
 
 		
-		return "board/writePage";
+		return "notice/writePage";
 	}
 	
 	@RequestMapping(value="/noticeWrite", method=RequestMethod.GET)
@@ -78,7 +80,11 @@ public class NoticeController {
 		String content = request.getParameter("content");
 		content = new String(content.getBytes("8859_1"),"utf-8");
 		
-		noticeDao.writeNotice(title, content);
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+	    UserDetail userdetail = (UserDetail)auth.getPrincipal();
+		
+		
+		noticeDao.writeNotice(title, content,userdetail.getUser().getUser_seq());
 		
 		return "redirect:noticeList?page=1";
 	}
@@ -96,7 +102,11 @@ public class NoticeController {
 		
 		String like_seq = request.getParameter("seq");
 		String like_code = request.getParameter("code");
-		String like_reg_seq = request.getParameter("regSeq");
+		
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+	    UserDetail userdetail = (UserDetail)auth.getPrincipal();
+		
+		String like_reg_seq = "" + userdetail.getUser().getUser_seq();
 		
 		boolean likeStatus = false;
 		if(noticeDao.checkLike(like_seq, like_code, like_reg_seq) != null) {
@@ -104,7 +114,7 @@ public class NoticeController {
 		};
 		model.addAttribute("likeStatus", likeStatus);
 		
-		return "board/noticeContentPage";
+		return "notice/noticeContentPage";
 	}
 	
 	@RequestMapping(value ="/deleteNotice")
@@ -123,10 +133,10 @@ public class NoticeController {
 		String seq = request.getParameter("seq");
 		model.addAttribute("notice", noticeDao.getNoticeContent(seq));
 		
-		return "board/updatePage";
+		return "notice/updatePage";
 	}
 	
-	@RequestMapping(value="/updateNoitce")
+	@RequestMapping(value="/updateNotice")
 	public String updateNoitce(HttpServletRequest request) throws Exception {
 		
 		String seq = request.getParameter("seq");
@@ -145,7 +155,11 @@ public class NoticeController {
 	{
 		String like_seq = request.getParameter("seq");
 		String like_code = request.getParameter("code");
-		String like_reg_seq = request.getParameter("regSeq");
+		
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+	    UserDetail userdetail = (UserDetail)auth.getPrincipal();
+		
+		String like_reg_seq = "" + userdetail.getUser().getUser_seq();
 		
 		noticeDao.addLikeList(like_seq, like_code, like_reg_seq);
 		noticeDao.updateNoticeLike(like_seq);
