@@ -32,6 +32,7 @@ public class LoginController {
 	private NoticeMapperImple noticeDao;
 	@Autowired
 	private SessionHandler s_handler;
+
 	private static final Logger logger = LoggerFactory.getLogger(LoginController.class);
 
 	/**

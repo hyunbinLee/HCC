@@ -2,10 +2,14 @@ package com.crossit.hcc.service;
 
 import java.util.HashMap;
 
+import org.springframework.stereotype.Component;
+
 import com.crossit.hcc.dao.UserMapperImpl;
 import com.crossit.hcc.vo.UserVO;
 
 
+
+@Component
 public class UserServiceImpl {
 	
 //	@Autowired
