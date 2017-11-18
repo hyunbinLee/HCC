@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.crossit.hcc.dao.BlameMapper">
+	<select id = "getBlameList" resultType="com.crossit.hcc.vo.BlameVO" parameterType="HashMap">
+		SELECT b.*
+		FROM (
+			 SELECT 
+    		    @RNUM:=@RNUM+1 AS ROWNUM
+    		    ,  a.*
+			 FROM 
+		    	   (SELECT @RNUM:=0) R
+		    	,  (SELECT blame_seq
+		    	, blame_code
+		    	, blame_type
+		    	, blame_content
+		    	, blame_reg_seq
+		    	, blame_reg_date
+		    	    FROM hcc_blame_tb
+		    	    order by blame_reg_date
+		    	    ) a 
+			 ) as b 
+		where ROWNUM between #{param1} and #{param2}
+	</select>
+	
+	<select id="getBlameCount" resultType="int">
+		SELECT count(*)
+		FROM hcc_blame_tb
+	</select>
+</mapper>
