@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.crossit.hcc.dao.BoardMapperImpl;
-import com.crossit.hcc.dao.NoticeMapperImpl;
+import com.crossit.hcc.dao.NoticeMapper;
 import com.crossit.hcc.service.UserDetail;
 import com.crossit.hcc.util.SessionHandler;
 
@@ -31,7 +31,7 @@ public class LoginController {
 	private BoardMapperImpl boardDao;
 	
 	@Autowired
-	private NoticeMapperImpl noticeDao;
+	private NoticeMapper noticeDao;
 	
 	@Autowired
 	private SessionHandler s_handler;

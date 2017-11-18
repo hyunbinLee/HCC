@@ -50,11 +50,7 @@
 		<intercept-url pattern="/deleteUser" access="hasRole('ROLE_ADMIN')"/>
 		<intercept-url method="POST" pattern="/changePassword" access="hasAnyRole('ROLE_ADMIN')"/>
 
-		<intercept-url pattern="memberManagement" access="hasRole('ROLE_ADMIN')"/>
-		<intercept-url pattern="userInfo" access="hasRole('ROLE_ADMIN')"/>
-		<intercept-url pattern="deleteUser" access="hasRole('ROLE_ADMIN')"/>
-		<intercept-url pattern="changePassword" access="hasAnyRole('ROLE_ADMIN', 'ROLE_USER')"/>
-
+		<intercept-url pattern="/blameList" access="hasRole('ROLE_ADMIN')"/>
 		
 		<intercept-url pattern="/admin/**" access="hasRole('ROLE_ADMIN')" />
 		<intercept-url pattern="/*" access="hasAnyRole('ROLE_ADMIN', 'ROLE_USER')" />

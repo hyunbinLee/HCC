@@ -3,7 +3,7 @@ package com.crossit.hcc.service;
 import com.crossit.hcc.util.PageNavigation;
 
 
-public class PagingService{
+public class PagingServiceImpl implements PagingService{
 	private PageNavigation pageNav;
 	
 	private int currentPageNo;
@@ -13,7 +13,7 @@ public class PagingService{
 	private int end;
 	
 
-	public PagingService(int recordsPerPage) {
+	public PagingServiceImpl(int recordsPerPage) {
 		this.recordsPerPage = recordsPerPage;
 		//페이지당 글수 생성자에서 관리
 	}

@@ -16,8 +16,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.crossit.hcc.dao.NoticeMapperImpl;
+import com.crossit.hcc.dao.NoticeMapper;
 import com.crossit.hcc.service.PagingService;
+import com.crossit.hcc.service.PagingServiceImpl;
 import com.crossit.hcc.service.UserDetail;
 
 @Controller
@@ -25,7 +26,7 @@ public class NoticeController {
 	
 
 	@Autowired
-	private NoticeMapperImpl noticeDao;
+	private NoticeMapper noticeDao;
 	
 	
 	private PagingService pagingService;
@@ -45,7 +46,7 @@ public class NoticeController {
 		}
 		
 		//페이지당 5개의 글
-		pagingService = new PagingService(5);
+		pagingService = new PagingServiceImpl(5);
 
 		int noticeCount = noticeDao.getNoticeCount();
 		pagingService.paging(page,noticeCount);
