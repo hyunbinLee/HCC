@@ -26,4 +26,24 @@
 		SELECT count(*)
 		FROM hcc_blame_tb
 	</select>
+	
+	<insert id="insertBlameList" parameterType="HashMap">
+		insert
+		into hcc_blame_tb(
+		  blame_seq
+		, blame_code
+		, blame_type
+		, blame_content
+		, blame_reg_seq
+		, blame_reg_date
+		)
+		values(
+			#{param1}
+			, #{param2}
+			, #{param3}
+			, #{param4}
+			, #{param5}
+			, now()
+		)
+	</insert>
 </mapper>

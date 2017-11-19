@@ -49,4 +49,13 @@ public class BlameContoroller {
 		
 		return "/blame/blameList";
 	}
+	
+	@RequestMapping(value="/Declaration")
+	public String DeclarationAction(HttpSession session, Model model) {
+		
+		
+		
+		
+		return "redirect";
+	}
 }
