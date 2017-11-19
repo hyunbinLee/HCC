@@ -70,7 +70,9 @@
 							<div class="left">
 								<sec:authorize access="hasRole('ROLE_ADMIN')">
 									<c:url value="./memberManagement" var="memberManagement"/>
-									<a href="${memberManagement }">회원 관리</a>
+									<a href="${memberManagement }">회원 관리</a> &nbsp;&nbsp;
+									<c:url value="./blameList" var="blameList"/>
+									<a href="${blameList }">나쁜놈들</a>
 								</sec:authorize>
 							</div>
 							<input type="submit" class="right" value="Logout">

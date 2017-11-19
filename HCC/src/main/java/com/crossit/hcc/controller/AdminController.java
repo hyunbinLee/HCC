@@ -11,14 +11,15 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.crossit.hcc.dao.AdminMapperImpl;
+import com.crossit.hcc.dao.AdminMapper;
 import com.crossit.hcc.service.PagingService;
+import com.crossit.hcc.service.PagingServiceImpl;
 
 @Controller
 public class AdminController {
 
 	@Autowired
-	private AdminMapperImpl adminDao;
+	private AdminMapper adminDao;
 	
 	private PagingService pagingService;
 	
@@ -45,7 +46,7 @@ public class AdminController {
 		}
 		
 		//회원 10명
-		pagingService = new PagingService(10);
+		pagingService = new PagingServiceImpl(10);
 
 		int userCount = adminDao.getUserCount(userKind);
 		pagingService.paging(page,userCount);
