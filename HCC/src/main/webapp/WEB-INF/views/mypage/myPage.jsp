@@ -55,36 +55,20 @@
 
 			<div class="mylist1">
 				<div class="mylist_nav">
-					<p>내가 좋아요한 게시물</p>
+					<p>내가 좋아한 게시물</p>
 				</div>
 				<div class="mylist_top">
 					<table>
 						<tbody>
+							<c:forEach var="list" items="${List_L }">
 							<tr>
-								<td class="number"><b>1</b></td>
-								<td><b>고려대학병원 추천합...</b></td>
-								<td class="rank_num"><b>51321</b></td>
+							<td class="number"><b>${list.notice_seq }</b></td>
+							
+							<td><b><a href="${ncontenturl }?seq=${list.notice_seq}">${list.notice_title }</a> </b></td>
+							<td class="rank_num"><b>${list.notice_cnt }</b></td>
 							</tr>
-							<tr>
-								<td class="number"><b>2</b></td>
-								<td><b>고려대학병원 추천합...</b></td>
-								<td class="rank_num"><b>1321</b></td>
-							</tr>
-							<tr>
-								<td class="number"><b>3</b></td>
-								<td><b>고려대학병원 추천합...</b></td>
-								<td class="rank_num"><b>321</b></td>
-							</tr>
-							<tr>
-								<td class="number"><b>4</b></td>
-								<td><b>고려대학병원 추천합...</b></td>
-								<td class="rank_num"><b>21</b></td>
-							</tr>
-							<tr>
-								<td class="number"><b>5</b></td>
-								<td><b>고려대학병원 추천합...</b></td>
-								<td class="rank_num"><b>1</b></td>
-							</tr>
+							</c:forEach>
+							
 						</tbody>
 					</table>
 				</div>
@@ -92,36 +76,27 @@
 
 			<div class="mylist2">
 				<div class="mylist_nav">
-					<p>내가 ~한 게시물</p>
+					<p>내가 게시한 게시물</p>
 				</div>
 				<div class="mylist_top">
+				<c:url var="ncontenturl" value="/noticeContentPage"/>
+				
 					<table>
 						<tbody>
+							
+							<c:forEach var="list" items="${List }">
 							<tr>
-								<td class="number"><b>1</b></td>
-								<td><b>고려대학병원 추천합...</b></td>
-								<td class="rank_num"><b>51321</b></td>
+							<td class="number"><b>${list.notice_seq }</b></td>
+							
+							<td><b><a href="${ncontenturl }?seq=${list.notice_seq}">${list.notice_title }</a> </b></td>
+							<td class="rank_num"><b>${list.notice_cnt }</b></td>
 							</tr>
-							<tr>
-								<td class="number"><b>2</b></td>
-								<td><b>고려대학병원 추천합...</b></td>
-								<td class="rank_num"><b>1321</b></td>
-							</tr>
-							<tr>
-								<td class="number"><b>3</b></td>
-								<td><b>고려대학병원 추천합...</b></td>
-								<td class="rank_num"><b>321</b></td>
-							</tr>
-							<tr>
-								<td class="number"><b>4</b></td>
-								<td><b>고려대학병원 추천합...</b></td>
-								<td class="rank_num"><b>21</b></td>
-							</tr>
-							<tr>
-								<td class="number"><b>5</b></td>
-								<td><b>고려대학병원 추천합...</b></td>
-								<td class="rank_num"><b>1</b></td>
-							</tr>
+							</c:forEach>
+							
+							
+							
+							
+						
 						</tbody>
 					</table>
 				</div>

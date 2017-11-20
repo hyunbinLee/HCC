@@ -23,7 +23,7 @@
 		<intercept-url pattern="/deleteNotice" access="hasRole('ROLE_ADMIN')" />
 		<intercept-url pattern="/updateNoticePage" access="hasRole('ROLE_ADMIN')" />
 		<intercept-url pattern="/updateNotice" access="hasRole('ROLE_ADMIN')" />
-		<intercept-url pattern="/likeAction" access="hasRole('ROLE_ADMIN')"/>
+		<intercept-url pattern="/likeAction" access="hasAnyRole('ROLE_USER','ROLE_ADMIN')"/>
 
 		<!-- 공지사항 관련(권한 미설정) -->
 		<intercept-url pattern="/noticeList" access="hasAnyRole('ROLE_ADMIN', 'ROLE_USER')" />

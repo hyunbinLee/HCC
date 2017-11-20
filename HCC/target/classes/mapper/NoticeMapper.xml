@@ -64,6 +64,17 @@
 		where notice_seq = #{param1}
 	</select>
 	
+	<select id="getNoticeContentByUserSeq" resultType="com.crossit.hcc.vo.NoticeVO">
+		select * 
+		from hcc_notice_tb 
+		where notice_reg_seq = #{param1}
+	</select>
+	<select id="getLikeNoticeContentByUserSeq" resultType="com.crossit.hcc.vo.LikeVO">
+		select * 
+		from hcc_like_tb 
+		where like_reg_seq = #{param1}
+	</select>
+	
 	<update id="deleteNotice">
 		update
 		 hcc_notice_tb
