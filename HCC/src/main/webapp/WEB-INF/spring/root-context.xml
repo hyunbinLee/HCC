@@ -26,7 +26,7 @@
 	<bean id="adminDao" class="com.crossit.hcc.dao.AdminMapper">
 		<property name="sqlSessionTemplate" ref="sqlSessionTemplate"></property>
 	</bean>
-	<bean id="hospInfoMapper" class="com.crossit.hcc.dao.HospInfoMapperImpl">
+	<bean id="hospInfoMapper" class="com.crossit.hcc.dao.HospInfoMapper">
 		<property name="sqlSessionTemplate" ref="sqlSessionTemplate"></property>
 	</bean>	
 	<bean id="sessionHandler" class="com.crossit.hcc.util.SessionHandler">

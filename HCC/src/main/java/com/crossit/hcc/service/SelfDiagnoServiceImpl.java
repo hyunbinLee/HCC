@@ -10,7 +10,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.crossit.hcc.dao.HospInfoMapperImpl;
+import com.crossit.hcc.dao.HospInfoMapper;
 import com.crossit.hcc.dao.SelfDiagnoMapperImpl;
 
 @Service("SelfDiagnoServiceImpl")

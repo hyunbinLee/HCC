@@ -1,84 +1,155 @@
 package com.crossit.hcc.dao;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import org.mybatis.spring.SqlSessionTemplate;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Configurable;
+import org.springframework.stereotype.Repository;
+import org.springframework.stereotype.Service;
+
+import com.crossit.hcc.vo.BoardVO;
+import com.crossit.hcc.vo.HCCFmbVO;
 import com.crossit.hcc.vo.HospInfoReplVO;
 import com.crossit.hcc.vo.HospInfoVO;
 
+@Repository
+public class HospInfoMapper{
 
-
-public interface HospInfoMapper {
-
-	// 페이지 별 리스트 출력 
-	public List<HospInfoVO> getHospInfoList(int start, int end);
+	@Autowired
+	private SqlSessionTemplate sqlSessionTemplate;
 	
-	// 페이징 처리
-	public int getHospInfoCount();
+	int noOfRecords=0;
+
+	public void setSqlSessionTemplate(SqlSessionTemplate sqlSessionTemplate) {
+		this.sqlSessionTemplate = sqlSessionTemplate;
+	}
+
+	
+	// 페이지에 맞게 레코트 출력
+	public List<BoardVO> selectRecordsPerPage(int offset,int noOfRecords) {
+		// TODO Auto-generated method stub
+		List<BoardVO> boardList = new ArrayList<BoardVO>();
+        
+        HashMap<String, Object> params = new HashMap<String, Object>();
+ 
+        params.put("offset", offset);
+        params.put("noOfRecords", noOfRecords);        
+                
+        boardList = sqlSessionTemplate.selectList("com.crossit.hcc.dao.BoardMapper.selectRecordsPerPage", params);
+        this.noOfRecords = sqlSessionTemplate.selectOne("com.crossit.hcc.dao.BoardMapper.selectTotalRecords");
+           
+        return boardList;
+	}
+	
+	
+	// 레코드 수 출력
+	public int getNoOfRecords() {	 
+        return noOfRecords;
+	}
+	
 	
 	// 리스트 출력
-	public List<HospInfoVO> selectHospInfoBoardList();
+	public List<HospInfoVO> selectHospInfoBoardList() {
+		return sqlSessionTemplate.selectList("com.crossit.hcc.dao.HospInfoMapper.selectHospInfoBoardList");
+	}
 
-	// Top5 출력
-	public List<HospInfoVO> selectHospInfoTop5List();
+	public List<HospInfoVO> getHospInfoList(int start, int end) {
+		
+		Map<String,Object> map = new HashMap<String, Object>(); 
+		
+		map.put("start", start); 
+		map.put("end",  end);
+		return sqlSessionTemplate.selectList("com.crossit.hcc.dao.HospInfoMapper.getHospInfoList", map);
+	}
 	
-	// 글 조회
-	public HospInfoVO returnDetail(HttpServletRequest request);
+	public int getHospInfoCount() {
+		int count = sqlSessionTemplate.selectOne("com.crossit.hcc.dao.HospInfoMapper.getHospInfoCount");
+		
+		System.out.println("========================="+count+"==========================");
+		return count;
+	}
 	
-	// 댓글 조회
-	public List<HospInfoReplVO> returnComment(HttpServletRequest request);
+	public List<HospInfoVO> selectHospInfoTop5List() {
+		return sqlSessionTemplate.selectList("com.crossit.hcc.dao.HospInfoMapper.selectHospInfoTop5List");
+	}
+	
+	public HospInfoVO returnDetail(int boardseq) {
+		return sqlSessionTemplate.selectOne("com.crossit.hcc.dao.HospInfoMapper.returnDetail", boardseq);
+	}
 
-	// 조회수 up
-	public void updateHitCount(HttpServletRequest request);
+	public List<HospInfoReplVO> returnComment(int boardseq) {
+		return sqlSessionTemplate.selectList("com.crossit.hcc.dao.HospInfoMapper.returnComment", boardseq);
+	}
 
-	// 병원정보공유 게시글 등록
-	public void writeHospInfo(HttpServletRequest request);
+	public void updateHitCount(int boardseq) {
+		sqlSessionTemplate.update("com.crossit.hcc.dao.HospInfoMapper.updateHitCount", boardseq);
+	}
 
-	// 병원정보공유 게시글 수정
-	public void modifyHospInfo(HttpServletRequest request);
-	
-	// 병원정보공유 게시글 삭제
-	public void deleteHospInfo(HttpServletRequest request);
+	public void writeHospInfo(Map<String,Object> map) {
+		sqlSessionTemplate.insert("com.crossit.hcc.dao.HospInfoMapper.writeHospInfo", map);
+	}
 
-	// 댓글 등록
-	public void writeHospInfoRepl(HttpServletRequest request);
+	public void modifyHospInfo(Map<String,Object> map) {
+		sqlSessionTemplate.update("com.crossit.hcc.dao.HospInfoMapper.modifyHospInfo", map);
+	}
 
-	// 댓글 삭제
-	public void deleteHospInfoRepl(HttpServletRequest request);
+	public void deleteHospInfo(int boardseq) {
+		sqlSessionTemplate.delete("com.crossit.hcc.dao.HospInfoMapper.deleteHospInfo", boardseq);
+	}
 
-	// 대댓글 등록
-	public void writeHospInfoSubRepl(HttpServletRequest request);
-	
-	// 대댓글 삭제
-	public void deleteHospInfoSubRepl(HttpServletRequest request);
-	
-	// 게시글 신고
-	public void blameHospInfo(HttpServletRequest request);
-	
-	// 댓글 신고
-	public void blameHospInfoRepl(HttpServletRequest request);
-	
-	// 대댓글 신고
-	public void blameHospInfoSubRepl(HttpServletRequest request);
+	public void writeHospInfoRepl(Map<String,Object> map) {
+		sqlSessionTemplate.insert("com.crossit.hcc.dao.HospInfoMapper.writeHospInfoRepl", map);
+	}
 
-	// 회원별 신고 횟수 증가
-	public void updateblameCount(HttpSession session);
+	public void deleteHospInfoRepl(Map<String,Object> map) {
+		sqlSessionTemplate.delete("com.crossit.hcc.dao.HospInfoMapper.deleteHospInfoRepl", map);		
+	}
+
+	public void writeHospInfoSubRepl(Map<String,Object> map) {
+		sqlSessionTemplate.insert("com.crossit.hcc.dao.HospInfoMapper.writeHospInfoSubRepl", map);
+	}
+
+	public void deleteHospInfoSubRepl(Map<String,Object> map) {
+		sqlSessionTemplate.delete("com.crossit.hcc.dao.HospInfoMapper.deleteHospInfoSubRepl", map);		
+	}
+
+	public void blameHospInfo(int boardseq) {
+		sqlSessionTemplate.update("com.crossit.hcc.dao.HospInfoMapper.blameHospInfo", boardseq);
+	}
+
+	public void blameHospInfoRepl(Map<String,Object> map) {
+		sqlSessionTemplate.update("com.crossit.hcc.dao.HospInfoMapper.blameHospInfoRepl", map);
+	}
+
+	public void blameHospInfoSubRepl(Map<String,Object> map) {
+		sqlSessionTemplate.update("com.crossit.hcc.dao.HospInfoMapper.blameHospInfoSubRepl", map);
+	}
+
+	public void updateblameCount(int userseq) {
+		sqlSessionTemplate.update("com.crossit.hcc.dao.HospInfoMapper.updateblameCount", userseq);
+	}
+
 
 	
 
 	
 
+
 	
 
 
-	// 모든 쿼리에 작성자인지 아닌지 확인하는 코드 추가
 	
-	// 좋아요, 싫어요
-	
+
 
 	
 	
 	
+
 }

@@ -13,20 +13,19 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.crossit.hcc.dao.HospInfoMapperImpl;
 import com.crossit.hcc.service.HospInfoBoardService;
+import com.crossit.hcc.service.HospInfoBoardServiceImpl;
 
 @Controller
 public class HospInfoBoardController {
 
 	@Autowired
-	private HospInfoMapperImpl hospInfoMapper;
+	private HospInfoBoardServiceImpl HospInfoBoardService;
 	
 	@Autowired
 	SqlSession sqlSession;
 	
 	private static final Logger logger = LoggerFactory.getLogger(LoginController.class);
-	
 	
 	
 	// 병원정보공유 글쓰기 페이지
@@ -36,42 +35,36 @@ public class HospInfoBoardController {
 		
 		return mav;
 	}
-	
+	/*
 	// 병원정보공유 게시판 
 	@RequestMapping(value = "/hospInfoBoard", method = RequestMethod.GET)
 	public ModelAndView selectHospInfoBoardList(HttpServletRequest request, @RequestParam(value="page", required=false) String page) throws Exception{
 		ModelAndView mav = new ModelAndView("/board/hospInfoBoard_ajax");
 
-		HospInfoBoardService pagingImpl = new HospInfoBoardService(page);
+		mav.addObject("list", HospInfoBoardService.hospInfoList(request, page));
 		
-		int start = pagingImpl.getStart();
-		int end = pagingImpl.getEnd();
-		
-		//전체 게시물 수
-		pagingImpl.setNumberOfRecords(hospInfoMapper.getHospInfoCount());
-		//마지막 페이지 번호
-				
-		pagingImpl.makePaging();
-		
-		mav.addObject("page", page);	
-		mav.addObject("startPage", pagingImpl.getStartPageNo());
-		mav.addObject("endPage", pagingImpl.getEndPageNo());
-		mav.addObject("list",hospInfoMapper.getHospInfoList(start, end));
-		mav.addObject("lastPage", pagingImpl.getFinalPageNo());
-		mav.addObject("listt", hospInfoMapper.getHospInfoList(start, end));
-		
-		System.out.println(start+"//"+end+"//"+page+"//"+pagingImpl.getFinalPageNo());
 		return mav;
 	}
+	*/
+	// 병원정보공유 게시판 
+		@RequestMapping(value = "/hospInfoBoard", method = RequestMethod.GET)
+		public ModelAndView selectHospInfoBoardList(HttpServletRequest request, @RequestParam(value="page", required=false) String page) throws Exception{
+			ModelAndView mav = new ModelAndView("/board/hospInfoBoard");
+
+			mav.addObject("list", HospInfoBoardService.selectHospInfoBoardList(request));
+			
+			return mav;
+		}
+	
 	
 	// 병원정보공유 게시판 상세 페이지 - 유저에 따라 다르게 보여지는 코드 추가해야함 
-	@RequestMapping(value = "/hospInfoBoard_detail", method = RequestMethod.POST)
+	@RequestMapping(value = "/hospInfoBoard_detail", method = RequestMethod.GET)
 	public ModelAndView toHospInfoBoardDet(HttpServletRequest request) throws Exception{
 		ModelAndView mav = new ModelAndView("/board/hospInfoBoard_detail");
 		
-		mav.addObject("detail", hospInfoMapper.returnDetail(request));			
-		mav.addObject("comment", hospInfoMapper.returnComment(request));		
-		hospInfoMapper.updateHitCount(request);
+		mav.addObject("detail", HospInfoBoardService.returnDetail(request));			
+		mav.addObject("comment", HospInfoBoardService.returnComment(request));		
+		HospInfoBoardService.updateHitCount(request);
 		
 		return mav;
 	}
@@ -81,17 +74,17 @@ public class HospInfoBoardController {
 	public ModelAndView toHospInfoBoardModify(HttpServletRequest request) throws Exception{
 		ModelAndView mav = new ModelAndView("/board/hospInfoBoard_modify");
 
-		mav.addObject("detail", hospInfoMapper.returnDetail(request));
+		mav.addObject("detail", HospInfoBoardService.returnDetail(request));
 	
 		return mav;
 	}
 	
 	// 글 등록
-	@RequestMapping(value = "/writeHospInfo", method = RequestMethod.POST) 
-	 public ModelAndView writeHospInfo(HttpServletRequest request) throws Exception{ 
-		ModelAndView mav = new ModelAndView("redirect:/board/hospInfoBoard_main");
+	@RequestMapping(value = "/writeHospInfo", method = RequestMethod.GET) 
+	 public ModelAndView writeHospInfo(HttpSession session, HttpServletRequest request) throws Exception{ 
+		ModelAndView mav = new ModelAndView("redirect:/hospInfoBoard");
 		
-		hospInfoMapper.writeHospInfo(request);
+		HospInfoBoardService.writeHospInfo(request, session);
 		
 		return mav;
 	}
@@ -99,9 +92,9 @@ public class HospInfoBoardController {
 	// 글 수정
 	@RequestMapping(value = "/modifyHospInfo", method = RequestMethod.POST) 
 	public ModelAndView modifyHospInfo(HttpServletRequest request) throws Exception{ 
-		ModelAndView mav = new ModelAndView("redirect:/board/hospInfoBoard_main");
+		ModelAndView mav = new ModelAndView("redirect:/hospInfoBoard");
 		
-		hospInfoMapper.modifyHospInfo(request);
+		HospInfoBoardService.modifyHospInfo(request);
 		
 		return mav;
 	}
@@ -111,8 +104,8 @@ public class HospInfoBoardController {
 	public ModelAndView deleteHospInfo(HttpServletRequest request) throws Exception{
 		ModelAndView mav = new ModelAndView("redirect:/board/hospInfoBoard_main");
 		
-		hospInfoMapper.deleteHospInfo(request);
-			
+		HospInfoBoardService.deleteHospInfo(request);
+		
 		return mav;
 	}
 	
@@ -122,7 +115,7 @@ public class HospInfoBoardController {
 		int boardseq = Integer.parseInt(request.getParameter("boardseq"));
 		ModelAndView mav = new ModelAndView("redirect:/board/hospInfoBoard_det?boardseq="+boardseq+"");	
 		
-		hospInfoMapper.writeHospInfoRepl(request);
+		HospInfoBoardService.writeHospInfoRepl(request);
 		
 		return mav;
 	}
@@ -133,7 +126,7 @@ public class HospInfoBoardController {
 		int boardseq = Integer.parseInt(request.getParameter("boardseq"));
 		ModelAndView mav = new ModelAndView("redirect:/board/hospInfoBoard_det?boardseq="+boardseq+"");	
 		
-		hospInfoMapper.deleteHospInfoRepl(request);
+		HospInfoBoardService.deleteHospInfoRepl(request);
 			
 		return mav;
 	}
@@ -144,7 +137,7 @@ public class HospInfoBoardController {
 		int boardseq = Integer.parseInt(request.getParameter("boardseq"));
 		ModelAndView mav = new ModelAndView("redirect:/board/hospInfoBoard_det?boardseq="+boardseq+"");	
 		
-		hospInfoMapper.writeHospInfoSubRepl(request);
+		HospInfoBoardService.writeHospInfoSubRepl(request);
 	
 		return mav;
 	}
@@ -155,7 +148,7 @@ public class HospInfoBoardController {
 		int boardseq = Integer.parseInt(request.getParameter("boardseq"));
 		ModelAndView mav = new ModelAndView("redirect:/board/hospInfoBoard_det?boardseq="+boardseq+"");	
 				
-		hospInfoMapper.deleteHospInfoSubRepl(request);
+		HospInfoBoardService.deleteHospInfoSubRepl(request);
 			
 		return mav;
 	}
@@ -166,8 +159,8 @@ public class HospInfoBoardController {
 		int boardseq = Integer.parseInt(request.getParameter("boardseq"));
 		ModelAndView mav = new ModelAndView("redirect:/board/hospInfoBoard_det?boardseq="+boardseq+"");	
 		
-		hospInfoMapper.blameHospInfo(request);
-		hospInfoMapper.updateblameCount(session);
+		HospInfoBoardService.blameHospInfo(request);
+		HospInfoBoardService.updateblameCount(session);
 		
 		return mav;
 	}
@@ -178,8 +171,9 @@ public class HospInfoBoardController {
 		int boardseq = Integer.parseInt(request.getParameter("boardseq"));
 		ModelAndView mav = new ModelAndView("redirect:/board/hospInfoBoard_det?boardseq="+boardseq+"");	
 	
-		hospInfoMapper.blameHospInfoRepl(request);
-		hospInfoMapper.updateblameCount(session);
+		HospInfoBoardService.blameHospInfoRepl(request);
+		HospInfoBoardService.updateblameCount(session);
+
 			
 		return mav;
 	}
@@ -190,8 +184,9 @@ public class HospInfoBoardController {
 		int boardseq = Integer.parseInt(request.getParameter("boardseq"));
 		ModelAndView mav = new ModelAndView("redirect:/board/hospInfoBoard_det?boardseq="+boardseq+"");	
 				
-		hospInfoMapper.blameHospInfoSubRepl(request);
-		hospInfoMapper.updateblameCount(session);
+		HospInfoBoardService.blameHospInfoSubRepl(request);
+		HospInfoBoardService.updateblameCount(session);
+
 				
 		return mav;
 	}	

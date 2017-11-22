@@ -98,7 +98,7 @@
 			<div class="notice_board_wrap">
 			<c:url value="/hospInfoBoard" var="hospList" />
 				<div class="notice_board_title p_b5">
-					<span class="p_b5">병원정보 공유</span> <a href="${hospList }?page=1" class="right"><span>+ 더보기</span></a>
+					<span class="p_b5">병원정보 공유</span> <a href="${hospList}" class="right"><span>+ 더보기</span></a>
 				</div>
 				<div class="notice_board">
 					<ul>
