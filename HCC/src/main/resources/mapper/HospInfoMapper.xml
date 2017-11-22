@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="com.crossit.hcc.dao.HospInfoMapperImpl">
+<mapper namespace="com.crossit.hcc.dao.HospInfoMapper">
 
 	<!-- String이나 hashmap으로 넘겨야 if문 쓸 수 있음 -->
 
@@ -78,7 +78,7 @@
 	</select>
 	
 	<!-- 상세 페이지 - 게시글 등록 -->
-	<insert id="writeHospInfo" parameterType="hashmap">
+	<insert id="writeHospInfo" parameterType="HashMap">
 		INSERT INTO 
 		hcc_hospital_info_tb
 		(
@@ -94,12 +94,12 @@
 			#{content}, 
 			#{star}, 
 			#{writerseq}, 
-			SYSDATE
+			NOW()
 		)
 	</insert>	
 	
 	<!-- 상세 페이지 - 게시글 수정 -->
-	<update id="modifyHospInfo" parameterType="hashmap">
+	<update id="modifyHospInfo" parameterType="HashMap">
 		UPDATE hcc_hospital_info_tb
 		SET hospital_info_title = #{title}, 
 			hospital_info_content = #{content}, 

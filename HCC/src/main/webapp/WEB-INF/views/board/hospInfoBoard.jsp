@@ -8,72 +8,6 @@
 
 <%@ include file="../common/inc_header.jsp"%>
 
-<script src="http://code.jquery.com/jquery-1.10.2.js"></script>
-<script type="text/javascript">  
-	$(document).ready(function(){
-	    var bak_height = $('html').height();
-	    $('.bak_bl').css('height',bak_height);
-	});
-	
-	function lay_pop_close(){
-	    $('.login_wrap').hide();
-	    $('.bak_bl').hide();
-	}
-	
-	function join(){
-	    $('.login_wrap').show();
-	    $('.bak_bl').show();
-	}
-    
-    
-    var nowpage = 1;
-	
-	function changePage(page) {
-		search(page);
-	}
-	
-	function search(page) {    
-		
-		
-		var form_data = $("#frm").serialize();
-		
-		$.ajax({
-	        complete: function(jqXHR, textStatus){   }, 
-	        type: 'post',
-	        dataType: "html",
-	        url: './hospInfoBoard',
-	        data: form_data,
-	        success: function(data, textStatus , jqXHR){
-				$('#contents').html(data);
-	        },
-	        error: function(jqXHR, textStatus, error){
-	        	alert(error) ;
-	        } 
-	    });  
-	}
-	
-	$(function(){
-		search(nowpage);
-	});
-	
-	function goDet(boardseq){
-   	 $.ajax({
-   		 type:'post',
-   	 	 url:'/hospInfoBoard_detail',
-   	 	 data:{boardseq : boardseq},
-   	 	 contentType:"application/x-www-form-urlencoded; charset=UTF-8",
-   	 	 dataType:'json'
-   	 });
-   	 
-   	 var form = document.goDetForm;
-   	 form.boardseq.value = boardseq;
-   	 form.action = "/hospInfoBoard_detail";
-   	 form.submit();
-    }
-	
-		
-</script> 
-
 </head>
 <body>
 
@@ -82,8 +16,6 @@
 		<!-- Top Menu -->
 		<%@ include file="../common/inc_top.jsp"%>
 	
-			<h1>병원정보공유 게시판</h1>
-			
 			
 			<div id="contents">
 		          <div id="search">
@@ -108,6 +40,7 @@
 		              <div id="list_box">
                   		  <div id="adult">성인</div>
                   		  <div id="teenager">소아/청소년</div>
+                  		  <div class="write"><a href="./hospInfoBoard_write">글쓰기</a></div>
              		  </div>
               		  <table>
 		                  <thead>
@@ -122,25 +55,23 @@
 	                  	  </thead>
 	                  	  
                   		  <tbody>
-                  		  	<c:forEach items="${listt}" var="listt"> 
+                  		  	<c:forEach items="${list}" var="list"> 
 		                      <tr>
-		                          <td class="num"><b>${listt.hospital_info_seq}</b></td>
-		                          <a href="#" onclick="goDet('<c:out value="${listt.hospital_info_seq}"/>');" >
-		                          <td class="title"><b>${listt.hospital_info_title}</b></td>
-		                          </a>
-		                          <td class="grade"><b>${listt.hospital_info_score}</b></td>
+		                          <td class="num"><b>${list.hospital_info_seq}</b></td>
+		                          <td class="title"><b><a
+										href="./hospInfoBoard_detail?boardseq=${list.hospital_info_seq}">${list.hospital_info_title}</a></b></td>
+		                          <td class="grade"><b>${list.hospital_info_score}</b></td>
 		                          <td class="name"><b></b></td>
-		                          <td class="day"><b>${listt.hospital_info_reg_date}</b></td>
-		                          <td class="re"><b>${listt.hospital_info_like_cnt}</b></td>
+		                          <td class="day"><b>${list.hospital_info_reg_date}</b></td>
+		                          <td class="re"><b>${list.hospital_info_like_cnt}</b></td>
 		                      </tr>
 		                    </c:forEach>
                   		</tbody>
               		</table>
+			  </div>
 			  
-          		</div>
-		  
-
-			</div>
-	
+			  <%@ include file="../common/inc_right.jsp"%>
+          </div>
+	</div>
 </body>
 </html>

@@ -1,80 +1,78 @@
 package com.crossit.hcc.service;
 
-import com.crossit.hcc.dao.HospInfoMapperImpl;
-import com.crossit.hcc.util.PageNavigation;
+import java.util.List;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
+import com.crossit.hcc.vo.HospInfoReplVO;
+import com.crossit.hcc.vo.HospInfoVO;
+
+public interface HospInfoBoardService {
 
 
-public class HospInfoBoardService{
+	// 게시글 수 조회
+	public int getHospInfoCount();
+
+	// 리스트 출력
+	public List<HospInfoVO> selectHospInfoBoardList(HttpServletRequest request);	
+
+	// Top5 출력
+	public List<HospInfoVO> selectHospInfoTop5List(HttpServletRequest request);
+
+	// 글 조회
+	public HospInfoVO returnDetail(HttpServletRequest request);
+
+	// 댓글 조회
+	public List<HospInfoReplVO> returnComment(HttpServletRequest request);
+
+	// 조회수 up
+	public void updateHitCount(HttpServletRequest request);
+	
+	// 병원정보공유 게시글 등록
+	public void writeHospInfo(HttpServletRequest request, HttpSession session);
+	
+	// 병원정보공유 게시글 수정
+	public void modifyHospInfo(HttpServletRequest request);
+	
+	// 병원정보공유 게시글 삭제
+	public void deleteHospInfo(HttpServletRequest request);
+	
+	// 병원정보공유 게시판 댓글 등록
+	public void writeHospInfoRepl(HttpServletRequest request);
+	
+	// 병원정보공유 게시판 댓글 삭제
+	public void deleteHospInfoRepl(HttpServletRequest request);
+	
+	// 병원정보공유 게시판 대댓글 등록
+	public void writeHospInfoSubRepl(HttpServletRequest request);
+	
+	// 병원정보공유 게시판 대댓글 삭제
+	public void deleteHospInfoSubRepl(HttpServletRequest request);
+	
+	// 병원정보공유 게시글 신고
+	public void blameHospInfo(HttpServletRequest request);
+	
+	// 병원정보공유 게시판 댓글 신고
+	public void blameHospInfoRepl(HttpServletRequest request);
+	
+	// 병원정보공유 게시판 대댓글 신고
+	public void blameHospInfoSubRepl(HttpServletRequest request);
+	
+	// 회원별 신고 횟수 증가
+	public void updateblameCount(HttpSession session);
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 
 
-	private HospInfoMapperImpl hospInfoMapper=new HospInfoMapperImpl();
-	/*
-	public List<HospInfoVO> selectRecordsPerPage(int offset, int noOfRecords) throws Exception{
-		return HospInfoMapper.selectRecordsPerPage(offset, noOfRecords);
-	}
-	*/
-	/////////////////////////////////////페이징 처리/////////////////////////////////////
-	PageNavigation paging;
-	
-	int currentPageNo;
-	int recordsPerPage;
-	int start;
-	int end;
-	
-//	   public List<HospVO> selectRecordsPerPage(int offset, int noOfRecords) {
-//	        
-//	        return hospInfoMapper.selectRecordsPerPage(offset, noOfRecords);
-//	    }
-//
-//	    public HospInfoMapperImpl getBoardDao() {
-//	    	 
-//	        return hospInfoMapper;
-//	    }
-	
-	public HospInfoBoardService() {
-		// TODO Auto-generated constructor stub
-	}
-	public HospInfoBoardService(String page) {
-		try {
-			currentPageNo = Integer.parseInt(page);
-		} catch (NumberFormatException e) {
-			currentPageNo = 1;
-		}
-		
-		if(page != null) {
-			currentPageNo = Integer.parseInt(page);
-		}
-		recordsPerPage = 5; //페이지당 5개의 게시물
-		
-		paging = new PageNavigation(currentPageNo, recordsPerPage);
-		
-		//호출할 페이지 레코드 번호
-		start = (currentPageNo -1)* paging.getRecordsPerPage() +1;
-		end = currentPageNo * paging.getRecordsPerPage();
-	}
-	public int getStart() {
-		return start;
-	}
-	public int getEnd() {
-		return end;
-	}
-	public void setNumberOfRecords(int numberOfRecords) {
-		paging.setNumberOfRecords(numberOfRecords);
-	}
-	public int getFinalPageNo() {
-		return paging.getFinalPageNo();
-	}
-	public void makePaging() {
-		paging.makePaging();
-	}
-	public int getStartPageNo() {
-		return paging.getStartPageNo();
-	}
-	public int getEndPageNo() {
-		return paging.getEndPageNo();
-	}
-	
-	
 
 }
