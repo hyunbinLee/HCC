@@ -19,7 +19,7 @@ private static final Logger logger = LoggerFactory.getLogger(UserDeniedHandler.c
 public void handle(HttpServletRequest req, HttpServletResponse res, AccessDeniedException ade) throws IOException, ServletException {
  // TODO Auto-generated method stub
  System.out.println("권한없음.");
-  
+ System.out.println(ade.getMessage());
  req.setAttribute("errMsg",ade.getMessage());
  req.getRequestDispatcher("/WEB-INF/views/denied.jsp").forward(req, res);
 }
