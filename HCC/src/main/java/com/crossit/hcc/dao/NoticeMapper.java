@@ -1,5 +1,6 @@
 package com.crossit.hcc.dao;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -47,6 +48,21 @@ public class NoticeMapper {
 	public NoticeVO getNoticeContent(String seq) {
 		// TODO Auto-generated method stub
 		return sqlSessionTemplate.selectOne("com.crossit.hcc.dao.NoticeMapper.getNoticeContent", seq);
+	}
+	
+	public List<NoticeVO> getNoticeContentByUserSeq(String seq) {
+		// TODO Auto-generated method stub
+		return sqlSessionTemplate.selectList("com.crossit.hcc.dao.NoticeMapper.getNoticeContentByUserSeq", seq);
+	}
+	public List<NoticeVO> getLikeNoticeContentByUserSeq(String seq) {
+		// TODO Auto-generated method stub
+		List<NoticeVO> notice_list = new ArrayList<NoticeVO>();
+		List<LikeVO> like_seq = sqlSessionTemplate.selectList("com.crossit.hcc.dao.NoticeMapper.getLikeNoticeContentByUserSeq", seq);
+		for(int i=0;i<like_seq.size();i++){
+		notice_list.add((NoticeVO) sqlSessionTemplate.selectOne("com.crossit.hcc.dao.NoticeMapper.getNoticeContent",like_seq.get(i).getLike_seq()));
+				
+		}
+		return notice_list;
 	}
 
 	public void deleteNotice(String seq) {
