@@ -23,38 +23,33 @@
 	
 <script type="text/javascript">
 
-var sock = new SockJS("/hcc/echo");//echoHandler 호출해서 sock 변수에 저장 ,사용자끼리 채팅 가능하게 구현.
+var sock = new SockJS("/hcc/echo");//echoHandler 호출해서 sock 변수에 저장 ,사용자끼리 채팅 가능하게 구현.afterConnectionEstablished 호출
 sock.onmessage = onMessage;
 sock.onclose = onClose;
 
 $(function(){
+	
+
 	$("#sendBtn").click(function(){
-		console.log('send message...');
+		
+		
 		sendMessage();
 	});
 });
 
-function sendMessage(){
-	
-	sock.send($("#message").val());//text 인풋의 값을 send 함수로 보낸다.
+function sendMessage(){//서버의 
+	var choosen_user_session =$('#tosessionuserid').val();
+
+	sock.send($("#message").val()+"|"+choosen_user_session);//text 인풋의 값을 send 함수로 보낸다. jsp->echo핸들러로
 }
 
-function onMessage(evt){ //전송 버튼 누를시에 호출. evt는  채팅방에 저장되있는 상대방의 아이디와 텍스트를 저장해놓는다. handleTextMessage sess.sendMessage 호출됨.
+function onMessage(evt){ //전송 버튼 누를시에 호출. evt는  채팅방에 저장되있는 상대방의 아이디와 텍스트를 저장해놓는다. handleTextMessage sess.sendMessage의 값이 evt에 저장됨.
 						 //메세지 처리 방식.
 	var data = evt.data;
 	var sessionid = null;
 	var message = null;
-	
-	
 	var strArray = data.split('|');
-	
-	for(var i=0; i<strArray.length; i++){
-		console.log('str['+i+']: ' + strArray[i]);
-	}
-	
 	var currentuser_session =$('#sessionuserid').val();
-	
-	console.log('current session id : ' + currentuser_session);
 	
 	sessionid = strArray[0];
 	message = strArray[1];
@@ -77,13 +72,11 @@ function onMessage(evt){ //전송 버튼 누를시에 호출. evt는  채팅방�
 		printHTML += "</div>";
 		$("#chatdata").append(printHTML);
 	}
-	console.log('chatting data : ' + data);
 }
  
  
 $(function(){
 	$("#out").click(function(){
-		console.log('exit room...');
 		exitRoom();
 	});
 });
@@ -91,6 +84,8 @@ $(function(){
 function exitRoom(){
 	
 	sock.onclose();//text 인풋의 값을 send 함수로 보낸다.
+	window.location.replace("/hcc/main");
+
 }
 
 function onClose(evt){//아직 구현 안함.
@@ -130,6 +125,7 @@ $(function(){
 		<input type="button" id="chattinglistbtn" value="채팅 참여자 리스트">
 	</div>
 	<input type="hidden" id="sessionuserid" value="${userid }">
+	<input type="hidden" id="tosessionuserid" value="${s_userid }">
     <input type="text" id="message"/>
     <input type="button" id="sendBtn" value="전송"/>
     <div id="chatdata"></div>

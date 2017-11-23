@@ -26,8 +26,9 @@ public class ChattingController {
 		
 		mv.setViewName("chat/chattingview");
 		UserDetail user = (UserDetail)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-		
 		mv.addObject("userid",user.getUsername());
+		mv.addObject("s_userid",s_userid);
+
 		return mv;
 	}
 	
@@ -44,8 +45,15 @@ public class ChattingController {
 		userList[i]=user.getUsername();
 		}
 		
+		UserDetail user = (UserDetail)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		
-		mv.addObject("userList", userList);
+		mv.addObject("currentuserid",user.getUsername());
+		
+		if(user.getUsername().equals(userList[0]))
+			mv.addObject("userList", null);
+		else
+			mv.addObject("userList",userList);
+		
 		return mv;
 	}
 
