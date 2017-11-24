@@ -23,9 +23,9 @@
 	
 <script type="text/javascript">
 
-var sock = new SockJS("/hcc/echo");//echoHandler 호출해서 sock 변수에 저장 ,사용자끼리 채팅 가능하게 구현.afterConnectionEstablished 호출
-sock.onmessage = onMessage;
-sock.onclose = onClose;
+	var sock = new SockJS("/hcc/echo");//echoHandler 호출해서 sock 변수에 저장 ,사용자끼리 채팅 가능하게 구현.afterConnectionEstablished 호출
+	sock.onmessage = onMessage;
+	sock.onclose = onClose;
 
 $(function(){
 	

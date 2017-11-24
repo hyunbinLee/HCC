@@ -60,7 +60,7 @@ public class EchoHandler extends TextWebSocketHandler {
 			
 			}else if(sess.getPrincipal().getName().equals(session.getPrincipal().getName())){
 				
-				sess.sendMessage(new TextMessage(session.getPrincipal().getName()+"|"+getMessage));///for문 도는 로그인한 리스트 중에 if문에 해당되는 아이디에게 메시지를 보냄.
+				sess.sendMessage(new TextMessage(session.getPrincipal().getName()+"|"+getMessage));///for문 도는 로그인한 리스트 중에 if문에 해당되는 아이디에게 메시지를 보냄	.
 
 			}
 			

@@ -1,6 +1,7 @@
 package com.crossit.hcc.dao;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 
@@ -56,12 +57,21 @@ public class NoticeMapper {
 	}
 	public List<NoticeVO> getLikeNoticeContentByUserSeq(String seq) {
 		// TODO Auto-generated method stub
+		NoticeVO tmp; 
 		List<NoticeVO> notice_list = new ArrayList<NoticeVO>();
 		List<LikeVO> like_seq = sqlSessionTemplate.selectList("com.crossit.hcc.dao.NoticeMapper.getLikeNoticeContentByUserSeq", seq);
 		for(int i=0;i<like_seq.size();i++){
-		notice_list.add((NoticeVO) sqlSessionTemplate.selectOne("com.crossit.hcc.dao.NoticeMapper.getNoticeContent",like_seq.get(i).getLike_seq()));
+			tmp = ((NoticeVO) sqlSessionTemplate.selectOne("com.crossit.hcc.dao.NoticeMapper.getNoticeContent",like_seq.get(i).getLike_seq()));
+			
+			if(tmp==null)
+				continue;
+			
+			notice_list.add(tmp);
 				
 		}
+		
+		Collections.reverse(notice_list);//거꾸로 뒤집기.
+		
 		return notice_list;
 	}
 
