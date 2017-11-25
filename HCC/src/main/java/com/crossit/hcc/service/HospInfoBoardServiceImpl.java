@@ -1,5 +1,6 @@
 package com.crossit.hcc.service;
 
+import java.io.UnsupportedEncodingException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -18,8 +19,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.crossit.hcc.dao.HospInfoMapper;
 import com.crossit.hcc.util.PageNavigation;
 import com.crossit.hcc.vo.BoardVO;
-import com.crossit.hcc.vo.HospInfoReplVO;
-import com.crossit.hcc.vo.HospInfoVO;
+import com.crossit.hcc.vo.HospInfoBoardReplVO;
+import com.crossit.hcc.vo.HospInfoBoardVO;
 import com.crossit.hcc.vo.UserVO;
 
 @Service("HospInfoBoardService")
@@ -49,78 +50,80 @@ public class HospInfoBoardServiceImpl implements HospInfoBoardService{
 
 	// 리스트 출력
 	@Override
-	public List<HospInfoVO> selectHospInfoBoardList(HttpServletRequest request) {		
+	public List<HospInfoBoardVO> selectHospInfoBoardList(HttpServletRequest request) {		
 		return HospInfoMapper.selectHospInfoBoardList();
 	}
 	
 	// Top5 출력
 	@Override
-	public List<HospInfoVO> selectHospInfoTop5List(HttpServletRequest request) {
+	public List<HospInfoBoardVO> selectHospInfoTop5List(HttpServletRequest request) {
 		return HospInfoMapper.selectHospInfoTop5List();
 	}
 		
-	// 글 조회
+	// 글 조회 & 조회수up
 	@Override
-	public HospInfoVO returnDetail(HttpServletRequest request){
+	public HospInfoBoardVO returnDetail(HttpServletRequest request){
 			
 		int boardseq = Integer.parseInt(request.getParameter("boardseq"));
 		
+		HospInfoMapper.updateHitCount(boardseq);
 		return HospInfoMapper.returnDetail(boardseq);
 	}
 
 	// 댓글 조회
 	@Override
-	public List<HospInfoReplVO> returnComment(HttpServletRequest request){
+	public List<HospInfoBoardReplVO> returnComment(HttpServletRequest request){
 			
 		int boardseq = Integer.parseInt(request.getParameter("boardseq"));
 			
 		return HospInfoMapper.returnComment(boardseq);
 	}
 
-	// 조회수 up
-	@Override
-	public void updateHitCount(HttpServletRequest request){
-			
-		int boardseq = Integer.parseInt(request.getParameter("boardseq"));
-			
-		HospInfoMapper.updateHitCount(boardseq);
-	}
-
 	// 병원정보공유 게시글 등록
 	@Override
-	public void writeHospInfo(HttpServletRequest request, HttpSession session){
+	public void writeHospInfo(HttpServletRequest request, HttpSession session) throws Exception{
+		request.setCharacterEncoding("utf-8");
+		
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 	    UserDetail vo = (UserDetail)auth.getPrincipal();
-	      
 	    UserVO v1 = vo.getUser();
 	    int userseq = v1.getUser_seq();
+	    
+	    String title = request.getParameter("title");
+		title =new String(title.getBytes("8859_1"),"utf-8");
 		
+		String content = request.getParameter("content");
+		content =new String(content.getBytes("8859_1"),"utf-8");
+		
+				
 		Map<String,Object> map = new HashMap<String, Object>(); 
 			
-		map.put("title", request.getParameter("title").toString()); // 제목
-		map.put("content",  request.getParameter("content").toString()); // 내용
+		map.put("title", title); // 제목
+		map.put("content",  content); // 내용
 		map.put("writerseq", userseq); // 작성자seq
 		map.put("star", request.getParameter("star")); //별점
-		
-		System.out.println("================="+request.getParameter("title").toString()+"==================");
-		System.out.println("================="+request.getParameter("content").toString()+"==================");
-		System.out.println("================="+userseq+"==================");
-		System.out.println("================="+request.getParameter("star")+"==================");
 			
 		HospInfoMapper.writeHospInfo(map);
 	}
 		
 	// 병원정보공유 게시글 수정
 	@Override
-	public void modifyHospInfo(HttpServletRequest request){
+	public void modifyHospInfo(HttpServletRequest request) throws Exception{
+		request.setCharacterEncoding("utf-8");
 			
+		String title = request.getParameter("title");
+		title =new String(title.getBytes("8859_1"),"utf-8");
+		
+		String content = request.getParameter("content");
+		content =new String(content.getBytes("8859_1"),"utf-8");
+		
+		
 		Map<String,Object> map = new HashMap<String, Object>(); 
 			
-		map.put("boardseq", Integer.parseInt(request.getParameter("boardseq")));
-		map.put("title", request.getParameter("title").toString()); // 제목
-		map.put("content",  request.getParameter("content").toString()); // 내용
-		map.put("writerseq", Integer.parseInt(request.getParameter("writerseq"))); // 작성자seq
-		map.put("star", Double.parseDouble(request.getParameter("star"))); //별점
+		map.put("boardseq", request.getParameter("boardseq"));
+		map.put("title", title); // 제목
+		map.put("content", content); // 내용
+		map.put("star", request.getParameter("star")); //별점
 		
 		HospInfoMapper.modifyHospInfo(map);
 	}

@@ -5,9 +5,10 @@
 
 	<!-- String이나 hashmap으로 넘겨야 if문 쓸 수 있음 -->
 
-	<select id="selectHospInfoBoardList" resultType="com.crossit.hcc.vo.HospInfoVO">
+	<select id="selectHospInfoBoardList" resultType="com.crossit.hcc.vo.HospInfoBoardVO">
 		SELECT * 
 		FROM hcc_hospital_info_tb
+		WHERE hospital_info_status = 'Y'
 		ORDER BY hospital_info_reg_date DESC
 	</select>
 	
@@ -17,7 +18,7 @@
 		
 	</select>
 	
-	<select id="getHospInfoList" resultType="com.crossit.hcc.vo.HospInfoVO" parameterType="HashMap">
+	<select id="getHospInfoList" resultType="com.crossit.hcc.vo.HospInfoBoardVO" parameterType="HashMap">
 		SELECT b.*
 		FROM (
 			 SELECT 
@@ -36,7 +37,7 @@
 		WHERE ROWNUM BETWEEN #{start} AND #{end}
 	</select>
 	
-	<select id="selectHospInfoTop5List" resultType="com.crossit.hcc.vo.HospInfoVO">
+	<select id="selectHospInfoTop5List" resultType="com.crossit.hcc.vo.HospInfoBoardVO">
 		
 	</select>
 	
@@ -48,33 +49,29 @@
 	<!-- 조회수 올리기 -->
     <update id="updateHitCount" parameterType="int">
 		UPDATE hcc_hospital_info_tb
-		SET hospital_info_cnt = (
-								 SELECT hospital_info_cnt 
-								 FROM hcc_hospital_info_tb 
-								 WHERE hospital_info_seq = #boardseq# 
-								) + 1
+		SET hospital_info_cnt = hospital_info_cnt + 1
 		WHERE hospital_info_seq = #{boardseq}
 	</update>
 	
 	<!-- 상세 페이지 - 게시글 조회   현재 boardseq에 맞는 게시글 불러오기-->
-    <select id="returnDetail" parameterType="int" resultType="com.crossit.hcc.vo.HospInfoVO">
+    <select id="returnDetail" parameterType="int" resultType="com.crossit.hcc.vo.HospInfoBoardVO">
 		SELECT a.*, b.user_name
 		FROM hcc_hospital_info_tb a, hcc_user_tb b
 		WHERE a.hospital_info_seq = #{boardseq} 
-			AND a.user_seq = b.user_seq 
+			AND a.hospital_info_reg_seq = b.user_seq 
 			AND b.user_status = 'Y' 
 			AND a.hospital_info_status = 'Y'
 	</select>
 	
 	<!-- 상세 페이지 - 댓글 불러오기 -->
-	<select id="returnComm" parameterType="int" resultType="com.crossit.hcc.vo.HospInfoReplVO">
+	<select id="returnComm" parameterType="int" resultType="com.crossit.hcc.vo.HospInfoBoardReplVO">
 		SELECT a.*, b.user_name
 		FROM hcc_hospital_info_reply_tb a, hcc_user_tb b
 		WHERE a.hospital_info_seq = #{boardseq} 
-		  AND a.user_seq = b.user_seq 
-		  AND a.user_status = 'Y' 
-		  AND a.hospital_info_status = 'Y'
-		ORDER BY hospital_info_reply_reg_date DESC
+		  AND a.hospital_info_reply_reg_seq = b.user_seq 
+		  AND b.user_status = 'Y' 
+		  AND a.hospital_info_reply_status = 'Y'
+		ORDER BY a.hospital_info_reply_reg_date DESC
 	</select>
 	
 	<!-- 상세 페이지 - 게시글 등록 -->
@@ -103,9 +100,8 @@
 		UPDATE hcc_hospital_info_tb
 		SET hospital_info_title = #{title}, 
 			hospital_info_content = #{content}, 
-			hospital_info_score = #{star}, 
-			hospital_info_upd_seq = #{writerseq}, 
-			hospital_info_upd_date = SYSDATE
+			hospital_info_score = #{star},
+			hospital_info_upd_date = NOW()
 		WHERE hospital_info_seq = #{boardseq}
 	</update>
 	

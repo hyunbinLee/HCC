@@ -5,8 +5,8 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
-import com.crossit.hcc.vo.HospInfoReplVO;
-import com.crossit.hcc.vo.HospInfoVO;
+import com.crossit.hcc.vo.HospInfoBoardReplVO;
+import com.crossit.hcc.vo.HospInfoBoardVO;
 
 public interface HospInfoBoardService {
 
@@ -15,25 +15,22 @@ public interface HospInfoBoardService {
 	public int getHospInfoCount();
 
 	// 리스트 출력
-	public List<HospInfoVO> selectHospInfoBoardList(HttpServletRequest request);	
+	public List<HospInfoBoardVO> selectHospInfoBoardList(HttpServletRequest request);	
 
 	// Top5 출력
-	public List<HospInfoVO> selectHospInfoTop5List(HttpServletRequest request);
+	public List<HospInfoBoardVO> selectHospInfoTop5List(HttpServletRequest request);
 
-	// 글 조회
-	public HospInfoVO returnDetail(HttpServletRequest request);
+	// 글 조회 & 조회수up
+	public HospInfoBoardVO returnDetail(HttpServletRequest request);
 
 	// 댓글 조회
-	public List<HospInfoReplVO> returnComment(HttpServletRequest request);
-
-	// 조회수 up
-	public void updateHitCount(HttpServletRequest request);
+	public List<HospInfoBoardReplVO> returnComment(HttpServletRequest request);
 	
 	// 병원정보공유 게시글 등록
-	public void writeHospInfo(HttpServletRequest request, HttpSession session);
+	public void writeHospInfo(HttpServletRequest request, HttpSession session) throws Exception;
 	
 	// 병원정보공유 게시글 수정
-	public void modifyHospInfo(HttpServletRequest request);
+	public void modifyHospInfo(HttpServletRequest request) throws Exception;
 	
 	// 병원정보공유 게시글 삭제
 	public void deleteHospInfo(HttpServletRequest request);

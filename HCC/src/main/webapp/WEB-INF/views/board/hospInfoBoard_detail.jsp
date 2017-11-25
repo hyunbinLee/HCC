@@ -34,19 +34,19 @@
               </div>
               <div class="post_top">
                   <div class="post_name">
-                      <p>${detail.user_id}</p>
+                      <p>${detail.user_name}</p>
                   </div>
                   <div class="post_text">
-                      <p>0</p>
+                      <p>${detail.hospital_info_content}</p>
                   </div>
                   <div class="post_see">
                       <p>${detail.hospital_info_cnt}</p>
                   </div>
                   <div class="post_up">
-                      <p>${detail.hospital_info_like}</p>
+                      <p>${detail.hospital_info_like_cnt}</p>
                   </div>
                   <div class="post_down">
-                      <p>${detail.hospital_info_unlike}</p>
+                      <p>${detail.hospital_info_unlike_cnt}</p>
                   </div>
                   <div class="post_date">
                       <p>${detail.hospital_info_reg_date}</p>
@@ -66,10 +66,10 @@
                        <a href="javascript:Open();">댓글열기</a>
                   </div>
                   <div class="del">
-                      <a href="#">삭제</a>
+                      <a href="./deleteHospInfo?boardseq=${detail.hospital_info_seq}">삭제</a>
                   </div>
                   <div class="mod">
-                      <a href="#">수정</a>
+                      <a href="./hospInfoBoard_modify?boardseq=${detail.hospital_info_seq}">수정</a>
                   </div>
               </div>
 			  

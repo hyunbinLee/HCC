@@ -1,5 +1,7 @@
 package com.crossit.hcc.controller;
 
+import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
@@ -11,10 +13,14 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.client.RestTemplate;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.crossit.hcc.service.HospInfoBoardService;
 import com.crossit.hcc.service.HospInfoBoardServiceImpl;
+import com.crossit.hcc.vo.HospInfoBoardVO;
+import com.crossit.hcc.vo.HospInfoListVO;
+import com.crossit.hcc.vo.HospInfoVO;
 
 @Controller
 public class HospInfoBoardController {
@@ -64,7 +70,6 @@ public class HospInfoBoardController {
 		
 		mav.addObject("detail", HospInfoBoardService.returnDetail(request));			
 		mav.addObject("comment", HospInfoBoardService.returnComment(request));		
-		HospInfoBoardService.updateHitCount(request);
 		
 		return mav;
 	}
@@ -82,6 +87,22 @@ public class HospInfoBoardController {
 	// 글 등록
 	@RequestMapping(value = "/writeHospInfo", method = RequestMethod.GET) 
 	 public ModelAndView writeHospInfo(HttpSession session, HttpServletRequest request) throws Exception{ 
+		/*
+		// xml 데이터를 response 받을 API 주소
+		String uri = "API 주소";
+		
+		// RestTemplate 생성
+		RestTemplate restTemplate = new RestTemplate();
+		
+		// 오브젝트로 결과값 받아오기
+		HospInfoListVO hospInfoList = restTemplate.getForObject(uri, HospInfoListVO.class);
+		
+		// 회원 정보 리스트
+		List<HospInfoVO> result = hospInfoList.getHospInfo();
+		
+		// model addAttribute("result", result);
+		//return "memberList";
+	*/
 		ModelAndView mav = new ModelAndView("redirect:/hospInfoBoard");
 		
 		HospInfoBoardService.writeHospInfo(request, session);
@@ -90,9 +111,11 @@ public class HospInfoBoardController {
 	}
 	
 	// 글 수정
-	@RequestMapping(value = "/modifyHospInfo", method = RequestMethod.POST) 
+	@RequestMapping(value = "/modifyHospInfo", method = RequestMethod.GET) 
 	public ModelAndView modifyHospInfo(HttpServletRequest request) throws Exception{ 
-		ModelAndView mav = new ModelAndView("redirect:/hospInfoBoard");
+		int boardseq = Integer.parseInt(request.getParameter("boardseq"));
+		
+		ModelAndView mav = new ModelAndView("redirect:/hospInfoBoard_detail?boardseq="+boardseq+"");
 		
 		HospInfoBoardService.modifyHospInfo(request);
 		
@@ -102,7 +125,7 @@ public class HospInfoBoardController {
 	// 글 삭제
 	@RequestMapping(value = "/deleteHospInfo", method = RequestMethod.GET)
 	public ModelAndView deleteHospInfo(HttpServletRequest request) throws Exception{
-		ModelAndView mav = new ModelAndView("redirect:/board/hospInfoBoard_main");
+		ModelAndView mav = new ModelAndView("redirect:/hospInfoBoard");
 		
 		HospInfoBoardService.deleteHospInfo(request);
 		

@@ -1,6 +1,6 @@
 package com.crossit.hcc.vo;
 
-public class HospInfoReplVO {
+public class HospInfoBoardReplVO {
 
 	private int hospital_info_seq;
 	private int hospital_info_reply_seq;

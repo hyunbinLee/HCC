@@ -1,133 +1,89 @@
 package com.crossit.hcc.vo;
 
-public class HospInfoVO {
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
 
-	private int hospital_info_seq;
-	private String hospital_info_title;
-	private String hospital_info_content;
-	private double hospital_info_score;
-	private String hospital_info_type;
-	private char hospital_info_status;
-	private char hospital_info_cnt;
-	private char hospital_info_like_cnt;
-	private char hospital_info_unlike_cnt;
-	private char hospital_info_blame_cnt;
-	private char hospital_info_reg_seq;
-	private char hospital_info_reg_date;
-	private char hospital_info_upd_seq;
-	private char hospital_info_upd_date;
+
+@XmlRootElement(name = "item")
+@XmlAccessorType(XmlAccessType.FIELD)
+public class HospInfoVO {
 	
-	public int getHospital_info_seq() {
-		return hospital_info_seq;
-	}
+	@XmlElement(name = "ykiho") // 암호화된 요양기호
+	private String ykiho;
+
+	@XmlElement(name = "yadmNm") // 병원명
+	private String yadmNm;
+
+	@XmlElement(name = "clCd") // 종별코드
+	private String clCd;
 	
-	public void setHospital_info_seq(int hospital_info_seq) {
-		this.hospital_info_seq = hospital_info_seq;
-	}
+	@XmlElement(name = "clCdNm") // 종별코드명
+	private String clCdNm;
 	
-	public String getHospital_info_title() {
-		return hospital_info_title;
-	}
+	@XmlElement(name = "addr") // 주소
+	private String addr;
 	
-	public void setHospital_info_title(String hospital_info_title) {
-		this.hospital_info_title = hospital_info_title;
-	}
+	@XmlElement(name = "emdongNm") // 읍면동명
+	private String emdongNm;
 	
-	public String getHospital_info_content() {
-		return hospital_info_content;
-	}
+	@XmlElement(name = "sgguCd") // 시군구코드
+	private String sgguCd;
 	
-	public void setHospital_info_content(String hospital_info_content) {
-		this.hospital_info_content = hospital_info_content;
-	}
+	@XmlElement(name = "sgguCdNm") // 시군구명
+	private String sgguCdNm;
 	
-	public double getHospital_info_score() {
-		return hospital_info_score;
-	}
+	@XmlElement(name = "sidoCd") // 시도코드
+	private String sidoCd;
 	
-	public void setHospital_info_score(double hospital_info_score) {
-		this.hospital_info_score = hospital_info_score;
-	}
+	@XmlElement(name = "sidoCdNm") // 시도명
+	private String sidoCdNm;
 	
-	public String getHospital_info_type() {
-		return hospital_info_type;
-	}
+	@XmlElement(name = "telno") // 전화번호
+	private String telno;
 	
-	public void setHospital_info_type(String hospital_info_type) {
-		this.hospital_info_type = hospital_info_type;
-	}
+	@XmlElement(name = "hospUrl") // 홈페이지
+	private String hospUrl;
 	
-	public char getHospital_info_status() {
-		return hospital_info_status;
-	}
 	
-	public void setHospital_info_status(char hospital_info_status) {
-		this.hospital_info_status = hospital_info_status;
-	}
+	/*
+	@XmlElement(name = "distance") // 거리
+	private String distance;
 	
-	public char getHospital_info_cnt() {
-		return hospital_info_cnt;
-	}
+	@XmlElement(name = "drTotCnt") // 의사총수
+	private String drTotCnt;
 	
-	public void setHospital_info_cnt(char hospital_info_cnt) {
-		this.hospital_info_cnt = hospital_info_cnt;
-	}
+	@XmlElement(name = "estbDd") // 개설일자
+	private String estbDd;
 	
-	public char getHospital_info_like_cnt() {
-		return hospital_info_like_cnt;
-	}
+	@XmlElement(name = "gdrCnt") // 일반의 인원수
+	private String gdrCnt;
 	
-	public void setHospital_info_like_cnt(char hospital_info_like_cnt) {
-		this.hospital_info_like_cnt = hospital_info_like_cnt;
-	}
+	@XmlElement(name = "intnCnt") // 인턴 인원수
+	private String intnCnt;
 	
-	public char getHospital_info_unlike_cnt() {
-		return hospital_info_unlike_cnt;
-	}
+	@XmlElement(name = "postNo") // 우편번호
+	private String postNo;
 	
-	public void setHospital_info_unlike_cnt(char hospital_info_unlike_cnt) {
-		this.hospital_info_unlike_cnt = hospital_info_unlike_cnt;
-	}
+	@XmlElement(name = "resdntCnt") // 레지던트 인원수
+	private String resdntCnt;
 	
-	public char getHospital_info_blame_cnt() {
-		return hospital_info_blame_cnt;
-	}
+	@XmlElement(name = "sdrCnt") // 전문의 인원수
+	private String sdrCnt;
 	
-	public void setHospital_info_blame_cnt(char hospital_info_blame_cnt) {
-		this.hospital_info_blame_cnt = hospital_info_blame_cnt;
-	}
+	@XmlElement(name = "XPos") // x좌표
+	private String XPos;
 	
-	public char getHospital_info_reg_seq() {
-		return hospital_info_reg_seq;
-	}
+	@XmlElement(name = "YPos") // y좌표
+	private String YPos;
 	
-	public void setHospital_info_reg_seq(char hospital_info_reg_seq) {
-		this.hospital_info_reg_seq = hospital_info_reg_seq;
-	}
+	*/
 	
-	public char getHospital_info_reg_date() {
-		return hospital_info_reg_date;
-	}
 	
-	public void setHospital_info_reg_date(char hospital_info_reg_date) {
-		this.hospital_info_reg_date = hospital_info_reg_date;
-	}
 	
-	public char getHospital_info_upd_seq() {
-		return hospital_info_upd_seq;
-	}
 	
-	public void setHospital_info_upd_seq(char hospital_info_upd_seq) {
-		this.hospital_info_upd_seq = hospital_info_upd_seq;
-	}
 	
-	public char getHospital_info_upd_date() {
-		return hospital_info_upd_date;
-	}
-	
-	public void setHospital_info_upd_date(char hospital_info_upd_date) {
-		this.hospital_info_upd_date = hospital_info_upd_date;
-	}
 	
 	
 }

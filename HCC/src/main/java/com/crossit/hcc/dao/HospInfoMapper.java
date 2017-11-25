@@ -16,8 +16,8 @@ import org.springframework.stereotype.Service;
 
 import com.crossit.hcc.vo.BoardVO;
 import com.crossit.hcc.vo.HCCFmbVO;
-import com.crossit.hcc.vo.HospInfoReplVO;
-import com.crossit.hcc.vo.HospInfoVO;
+import com.crossit.hcc.vo.HospInfoBoardReplVO;
+import com.crossit.hcc.vo.HospInfoBoardVO;
 
 @Repository
 public class HospInfoMapper{
@@ -56,11 +56,11 @@ public class HospInfoMapper{
 	
 	
 	// 리스트 출력
-	public List<HospInfoVO> selectHospInfoBoardList() {
+	public List<HospInfoBoardVO> selectHospInfoBoardList() {
 		return sqlSessionTemplate.selectList("com.crossit.hcc.dao.HospInfoMapper.selectHospInfoBoardList");
 	}
 
-	public List<HospInfoVO> getHospInfoList(int start, int end) {
+	public List<HospInfoBoardVO> getHospInfoList(int start, int end) {
 		
 		Map<String,Object> map = new HashMap<String, Object>(); 
 		
@@ -76,16 +76,16 @@ public class HospInfoMapper{
 		return count;
 	}
 	
-	public List<HospInfoVO> selectHospInfoTop5List() {
+	public List<HospInfoBoardVO> selectHospInfoTop5List() {
 		return sqlSessionTemplate.selectList("com.crossit.hcc.dao.HospInfoMapper.selectHospInfoTop5List");
 	}
 	
-	public HospInfoVO returnDetail(int boardseq) {
+	public HospInfoBoardVO returnDetail(int boardseq) {
 		return sqlSessionTemplate.selectOne("com.crossit.hcc.dao.HospInfoMapper.returnDetail", boardseq);
 	}
 
-	public List<HospInfoReplVO> returnComment(int boardseq) {
-		return sqlSessionTemplate.selectList("com.crossit.hcc.dao.HospInfoMapper.returnComment", boardseq);
+	public List<HospInfoBoardReplVO> returnComment(int boardseq) {
+		return sqlSessionTemplate.selectList("com.crossit.hcc.dao.HospInfoMapper.returnComm", boardseq);
 	}
 
 	public void updateHitCount(int boardseq) {
