@@ -5,9 +5,12 @@
 		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.3.xsd">
 	<http pattern="/resources/**" security="none"></http>
 	<http auto-config="true" use-expressions="true" entry-point-ref="userAuthenticationEntryPoint">
-
-		<intercept-url pattern="/write" access="permitAll"/>
+		
+		<intercept-url pattern="/" access="permitAll"/>
+		
+		
 		<intercept-url pattern="/main" access="permitAll" />
+		<intercept-url pattern="/write" access="permitAll"/>
 		<intercept-url pattern="/idCheck" access="permitAll" />
 		<intercept-url pattern="/regiMail" access="permitAll" />
 		<intercept-url pattern="/register" access="permitAll" />

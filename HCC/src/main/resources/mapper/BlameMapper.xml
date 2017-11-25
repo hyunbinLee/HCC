@@ -11,6 +11,7 @@
 		    	   (SELECT @RNUM:=0) R
 		    	,  (SELECT blame_seq
 		    	, blame_code
+		    	, blame_gubun
 		    	, blame_type
 		    	, blame_content
 		    	, blame_reg_seq
@@ -30,8 +31,8 @@
 	<insert id="insertBlameList" parameterType="HashMap">
 		insert
 		into hcc_blame_tb(
-		  blame_seq
-		, blame_code
+		blame_code
+		, blame_gubun
 		, blame_type
 		, blame_content
 		, blame_reg_seq

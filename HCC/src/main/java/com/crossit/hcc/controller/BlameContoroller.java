@@ -51,11 +51,22 @@ public class BlameContoroller {
 	}
 	
 	@RequestMapping(value="/Declaration")
-	public String DeclarationAction(HttpSession session, Model model) {
+	public String DeclarationAction(HttpSession session, Model model
+			,@RequestParam(value="code", required = false) String blame_code
+			,@RequestParam(value="gubun", required = false) String blame_gubun
+			,@RequestParam(value="type", required = false) String blame_type
+			,@RequestParam(value="content", required = false) String blame_content
+			,@RequestParam(value="reg_seq", required = false) String blame_reg_seq			
+			) 
+	{
+		blameDao.insertBlameList(blame_code, blame_gubun, blame_type, blame_content, blame_reg_seq);
 		
 		
-		
-		
-		return "redirect";
+		if(blame_gubun == "") {
+			return "redirect:";			
+		}else if(blame_gubun == "") {
+			
+		}
+		return "";
 	}
 }
