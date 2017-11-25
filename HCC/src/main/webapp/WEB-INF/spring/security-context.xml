@@ -5,16 +5,20 @@
 		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.3.xsd">
 	<http pattern="/resources/**" security="none"></http>
 	<http auto-config="true" use-expressions="true" entry-point-ref="userAuthenticationEntryPoint">
-
-		<intercept-url pattern="/write" access="permitAll"/>
-
+		
+		<intercept-url pattern="/" access="permitAll"/>
+		
+		
 		<intercept-url pattern="/main" access="permitAll" />
+		<intercept-url pattern="/write" access="permitAll"/>
 		<intercept-url pattern="/idCheck" access="permitAll" />
 		<intercept-url pattern="/regiMail" access="permitAll" />
 		<intercept-url pattern="/register" access="permitAll" />
 		<intercept-url pattern="/regiMail_check" access="permitAll" />
 		<intercept-url pattern="/hospInfoBoard" access="permitAll" />
-		
+		<intercept-url pattern="/chatting" access="hasAnyRole('ROLE_ADMIN', 'ROLE_USER')" />
+		<intercept-url pattern="/loginuserlist" access="hasAnyRole('ROLE_ADMIN', 'ROLE_USER')" />
+
 		<!-- 공지사항 -->
 		<intercept-url pattern="/noticeList" access="hasAnyRole('ROLE_USER','ROLE_ADMIN')" />
 		<intercept-url pattern="/noticeWritePage" access="hasRole('ROLE_ADMIN')" />

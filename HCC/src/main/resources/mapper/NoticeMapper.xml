@@ -61,13 +61,13 @@
 	<select id="getNoticeContent" resultType="com.crossit.hcc.vo.NoticeVO">
 		select * 
 		from hcc_notice_tb 
-		where notice_seq = #{param1}
+		where notice_seq = #{param1} AND notice_status = 'Y' 
 	</select>
 	
 	<select id="getNoticeContentByUserSeq" resultType="com.crossit.hcc.vo.NoticeVO">
 		select * 
 		from hcc_notice_tb 
-		where notice_reg_seq = #{param1}
+		where notice_reg_seq = #{param1} AND notice_status = 'Y' order by notice_seq desc
 	</select>
 	<select id="getLikeNoticeContentByUserSeq" resultType="com.crossit.hcc.vo.LikeVO">
 		select * 

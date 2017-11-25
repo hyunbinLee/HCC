@@ -1,6 +1,7 @@
 package com.crossit.hcc.controller;
 
 import java.io.UnsupportedEncodingException;
+import java.util.ArrayList;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -20,6 +21,7 @@ import com.crossit.hcc.dao.NoticeMapper;
 import com.crossit.hcc.service.PagingService;
 import com.crossit.hcc.service.PagingServiceImpl;
 import com.crossit.hcc.service.UserDetail;
+import com.crossit.hcc.vo.NoticeVO;
 
 @Controller
 public class NoticeController {
@@ -56,6 +58,54 @@ public class NoticeController {
 		model.addAttribute("startPage", pagingService.startPageNo());
 		model.addAttribute("endPage", pagingService.endPageNo());
 		model.addAttribute("fmb",noticeDao.getNoticeList(pagingService.getStart(), pagingService.getEnd()));
+		model.addAttribute("lastPage", pagingService.getFinalPageNo());
+
+		return "notice/noticeList_ajax";
+	}
+	
+	
+	
+	@RequestMapping(value = "/myNoticeList", method=RequestMethod.GET)//11.24 더보기 화면 구현 - 현빈
+	public String myNoticeList(HttpSession session,Model model){
+	
+		model.addAttribute("page", "1");
+		//페이지당 5개의 글
+		pagingService = new PagingServiceImpl(5);
+
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+	    UserDetail userdetail = (UserDetail)auth.getPrincipal();
+		String user_seq = "" + userdetail.getUser().getUser_seq();
+		
+		ArrayList<NoticeVO> myList = (ArrayList<NoticeVO>) noticeDao.getNoticeContentByUserSeq(user_seq);
+		pagingService.paging("1",myList.size());
+		
+		
+		
+		model.addAttribute("startPage", pagingService.startPageNo());
+		model.addAttribute("endPage", pagingService.endPageNo());
+		model.addAttribute("fmb",myList);
+		model.addAttribute("lastPage", pagingService.getFinalPageNo());
+
+		return "notice/noticeList_ajax";
+	}
+	
+	@RequestMapping(value = "/myLikeNoticeList", method=RequestMethod.GET)//11.24 더보기 화면 구현 - 현빈
+	public String myLikeNoticeList(HttpSession session,Model model){
+	
+		model.addAttribute("page", "1");
+		//페이지당 5개의 글
+		pagingService = new PagingServiceImpl(5);
+
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+	    UserDetail userdetail = (UserDetail)auth.getPrincipal();
+		String user_seq = "" + userdetail.getUser().getUser_seq();
+		
+		ArrayList<NoticeVO> myList = (ArrayList<NoticeVO>) noticeDao.getLikeNoticeContentByUserSeq(user_seq);
+		pagingService.paging("1",myList.size());		
+
+		model.addAttribute("startPage", pagingService.startPageNo());
+		model.addAttribute("endPage", pagingService.endPageNo());
+		model.addAttribute("fmb",myList);
 		model.addAttribute("lastPage", pagingService.getFinalPageNo());
 
 		return "notice/noticeList_ajax";

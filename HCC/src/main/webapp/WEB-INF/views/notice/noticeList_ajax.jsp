@@ -49,8 +49,7 @@
 						<c:forEach items="${fmb}" var="fmb">
 							<tr>
 								<td class="num"><b>${fmb.notice_seq}</b></td>
-								<td class="title"><b><a
-										href="./noticeContentPage?seq=${fmb.notice_seq}&code=1">${fmb.notice_title}</a></b></td>
+								<td class="title"><b><a href="./noticeContentPage?seq=${fmb.notice_seq}&code=1">${fmb.notice_title}</a></b></td>
 								<!-- td class="grade"><b>평점</b></td>
                           <td class="name"><b>유인준</b></td -->
 								<td class="day"><b>${fmb.notice_reg_date}</b></td>

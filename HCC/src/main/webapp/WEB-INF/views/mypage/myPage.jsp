@@ -57,16 +57,20 @@
 				<div class="mylist_nav">
 					<p>내가 좋아한 게시물</p>
 				</div>
+				<c:url var="myLikeNoticeList" value="/myLikeNoticeList">></c:url>
+				<div><a href="${myLikeNoticeList }">더보기</a></div>
 				<div class="mylist_top">
+				<c:url var="ncontenturl" value="/noticeContentPage"/>
 					<table>
 						<tbody>
-							<c:forEach var="list" items="${List_L }">
+							<c:forEach var="list" items="${List_L }" varStatus="status">
+							<c:if test="${status.index < 5 }" >
 							<tr>
 							<td class="number"><b>${list.notice_seq }</b></td>
-							
 							<td><b><a href="${ncontenturl }?seq=${list.notice_seq}">${list.notice_title }</a> </b></td>
 							<td class="rank_num"><b>${list.notice_cnt }</b></td>
 							</tr>
+							</c:if>
 							</c:forEach>
 							
 						</tbody>
@@ -76,21 +80,24 @@
 
 			<div class="mylist2">
 				<div class="mylist_nav">
-					<p>내가 게시한 게시물</p>
+					<p>내가 게시한 게시물</p> 
 				</div>
+				<c:url var="myNoticeList" value="/myNoticeList">></c:url>
+				<div><a href="${myNoticeList }">더보기</a></div>
 				<div class="mylist_top">
 				<c:url var="ncontenturl" value="/noticeContentPage"/>
 				
 					<table>
 						<tbody>
 							
-							<c:forEach var="list" items="${List }">
+							<c:forEach var="list" items="${List }" varStatus="status">
+							<c:if test="${status.index < 5 }" >
 							<tr>
 							<td class="number"><b>${list.notice_seq }</b></td>
-							
 							<td><b><a href="${ncontenturl }?seq=${list.notice_seq}">${list.notice_title }</a> </b></td>
 							<td class="rank_num"><b>${list.notice_cnt }</b></td>
 							</tr>
+							</c:if>
 							</c:forEach>
 							
 							
