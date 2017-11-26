@@ -5,14 +5,9 @@
 
 
 <%@ include file="common/inc_header.jsp"%>
-
+<%@ include file="common/inc_bootstrap.jsp" %>
 <meta name="viewport" content="width=device-width", initial-scale="1">
 
-
-<link rel="stylesheet" href="resources/css/bootstrap/bootstrap.css">
-
-<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
-<script src="resources/js/bootstrap/bootstrap.js"></script>
 
 </head>
 <body>
@@ -57,7 +52,7 @@
 			    
 			</div>
 				
-
+		<br/><br/>
 		<!-- 배너 영역 끝-->
 		<div class="left_area">
 
@@ -83,7 +78,10 @@
 								placeholder="비밀번호">
 						</div>
 						<c:if test="${param.error != null}">
-							<p class="false_user">아이디와 비밀번호가 잘못되었습니다.</p>
+							<script type="text/javascript">
+								alert("아이디와 비밀번호가 잘못되었습니다.");
+								history.back();
+							</script>
 						</c:if>
 						<div class="other_login">
 							<input type="submit" class="btn_power box_full m_t5 m_b7" value="Login">
@@ -91,8 +89,9 @@
 								<input type="checkbox" id="" name="" class="m_r4" value="">
 								<span>자동로그인</span>
 							</div>
-							<a href="#" class="" id="">아이디 / 비밀번호 찾기 </a>&nbsp;&nbsp;
-							<button type="button" onclick="join()" class="right">회원가입</button>
+							<br/>
+							<a href="#" class="left" id="">아이디 / 비밀번호 찾기 </a>&nbsp;&nbsp;
+							<button type="button" onclick="join()" class="">회원가입</button>
 							
 						</div>
 					</div>
