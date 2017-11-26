@@ -12,11 +12,7 @@
 </head>
 <body>
 	<div class="wrap">
-	
-		
-		
-			
-	
+
 		<!-- Top Menu -->
 		<%@ include file="common/inc_top.jsp"%>
 		<!-- 배너 영역 -->
@@ -49,7 +45,6 @@
 			    <a class="right carousel-control" href="#myCarouser" data-slide="next">
 			    	<span class="glyphicon glyphicon-chevron-right"></span>
 			    </a>
-			    
 			</div>
 				
 		<br/><br/>
