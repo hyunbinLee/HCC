@@ -6,14 +6,63 @@
 
 <%@ include file="common/inc_header.jsp"%>
 
+<meta name="viewport" content="width=device-width", initial-scale="1">
+
+
+<link rel="stylesheet" href="resources/css/bootstrap/bootstrap.css">
+
+<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+<script src="resources/js/bootstrap/bootstrap.js"></script>
 
 </head>
 <body>
 	<div class="wrap">
-
+	
+		
+		
+			
+	
 		<!-- Top Menu -->
 		<%@ include file="common/inc_top.jsp"%>
+		<!-- 배너 영역 -->
+	
+	
+			<div id="myCarouser" class="carousel slide" data-ride="carousel">
+		  		<ol class="carousel-indicators">
+					<li data-target="#myCarouser" data-slide-to="0" class="active"></li>
+					<li data-target="#myCarouser" data-slide-to="1"></li>
+					<li data-target="#myCarouser" data-slide-to="2"></li>
+					<li data-target="#myCarouser" data-slide-to="3"></li>		
+		  		</ol>
+		  		<div class="carousel-inner">
+		    		<div class="item active">
+		      			<img src="resources/img/banner_01.png" width="100%" height="50%" alt="첫번째 슬라이드">
+		    		</div>
+		    		<div class="item">
+		      			<img src="resources/img/banner_02.png" width="100%" height="50%" alt="두번째 슬라이드">
+		    		</div>
+				    <div class="item">
+				      <img src="resources/img/banner_03.png" width="100%" height="50%" alt="세번째 슬라이드">
+				    </div>
+				    <div class="item">
+				      <img src="resources/img/banner_04.png" width="100%" height="50%"" alt="네번째 슬라이드">
+				    </div>
+			    </div>
+			    <a class="left carousel-control" href="#myCarouser" data-slide="prev">
+			    	<span class="glyphicon glyphicon-chevron-left"></span>
+			    </a>
+			    <a class="right carousel-control" href="#myCarouser" data-slide="next">
+			    	<span class="glyphicon glyphicon-chevron-right"></span>
+			    </a>
+			    
+			</div>
+			
 
+		
+				
+				
+
+		<!-- 배너 영역 끝-->
 		<div class="left_area">
 
 			<!--회원센터 영역 -->
@@ -24,27 +73,31 @@
 						value="${_csrf.token}" />
 					<div class="login_area m_b30">
 						<div class="login_title m_b10 p_b5">
-							<span class="p_b5">회원센터</span>
+							<span class="p_b5 txt_bold">회원센터</span>
 						</div>
 						<div class="login_box m_b5">
-							<div></div>
-							<input type="text" name="id" id="id" class="" value=""
+							<p>
+								<span><img src="resources/img/member_icon.png" width="3%" height ="3%" alt="유저 아이콘"></span>
+								<input type="text" name="id" id="id" class="" value=""
 								placeholder="아이디">
-							<div></div>
-							<input type="password" name="pw" id="pw" class="" value=""
+							</p>
+							<p>
+								<span><img src="resources/img/lock_icon.png" width="3%" hdight ="3%" alt="자물쇠 아이콘"></span>
+								<input type="password" name="pw" id="pw" class="" value=""
 								placeholder="비밀번호">
 						</div>
 						<c:if test="${param.error != null}">
-							<p>아이디와 비밀번호가 잘못되었습니다.</p>
+							<p class="false_user">아이디와 비밀번호가 잘못되었습니다.</p>
 						</c:if>
 						<div class="other_login">
+							<input type="submit" class="btn_power box_full m_t5 m_b7" value="Login">
 							<div class="left">
 								<input type="checkbox" id="" name="" class="m_r4" value="">
 								<span>자동로그인</span>
 							</div>
 							<a href="#" class="" id="">아이디 / 비밀번호 찾기 </a>&nbsp;&nbsp;
-							<button type="button" onclick="join()" class="">회원가입</button>
-							<input type="submit" class="right" value="Login">
+							<button type="button" onclick="join()" class="right">회원가입</button>
+							
 						</div>
 					</div>
 				</form>
@@ -59,13 +112,17 @@
 						<div class="login_title m_b10 p_b5">
 							<span class="p_b5">회원센터</span>
 						</div>
-						<sec:authentication property="principal.realusername" />
-						님 환영합니다!
+						<div class="user_info m_b5">
+							<img class="m_r7" src="resources/img/member_icon.png" alt="유저 아이콘" width="5%" height="5%">
+							<p><sec:authentication property="principal.realusername" /><p>
+						</div>
+						<div class="left">
+							<c:url value="/myPage" var="myPage"/>
+							<a href="${myPage }" class="" id="">마이 페이지 </a>
+						</div>
 						<div class="other_login">
-							<div class="left">
-								<c:url value="/myPage" var="myPage"/>
-								<a href="${myPage }" class="" id="">마이 페이지 </a>
-							</div>
+							<input type="submit" class="btn_power box_full m_t5 m_b7" value="Logout">
+							
 							&nbsp;
 							<div class="left">
 								<sec:authorize access="hasRole('ROLE_ADMIN')">
@@ -75,30 +132,21 @@
 									<a href="${blameList }">나쁜놈들</a>
 								</sec:authorize>
 							</div>
-							<input type="submit" class="right" value="Logout">
+							
 						</div>
 					</div>
 				</form>
 			</sec:authorize>
 			<!--회원센터 영역 끝-->
 
-			<!-- 배너 영역 -->
-			<div class="banner_area m_b70">
-				<ul>
-					<li><img src="resources/img/logo.png" alt="배너1 이미지"></li>
-					<li><img src="" alt="배너2 이미지"></li>
-					<li><img src="" alt="배너3 이미지"></li>
-					<li><img src="" alt="배너4 이미지"></li>
-				</ul>
-			</div>
-			<!-- 배너 영역 끝-->
+			
 
 
 			<!--병원 정보 공유 게시판-->
 			<div class="notice_board_wrap">
 			<c:url value="/hospInfoBoard" var="hospList" />
 				<div class="notice_board_title p_b5">
-					<span class="p_b5">병원정보 공유</span> <a href="${hospList}" class="right"><span>+ 더보기</span></a>
+					<span class="p_b5">병원정보 공유</span> <a href="${hospList }?page=1" class="right"><img src="resources/img/plus_icon.png" alt="플러스 아이콘" width="10%" height="10%"></a>
 				</div>
 				<div class="notice_board">
 					<ul>
@@ -118,7 +166,7 @@
 			<c:url value="/fmbList" var="fmbList" />
 			<div class="notice_board_wrap m_b80">
 				<div class="notice_board_title p_b5">
-					<span class="p_b5">병에 대한 후기</span> <a href="${fmbList }" class="right"><span>+더보기</span></a>
+					<span class="p_b5">병에 대한 후기</span> <a href="${fmbList }" class="right"><img src="resources/img/plus_icon.png" alt="플러스 아이콘" width="10%" height="10%"></a>
 				</div>
 				<div class="notice_board_tap">
 					<ul>
@@ -143,7 +191,7 @@
 			<div class="notice_board_wrap">
 				<div class="notice_board_title p_b5">
 					<span class="p_b5">게시판</span> 
-					<a href="${noticeList }" class="right"><span>+더보기</span></a>
+					<a href="${noticeList }" class="right"><img src="resources/img/plus_icon.png" alt="플러스 아이콘" width="10%" height="10%" ></a>
 				</div>
 				<div class="notice_board_tap">
 					<ul>
@@ -162,9 +210,11 @@
 			</div>
 			<!--게시판 끝-->
 		</div>
-		<c:url var="test" value="/loginuserlist"/>
+		<c:url var="test" value="/chatting"/>
 	<a href="${ test}">채팅하기</a>
-	
+	<c:forEach items="${userList }" var="userElement">
+		${userElement }
+	</c:forEach>
 		</div>
 	
 
