@@ -36,16 +36,16 @@
 		  		</ol>
 		  		<div class="carousel-inner">
 		    		<div class="item active">
-		      			<img src="resources/img/banner_01.png" width="100%" height="50%" alt="첫번째 슬라이드">
+		      			<img src="resources/img/banner_05.jpg"  height="" alt="첫번째 슬라이드">
 		    		</div>
 		    		<div class="item">
-		      			<img src="resources/img/banner_02.png" width="100%" height="50%" alt="두번째 슬라이드">
+		      			<img src="resources/img/banner_06.jpg" width="100%"  alt="두번째 슬라이드">
 		    		</div>
 				    <div class="item">
-				      <img src="resources/img/banner_03.png" width="100%" height="50%" alt="세번째 슬라이드">
+				      <img src="resources/img/banner_07.jpg" width="100%"  alt="세번째 슬라이드">
 				    </div>
 				    <div class="item">
-				      <img src="resources/img/banner_04.png" width="100%" height="50%"" alt="네번째 슬라이드">
+				      <img src="resources/img/banner_08.jpg" width="100%" alt="네번째 슬라이드">
 				    </div>
 			    </div>
 			    <a class="left carousel-control" href="#myCarouser" data-slide="prev">
@@ -56,10 +56,6 @@
 			    </a>
 			    
 			</div>
-			
-
-		
-				
 				
 
 		<!-- 배너 영역 끝-->

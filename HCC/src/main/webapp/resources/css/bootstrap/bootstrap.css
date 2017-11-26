@@ -6239,11 +6239,16 @@ button.close {
 }
 .carousel-inner {
   position: relative;
-  width: 100%;
   overflow: hidden;
+  align-items: center;
+  min-width: 100%
 }
 .carousel-inner > .item {
   position: relative;
+  width:auto;
+  height:auto;
+  max-height: 400px;
+  overflow:visible;
   display: none;
   -webkit-transition: .6s ease-in-out left;
        -o-transition: .6s ease-in-out left;
