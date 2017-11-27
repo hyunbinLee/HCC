@@ -190,7 +190,7 @@ table>tbody>tr>td{height: 50px;}
 #search_btn{width: 7%;height: 40px;left: 56%;margin-top: 2%;position: absolute;border: none;background-color: #bc1a1a;color: white;font-size: 1.05em; background-image: url(../img/search.png); background-position: 20% 58%; background-repeat: no-repeat;}
 
 /*name*/
-#name{width: 27%;height: 200px;float: right}
+#name{width: 27%;height: 200px;float: right;}
 #name_box{height: 135px;margin-top: 10px;border: 1px solid #ccc;}
 #top{height: 70px;}
 #top>div:nth-child(1){width: 25%;height: 70px;background-color: #cccccc;float: left;border-bottom: 0.5px solid #ccc;background-image:url(../img/member%20icon.png); background-repeat: no-repeat; background-position: center;}

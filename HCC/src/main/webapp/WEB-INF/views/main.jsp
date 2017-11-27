@@ -6,13 +6,12 @@
 
 <%@ include file="common/inc_header.jsp"%>
 <%@ include file="common/inc_bootstrap.jsp" %>
-<meta name="viewport" content="width=device-width", initial-scale="1">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
 
 
 </head>
 <body>
 	<div class="wrap">
-	
 		<!-- Top Menu -->
 		<%@ include file="common/inc_top.jsp"%>
 		<!-- 배너 영역 -->
@@ -45,7 +44,6 @@
 			    <a class="right carousel-control" href="#myCarouser" data-slide="next">
 			    	<span class="glyphicon glyphicon-chevron-right"></span>
 			    </a>
-			    
 			</div>
 				
 		<br/><br/>
@@ -69,7 +67,7 @@
 								placeholder="아이디">
 							</p>
 							<p>
-								<span><img src="resources/img/lock_icon.png" width="3%" hdight ="3%" alt="자물쇠 아이콘"></span>
+								<span><img src="resources/img/lock_icon.png" width="3%" height ="3%" alt="자물쇠 아이콘"></span>
 								<input type="password" name="pw" id="pw" class="" value=""
 								placeholder="비밀번호">
 						</div>
@@ -212,6 +210,6 @@
 	<!-- 회원가입 부분(레이어 팝업) -->
 	<%@ include file="common/inc_join.jsp"%>
 
-	</div>
+	
 </body>
 </html>
