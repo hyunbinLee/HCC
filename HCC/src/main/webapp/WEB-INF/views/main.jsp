@@ -13,10 +13,6 @@
 <body>
 	<div class="wrap">
 	
-		
-		
-			
-	
 		<!-- Top Menu -->
 		<%@ include file="common/inc_top.jsp"%>
 		<!-- 배너 영역 -->
@@ -205,7 +201,7 @@
 			</div>
 			<!--게시판 끝-->
 		</div>
-		<c:url var="test" value="/chatting"/>
+		<c:url var="test" value="/loginuserlist"/>
 	<a href="${ test}">채팅하기</a>
 	<c:forEach items="${userList }" var="userElement">
 		${userElement }
