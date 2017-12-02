@@ -53,7 +53,7 @@
                        <a href="javascript:Open();">댓글열기</a>
                   </div>
                   <div class="">
-                  	<button onclick="showBlamePopup()">신고</button>
+                  	<button onclick="showBlamePopup('D')">신고</button>
                   </div>
                   <div class="del">
 					  <a href="./deleteList?seq=${fmb.fmb_seq}">삭제</a>                  </div>

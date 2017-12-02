@@ -1,10 +1,15 @@
 package com.crossit.hcc.controller;
 
+import java.io.UnsupportedEncodingException;
+
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -13,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.crossit.hcc.dao.BlameMapper;
 import com.crossit.hcc.service.PagingService;
 import com.crossit.hcc.service.PagingServiceImpl;
+import com.crossit.hcc.service.UserDetail;
 
 @Controller
 public class BlameContoroller {
@@ -58,24 +64,26 @@ public class BlameContoroller {
 	
 	
 	@RequestMapping(value="/Declaration")
-	public String DeclarationAction(HttpSession session, Model model
-			,@RequestParam(value="code", required = false) String blame_code
-			,@RequestParam(value="gubun", required = false) String blame_gubun
-			,@RequestParam(value="type", required = false) String blame_type
-			,@RequestParam(value="content", required = false) String blame_content
-			,@RequestParam(value="reg_seq", required = false) String blame_reg_seq			
-			) 
+	public String DeclarationAction(HttpServletRequest request,HttpSession session, Model model
+			) throws UnsupportedEncodingException 
 	{
+		request.setCharacterEncoding("utf-8");
+		
+		String blame_code = request.getParameter("code");
+		String blame_gubun = request.getParameter("gubun");
+		char blame_type = request.getParameter("type").charAt(0);
+		
+		String blame_content = request.getParameter("content");
+		blame_content = new String(blame_content.getBytes("8859_1"),"utf-8");
+		
+		
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+	    UserDetail userdetail = (UserDetail)auth.getPrincipal();
+	    
+	    String blame_reg_seq = "" + userdetail.getUser().getUser_seq();
+		
 		blameDao.insertBlameList(blame_code, blame_gubun, blame_type, blame_content, blame_reg_seq);
 		
-		
-		
-		
-		if(blame_gubun == "") {
-			return "redirect:";			
-		}else if(blame_gubun == "") {
-			
-		}
-		return "";
+		return "/blame/blameOK";
 	}
 }
