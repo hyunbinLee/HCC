@@ -14,6 +14,7 @@
 	<div class="wrap">
 		<%@ include file="../common/inc_top.jsp"%>
 
+	<div id="contents">
 
 		<div class=write_page>
 			<form action="./noticeWrite" method="get">
@@ -42,7 +43,7 @@
 
 
 	</div>
+</div>
 
-	</div>
 </body>
 </html>

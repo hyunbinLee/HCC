@@ -25,6 +25,7 @@
    <div class="wrap">
       <%@ include file="../common/inc_top.jsp"%>
        
+        <div id="contents">
       
           <div class="post">
               <div class="search_nav">
@@ -115,7 +116,7 @@
    
         
       </div>
-
-   </div>
+	</div>
+   
 </body>
 </html>

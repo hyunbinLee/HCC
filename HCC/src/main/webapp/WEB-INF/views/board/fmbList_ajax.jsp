@@ -14,6 +14,8 @@
 	
 	    <!-- Top Menu -->
 		<%@ include file="../common/inc_top.jsp"%>
+	</div>
+			<div id="contents">
 		
 		
 			<div id="search">
@@ -114,6 +116,6 @@
 
 			<%@ include file="../common/inc_right.jsp"%>
 		</div>
-	</div>
+	
 </body>
 </html>

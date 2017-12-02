@@ -104,7 +104,7 @@
 
 			<%@ include file="../common/inc_right.jsp"%>
 		</div>
-	</div>
+
 </body>
 </html>
 	
