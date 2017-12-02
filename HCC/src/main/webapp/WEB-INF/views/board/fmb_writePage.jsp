@@ -14,7 +14,7 @@
 	<div class="wrap">
 		<%@ include file="../common/inc_top.jsp"%>
 
-	<div id="contents">
+		<div id="contents">
 
 		<div class=write_page>
 			<form action="./fmbWrite" method="get">

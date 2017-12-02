@@ -29,7 +29,7 @@ public class BlameMapper {
 		return sqlSessionTemplate.selectOne("com.crossit.hcc.dao.BlameMapper.getBlameCount");
 	}
 	
-	public void insertBlameList(String blame_code,String blame_gubun,String blame_type,String blame_content,String blame_reg_seq) {
+	public void insertBlameList(String blame_code,String blame_gubun,char blame_type,String blame_content,String blame_reg_seq) {
 		HashMap<String , Object> params = new HashMap<String, Object>();
 		params.put("param1", blame_code);
 		params.put("param2", blame_gubun);
