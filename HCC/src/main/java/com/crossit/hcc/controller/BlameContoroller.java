@@ -50,6 +50,13 @@ public class BlameContoroller {
 		return "/blame/blameList";
 	}
 	
+	@RequestMapping(value="/blamePopup")
+	public String blamePopup() {
+		
+		return "/blame/blamePopup";
+	}
+	
+	
 	@RequestMapping(value="/Declaration")
 	public String DeclarationAction(HttpSession session, Model model
 			,@RequestParam(value="code", required = false) String blame_code
@@ -60,6 +67,8 @@ public class BlameContoroller {
 			) 
 	{
 		blameDao.insertBlameList(blame_code, blame_gubun, blame_type, blame_content, blame_reg_seq);
+		
+		
 		
 		
 		if(blame_gubun == "") {

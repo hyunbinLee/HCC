@@ -24,13 +24,13 @@
 <body>
    <div class="wrap">
       <%@ include file="../common/inc_top.jsp"%>
-       
-      
-          <div class="post">
-              <div class="search_nav">
+       </div>
+		  <div id="contents">
+          		<div class="post">
+              	<div class="search_nav">
                     <h2>${fmb.notice_title}</h2>
-              </div>
-              <div class="post_top">
+              	</div>
+              	<div class="post_top">
                   <div class="post_name">
                       <p>운영자</p>
                   </div>
@@ -49,7 +49,7 @@
                   <div class="post_date">
                       <p>${fmb.notice_reg_date }</p>
                   </div>
-              </div>
+              	</div>
               <div class="post_mid">
                   ${fmb.notice_title }
               </div>
@@ -57,10 +57,10 @@
                   <div class="post_bottom_like">
                   <c:if test="${likeStatus == false}" >
                      <a href="./likeAction?seq=${fmb.notice_seq}&code=1">좋아요</a>
-                    </c:if>
+                  </c:if>
                     
                   <c:if test="${likeStatus == true}" >
-                     좋아요
+                     	좋아요
                     </c:if>
                     
                   </div>
@@ -115,7 +115,6 @@
    
         
       </div>
-
-   </div>
+	</div>
 </body>
 </html>

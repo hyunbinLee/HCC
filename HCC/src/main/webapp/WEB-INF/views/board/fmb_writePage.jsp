@@ -13,7 +13,8 @@
 <body>
 	<div class="wrap">
 		<%@ include file="../common/inc_top.jsp"%>
-
+		</div>
+		<div id="contents">
 
 		<div class=write_page>
 			<form action="./fmbWrite" method="get">

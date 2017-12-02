@@ -14,8 +14,8 @@
 	
 	    <!-- Top Menu -->
 		<%@ include file="../common/inc_top.jsp"%>
-		
-		
+		</div>
+		<div id="contents">
 			<div id="search">
 				<div class="search_nav">
 					<p>병원정보공유</p>

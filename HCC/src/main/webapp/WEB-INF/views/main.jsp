@@ -62,12 +62,12 @@
 						</div>
 						<div class="login_box m_b5">
 							<p>
-								<span><img src="resources/img/member_icon.png" width="3%" height ="3%" alt="유저 아이콘"></span>
+								<span><img src="resources/img/member_icon.png" alt="유저 아이콘"></span>
 								<input type="text" name="id" id="id" class="" value=""
 								placeholder="아이디">
 							</p>
 							<p>
-								<span><img src="resources/img/lock_icon.png" width="3%" height ="3%" alt="자물쇠 아이콘"></span>
+								<span><img src="resources/img/lock_icon.png" alt="자물쇠 아이콘"></span>
 								<input type="password" name="pw" id="pw" class="" value=""
 								placeholder="비밀번호">
 						</div>
