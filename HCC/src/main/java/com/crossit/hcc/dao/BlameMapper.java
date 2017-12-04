@@ -46,7 +46,7 @@ public class BlameMapper {
 	}
 	
 	public void upBlameFmb(String blame_seq) {
-		sqlSessionTemplate.update("com.crossit.hcc.dao.BlameMapper.deleteBlameList",blame_seq);
+		sqlSessionTemplate.update("com.crossit.hcc.dao.BlameMapper.upBlameFmb",blame_seq);
 	}
 	
 }

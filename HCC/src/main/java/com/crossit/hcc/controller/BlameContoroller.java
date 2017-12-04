@@ -94,7 +94,7 @@ public class BlameContoroller {
 		String blame_seq = request.getParameter("seq");
 		blameDao.upBlameFmb(blame_seq);
 
-		//blameDao.deleteBlameList(blame_seq);
+		blameDao.deleteBlameList(blame_seq);
 		
 		
 		return "redirect:blameList";
