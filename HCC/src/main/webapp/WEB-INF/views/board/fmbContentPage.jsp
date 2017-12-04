@@ -7,7 +7,7 @@
 
 <%@ include file="../common/inc_header.jsp"%>
 
-<script type="text/javascript" src="resources/js/blame.js"></script>
+<script type="text/javascript" src="resources/js/blameAction.js"></script>
 </head>
 <body>
 	<div class="wrap">
@@ -53,7 +53,7 @@
                        <a href="javascript:Open();">댓글열기</a>
                   </div>
                   <div class="">
-                  	<button onclick="showBlamePopup('K')">신고</button>
+                  	<button onclick="showBlamePopup('K','${fmb.fmb_seq}')">신고</button>
                   </div>
                   <div class="del">
 					  <a href="./deleteList?seq=${fmb.fmb_seq}">삭제</a>                  </div>

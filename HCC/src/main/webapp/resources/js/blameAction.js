@@ -1,10 +1,13 @@
 /**
  * 
  */
-function showBlamePopup(blame_gubun){
-	window.open("./blamePopup?code="+"&gubun="+blame_gubun,"a","width=400, height=300, left=100,top=50");
 
 
+
+function showBlamePopup(blame_gubun,blame_code){
+	
+	
+	window.open("./blamePopup?gubun="+blame_gubun+"&code="+blame_code,"a","width=400, height=300, left=100,top=50");
 }
 
 

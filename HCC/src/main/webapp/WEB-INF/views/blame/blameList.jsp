@@ -35,40 +35,40 @@
 
 				<c:if test="${page==1 || page == null}">
 					<button type="button"
-						onclick="javascript:location.href='./noticeList?page=1'">처음
+						onclick="javascript:location.href='./blameList?page=1'">처음
 					</button>
 					<button type="button"
-						onclick="javascript:location.href='./noticeList?page=1">이전</button>
+						onclick="javascript:location.href='./blameList?page=1">이전</button>
 				</c:if>
 				<c:if test="${page>1 }">
 					<button type="button"
-						onclick="javascript:location.href='./noticeList?page=1'">처음
+						onclick="javascript:location.href='./blameList?page=1'">처음
 					</button>
 					<button type="button"
-						onclick="javascript:location.href='./noticeList?page=${page-1}'">이전
+						onclick="javascript:location.href='./blameList?page=${page-1}'">이전
 					</button>
 				</c:if>
 
 				<!---------------- 페이지 넘버링 ----------------->
 				<c:forEach begin="${startPage }" end="${endPage }" var="pages">
-					<a href="noticeList?page=${pages }">${pages }</a>
+					<a href="blameList?page=${pages }">${pages }</a>
 				</c:forEach>
 
 
 				<c:if test="${page == lastPage }">
 					<button type="button"
-						onclick="javascript:location.href='./noticeList?page=${lastPage}'">
+						onclick="javascript:location.href='./blameList?page=${lastPage}'">
 						다음 <i class="fa fa-angle-right" aria-hidden="true"></i>
 					</button>
 				</c:if>
 				<c:if test="${page != lastPage }">
 					<button type="button"
-						onclick="javascript:location.href='./noticeList?page=${page+1}'">
+						onclick="javascript:location.href='./blameList?page=${page+1}'">
 						다음 <i class="fa fa-angle-right" aria-hidden="true"></i>
 					</button>
 				</c:if>
 				<button type="button"
-					onclick="javascript:location.href='./noticeList?page=${lastPage}'">
+					onclick="javascript:location.href='./blameList?page=${lastPage}'">
 					끝 <i class="fa fa-angle-double-right" aria-hidden="true"></i>
 				</button>
 				<br />
