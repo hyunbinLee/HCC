@@ -56,16 +56,6 @@ public class BlameContoroller {
 		return "/blame/blameList";
 	}
 	
-//	@RequestMapping(value="/blamePopup")
-//	public String blamePopup(HttpServletRequest request) {
-//		
-//		String blame_gubun = request.getParameter("gubun");
-//		String blame_code = request.getParameter("code");
-//		
-//		System.out.println(blame_code);
-//		
-//		return "/blame/blamePopup?code=1"+blame_code+"&gubun="+blame_gubun;
-//	}
 	
 	@RequestMapping(value="blamePopup")
 	public String blamePopup() {
@@ -96,5 +86,25 @@ public class BlameContoroller {
 		blameDao.insertBlameList(blame_code, blame_gubun, blame_type, blame_content, blame_reg_seq);
 		
 		return "/blame/blameOK";
+	}
+	
+	@RequestMapping(value="/DeclarationOK")
+	public String DeclarationOK(HttpServletRequest request) {
+		
+		String blame_seq = request.getParameter("seq");
+		blameDao.upBlameFmb(blame_seq);
+
+		//blameDao.deleteBlameList(blame_seq);
+		
+		
+		return "redirect:blameList";
+	}
+	@RequestMapping(value="/DeclarationX")
+	public String DeclarationX(HttpServletRequest request) {
+		
+		String blame_seq = request.getParameter("seq");
+		blameDao.deleteBlameList(blame_seq);
+		
+		return "redirect:blameList";
 	}
 }

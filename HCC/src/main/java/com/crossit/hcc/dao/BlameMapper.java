@@ -38,6 +38,15 @@ public class BlameMapper {
 		params.put("param5", blame_reg_seq);
 		
 		sqlSessionTemplate.insert("com.crossit.hcc.dao.BlameMapper.insertBlameList", params);
-		
 	}
+	
+	public void deleteBlameList(String blame_seq) {
+		
+		sqlSessionTemplate.delete("com.crossit.hcc.dao.BlameMapper.deleteBlameList",blame_seq);
+	}
+	
+	public void upBlameFmb(String blame_seq) {
+		sqlSessionTemplate.update("com.crossit.hcc.dao.BlameMapper.deleteBlameList",blame_seq);
+	}
+	
 }

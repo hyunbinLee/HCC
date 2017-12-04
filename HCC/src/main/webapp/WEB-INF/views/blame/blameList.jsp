@@ -18,6 +18,8 @@
 							<td class="num"><b>번호</b></td>
 							<td class="num"><b>게시판 종류</b></td>
 							<td class="title"><b>신고 유형</b></td>
+							<td class="title"><b>신고 내용</b></td>
+							<td class="title"><b>신고 접수</b></td>
 						</tr>
 					</thead>
 					<tbody>
@@ -25,9 +27,21 @@
 							<tr>
 								<td class="num"><b>${list.blame_seq}</b></td>
 								<td class="num"><b>${list.blame_gubun}</b></td>
-								<td class="title"><b><a href="./noticeContentPage?seq=${list.blame_seq}&code=1">${list.blame_type}</a></b></td>
-								<!-- td class="grade"><b>평점</b></td>
-                          <td class="name"><b>유인준</b></td -->
+								<td class="title"><b>${list.blame_type}</b></td>
+								<c:if test="${list.blame_gubun == 'D'.charAt(0)}">
+									<td class="title"><b><a href="./fmbContentPage?seq=${list.blame_code}">${list.blame_content}_</a></b></td>
+									
+								</c:if>
+								
+								<c:if test="${list.blame_gubun == 'H'.charAt(0) }">
+									<td class="title"><b><a href="./hospInfoBoard_detail?boardseq=${list.blame_code }">${list.blame_content}_</a></b></td>
+								</c:if>
+								
+								
+								<td>
+									<a href="./DeclarationOK?seq=${list.blame_seq }">O</a>/
+									<a href="./DeclarationX?seq=${list.blame_seq }">X</a>
+								</td>
 							</tr>
 						</c:forEach>
 					</tbody>

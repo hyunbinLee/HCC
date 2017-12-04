@@ -50,6 +50,9 @@
 		
 		<!-- 신고 -->
 		<intercept-url pattern="/blamePopup" access="hasAnyRole('ROLE_ADMIN', 'ROLE_USER')"/>
+		<intercept-url pattern="/DeclarationOK" access="hasRole('ROLE_ADMIN')"/>
+		<intercept-url pattern="/DeclarationX" access="hasRole('ROLE_ADMIN')"/>
+
 		
 		<!-- 관리자 페이지 -->
 		<intercept-url pattern="/memberManagement" access="hasRole('ROLE_ADMIN')"/>
