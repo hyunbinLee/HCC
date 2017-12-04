@@ -2,12 +2,12 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags"%>
 
-<script type="text/javascript" src="resources/js/blame.js"></script>
 
 <%@ include file="../common/inc_common.jsp"%>
 
 <%@ include file="../common/inc_header.jsp"%>
 
+<script type="text/javascript" src="resources/js/blame.js"></script>
 </head>
 <body>
 	<div class="wrap">
@@ -53,7 +53,7 @@
                        <a href="javascript:Open();">댓글열기</a>
                   </div>
                   <div class="">
-                  	<button onclick="showBlamePopup('D')">신고</button>
+                  	<button onclick="showBlamePopup('K')">신고</button>
                   </div>
                   <div class="del">
 					  <a href="./deleteList?seq=${fmb.fmb_seq}">삭제</a>                  </div>

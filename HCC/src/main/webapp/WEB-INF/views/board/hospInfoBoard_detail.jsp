@@ -4,6 +4,7 @@
 <%@ taglib prefix="sec"
 	uri="http://www.springframework.org/security/tags"%>
 
+<script type="text/javascript" src="resources/js/blame.js"></script>
 
 <%@ include file="../common/inc_common.jsp"%>
 
@@ -54,6 +55,7 @@
 						<a
 							href="./hospInfoBoard_modify?boardseq=${detail.hospital_info_seq}">수정</a>
 					</div>
+                  	<button onclick="showBlamePopup('H','1')">신고</button>
 				</div>
 
 

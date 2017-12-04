@@ -29,6 +29,7 @@ $(document).ready(function() {
 	$('.banner_area img').css('width',banner_size+'px');
 	for(var i=1; i < banner_cnt; i++){
 		var a = banner_size *i;
+	
 		var a_cnt = $('.banner_area ul').css('left');
 		if (a_cnt == 1){
 			$('.banner_area ul').animate({

@@ -56,10 +56,21 @@ public class BlameContoroller {
 		return "/blame/blameList";
 	}
 	
-	@RequestMapping(value="/blamePopup")
+//	@RequestMapping(value="/blamePopup")
+//	public String blamePopup(HttpServletRequest request) {
+//		
+//		String blame_gubun = request.getParameter("gubun");
+//		String blame_code = request.getParameter("code");
+//		
+//		System.out.println(blame_code);
+//		
+//		return "/blame/blamePopup?code=1"+blame_code+"&gubun="+blame_gubun;
+//	}
+	
+	@RequestMapping(value="blamePopup")
 	public String blamePopup() {
 		
-		return "/blame/blamePopup";
+		return "blame/blamePopup";
 	}
 	
 	

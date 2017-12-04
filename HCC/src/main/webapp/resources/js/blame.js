@@ -1,21 +1,12 @@
 /**
  * 
  */
-function getParameterByName(name) {
-    name = name.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]");
-    var regex = new RegExp("[\\?&]" + name + "=([^&#]*)"),
-        results = regex.exec(location.search);
-    return results === null ? "" : decodeURIComponent(results[1].replace(/\+/g, " "));
-}
-
-
 function showBlamePopup(blame_gubun){
-	var blame_code;
-	
-	blame_code = getParameterByName('seq');
-	
-	window.open("./blamePopup?code="+blame_code+"&gubun="+blame_gubun,"a","width=400, height=300, left=100,top=50");
+	window.open("./blamePopup?code="+"&gubun="+blame_gubun,"a","width=400, height=300, left=100,top=50");
+
+
 }
+
 
 function insertBlameAction(){
 	var blame_code;
