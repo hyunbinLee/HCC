@@ -21,7 +21,7 @@
 			<li><a href="${self }" class="">자가진단</a></li>
 			<li><a href="${hosp }" class="">병원정보공유</a></li>
 			<li><a href="${fmbList }" class="">병에대한후기</a></li>
-			<li><a href="${noticeList }" class="">게시판</a></li>
+			<li><a href="${noticeList }" class="">공지사항</a></li>
 		</ul>
 	</div>
 </div>

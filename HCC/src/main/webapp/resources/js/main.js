@@ -12,9 +12,49 @@
 //});
 
 $(document).ready(function() {
+	
 	var bak_height = $('html').height();
 	$('.bak_bl').css('height', bak_height);
+	
+	//2017-11-21 배너 사이즈를 위해 추가
+	/*화면에 따른 배너 길이 */
+	var banner_size = $('.banner_area').width()/2;
+	/*배너 이미지 갯수*/
+	var banner_cnt = $('.banner_area li').length;
+	/*배너 *2 길이*/
+	var banner_area = banner_size * banner_cnt;
+	/*배너 첫 슬라이드 길이지정*/
+	$('.banner_area ul').css('width',banner_area+'px')
+	/*배너 이미지 사이즈 지정*/
+	$('.banner_area img').css('width',banner_size+'px');
+	for(var i=1; i < banner_cnt; i++){
+		var a = banner_size *i;
+	
+		var a_cnt = $('.banner_area ul').css('left');
+		if (a_cnt == 1){
+			$('.banner_area ul').animate({
+				left:"0"
+			},1000)
+			i=1;
+		}else{
+			$('.banner_area ul').animate({
+				left:-banner_size*i+"px"
+			},5000)
+		}
+		
+	}
+		
+	
+	
+//	for(var i = banner_size; i <= banner_area; i+=banner_size ){
+//		if (banner_size = banner_area){
+//			$('.banner_area ul').animate('left','0');
+//		}else{
+//			$('.banner_area ul').animate('left',i+'px');
+//		}
+//	}
 });
+
 
 function lay_pop_close() {
 	$('.login_wrap').hide();

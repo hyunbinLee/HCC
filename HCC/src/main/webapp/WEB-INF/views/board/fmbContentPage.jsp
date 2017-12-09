@@ -7,11 +7,13 @@
 
 <%@ include file="../common/inc_header.jsp"%>
 
+<script type="text/javascript" src="resources/js/blame.js"></script>
 </head>
 <body>
 	<div class="wrap">
 		<%@ include file="../common/inc_top.jsp"%>
-		 
+
+		 <div id="contents">
 		
           <div class="post">
               <div class="search_nav">
@@ -49,6 +51,9 @@
                   </div>
                   <div class="post_bottom_text" id="post_bottom_text">
                        <a href="javascript:Open();">댓글열기</a>
+                  </div>
+                  <div class="">
+                  	<button onclick="showBlamePopup('D','${fmb.fmb_seq}')">신고</button>
                   </div>
                   <div class="del">
 					  <a href="./deleteList?seq=${fmb.fmb_seq}">삭제</a>                  </div>
@@ -94,7 +99,7 @@
    
 		  
       </div>
-
-	</div>
+</div>
+	
 </body>
 </html>

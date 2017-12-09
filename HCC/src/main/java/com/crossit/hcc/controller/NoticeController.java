@@ -131,6 +131,8 @@ public class NoticeController {
 		String content = request.getParameter("content");
 		content = new String(content.getBytes("8859_1"),"utf-8");
 		
+		System.out.println(title);
+		
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 	    UserDetail userdetail = (UserDetail)auth.getPrincipal();
 		

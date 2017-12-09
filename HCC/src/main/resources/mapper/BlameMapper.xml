@@ -47,4 +47,30 @@
 			, now()
 		)
 	</insert>
+	
+	<delete id="deleteBlameList">
+		delete
+		from hcc_blame_tb
+		where blame_seq = #{param1}
+	</delete>
+	
+	<update id="upBlameFmb">
+		
+		update hcc_user_tb
+		set user_blame_cnt = user_blame_cnt + 1
+		where user_seq = 
+		(
+			select fmb_reg_seq
+			from hcc_fmb_tb
+			where fmb_seq in (
+				select blame_code
+				from hcc_blame_tb
+				where blame_seq = #{param1}
+			)
+			group by fmb_reg_seq
+		)
+
+	</update>
+	
+	
 </mapper>

@@ -14,8 +14,9 @@
 	
 	    <!-- Top Menu -->
 		<%@ include file="../common/inc_top.jsp"%>
+	</div>
 		
-		
+		<div id="contents">
 			<div id="search">
 				<div class="search_nav">
 					<p>병에 대한 후기</p>
@@ -114,6 +115,6 @@
 
 			<%@ include file="../common/inc_right.jsp"%>
 		</div>
-	</div>
+	
 </body>
 </html>

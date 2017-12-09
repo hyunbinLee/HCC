@@ -15,7 +15,8 @@
 
 		<!-- Top Menu -->
 		<%@ include file="../common/inc_top.jsp"%>
-
+		</div>
+		<div id="contents">
 		<h1>수정 페이지</h1>
 		<br />
 		<br />
