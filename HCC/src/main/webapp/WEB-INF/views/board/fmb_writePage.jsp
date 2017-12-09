@@ -45,7 +45,6 @@
 
 			</form>
 		</div>
-
 		<%@ include file="../common/inc_right.jsp"%>
 
 

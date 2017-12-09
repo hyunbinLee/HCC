@@ -2,5 +2,8 @@
 <<<<<<<=HEAD
 >>>>>>>=branch 'master' of https\://github.com/hyunbinLee/HCC.git
 eclipse.preferences.version=1
+encoding//src/main/java/com/crossit/hcc/controller/BoardController.java=UTF-8
+encoding//src/main/java/com/crossit/hcc/dao/BoardMapperImpl.java=UTF-8
+encoding//src/main/java/com/crossit/hcc/service/BoardService.java=UTF-8
 encoding//src/main/webapp/WEB-INF/views/blame/blameList.jsp=UTF-8
 encoding//src/main/webapp/WEB-INF/views/board/selfDiagno/selfDiagno_detail.jsp=UTF-8

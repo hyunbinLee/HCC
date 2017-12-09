@@ -2,12 +2,12 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags"%>
 
+<script type="text/javascript" src="resources/js/blame.js"></script>
 
 <%@ include file="../common/inc_common.jsp"%>
 
 <%@ include file="../common/inc_header.jsp"%>
 
-<script type="text/javascript" src="resources/js/blame.js"></script>
 </head>
 <body>
 	<div class="wrap">
@@ -54,7 +54,7 @@
                        <a href="javascript:Open();">댓글열기</a>
                   </div>
                   <div class="">
-                  	<button onclick="showBlamePopup('D','${fmb.fmb_seq}')">신고</button>
+                  	<button onclick="showBlamePopup('D')">신고</button>
                   </div>
                   <div class="del">
 					  <a href="./deleteList?seq=${fmb.fmb_seq}">삭제</a>                  </div>
@@ -67,7 +67,7 @@
                <div class="comments" >
                 <span id=test1_1 ></span> 
    
-                    <span id=test1_2 style="DISPLAY: none;">
+                <span id=test1_2>
 			<c:forEach var="reply" items="${reply}">
                      <div class="comments_list">
                        <span class="comments_span">
@@ -76,24 +76,20 @@
                                  <!--testInnerHTML('댓글번호','댓글내용','댓글시퀀스','사용자시퀀스');" -->
 								 <a href="javascript:testInnerHTML('1','test','1','1');" >Update</a>&nbsp;&nbsp;
 								 <!--commentDelete('댓글시퀀스','사용자시퀀스');" -->
-                                 <!--  <a href="javascript:commentDelete('1','1');">Delete</a>&nbsp;&nbsp;-->
-                                 <a href="./deletereply?seq=${reply.fmb_reply_seq}&fmb_seq=${reply.fmb_seq}">Delete</a>&nbsp;&nbsp;
+                                <a href="./deletereply?seq=${reply.fmb_reply_seq}&fmb_seq=${reply.fmb_seq}">Delete</a>&nbsp;&nbsp;
 								 <!--cencleInnerHTML('댓글번호','댓글내용');" -->
                                  <a href="javascript:cencleInnerHTML('1','test');">Cancel</a>
 						      </span> 
                        </span>
                        <div class="inHere" id="inHere1" >
-                        <a>${reply.fmb_reply_comment}</a>
+                         <a>${reply.fmb_reply_comment}</a> 
                        </div>
                      </div> 
                      </c:forEach>
                      <div class="comments_text" >
-                     <form name="comform" method="get" action="./ReplyWrite">
-                       <input type="text" id="comment" class="comment" name="comment">
-                       <!--  <textarea id="comment" class="comment" name="comment" maxlength="250" ></textarea>-->
-                       <input type="hidden" name="seq" value="${fmb.fmb_seq}">
-					   <input type="submit" id="comment_btn" value="Register" >
-					   </form>
+                       <textarea id="comment" class="comment" name="comment" maxlength="250" ></textarea>
+                       <a href="./ReplyWrite?seq=${fmb.fmb_seq}">댓글쓰기</a>
+					   <!--  <input type="submit" id="comment_btn" value="Register" >-->
                      </div>
                 </span> 
               </div>

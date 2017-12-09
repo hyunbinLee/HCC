@@ -33,7 +33,6 @@
 			<attribute name="org.eclipse.jst.component.dependency" value="/WEB-INF/lib"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="lib" path="C:/Program Files/Java/jre7/lib/ext/jdom-2.0.6.jar"/>
-	<classpathentry kind="lib" path="C:/Program Files/Java/jdk1.7.0_80/jre/lib/ext/jdom-2.0.6.jar"/>
+	<classpathentry kind="lib" path="C:/Users/hbLee/Desktop/jdom-2.0.6.jar"/>
 	<classpathentry kind="output" path="target/classes"/>
 </classpath>
