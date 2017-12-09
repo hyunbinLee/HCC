@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
@@ -25,7 +26,7 @@ import com.crossit.hcc.vo.UserVO;
 
 @Service("HospInfoBoardService")
 public class HospInfoBoardServiceImpl implements HospInfoBoardService{
-	
+		
 	@Autowired
 	private SqlSessionTemplate sqlSession;
 	
@@ -327,4 +328,6 @@ public class HospInfoBoardServiceImpl implements HospInfoBoardService{
 		return paging.getEndPageNo();
 	}
 	
+	
+
 }

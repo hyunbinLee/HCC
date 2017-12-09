@@ -35,5 +35,6 @@
  	<bean id="blameDao" class="com.crossit.hcc.dao.BlameMapper">
  		<property name="sqlSessionTemplate" ref="sqlSessionTemplate"></property>
  	</bean>
-
+ 	
+ 
 </beans>

@@ -4,11 +4,27 @@
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags"%>
 
 
-<%@ include file="../common/inc_common.jsp"%>
+<%@ include file="../../common/inc_common.jsp"%>
 
-<%@ include file="../common/inc_header.jsp"%>
+<%@ include file="../../common/inc_header.jsp"%>
   
   <script>
+  	var box_cnt=2;
+	function ctr_QA(add_num,ox){
+		if(ox=='x'){
+			var ab=add_num-1;
+			$('label[for='+ab+']').removeClass('on');
+			$('label[for='+add_num+']').addClass('on');
+			addBox();
+		}else{
+			var ab=add_num+1;
+			$('label[for='+ab+']').removeClass('on');
+			$('label[for='+add_num+']').addClass('on');
+			open_pop();
+		}
+	}
+  		
+
 	function open_pop() {
 		$('.back_screen').show();
 		$('.test-result-laypop').show();
@@ -40,6 +56,12 @@
 			$('#element').off('scroll touchmove mousewheel');
 		}
 	}
+
+	function addBox(){
+ 		$('.question_box:nth-child('+box_cnt+')').css('display','block');
+ 		box_cnt+=1;
+ 	}
+
 </script>
 
 </head>
@@ -47,7 +69,7 @@
 	<div class="wrap">
 	
 	    <!-- Top Menu -->
-		<%@ include file="../common/inc_top.jsp"%>
+		<%@ include file="../../common/inc_top.jsp"%>
 		
 		
 		</div>
@@ -57,125 +79,99 @@
 					<p>Question. 01</p>
 					<h1>술을 마신 뒤에 예전만큼 잘 깨지 않는다.</h1>
 					<div>
-						<p class="test-ox-btn">
-							<button type="button" class="obutton on m_r10">O</button>
-						</p>
-						<p class="test-ox-btn">
-							<button type="button" class="obutton">X</button>
-						</p>
+						<input type="radio" name="btn_ox" id="1" style="display:none"/>
+						<label for="1" class="test-ox-btn m_r10" onclick="ctr_QA(1);">O</label>
+						<input type="radio" name="btn_ox" id="2" style="display:none"/>
+						<label for="2" class="test-ox-btn" onclick="ctr_QA(2,'x');">X</label>
 					</div>
 				</div>
 				<div class="question_box">
 					<p>Question. 02</p>
 					<h1>아침에 일어나기가 힘들다.</h1>
 					<div>
-						<p class="test-ox-btn">
-							<button type="button" class="obutton  m_r10">O</button>
-						</p>
-						<p class="test-ox-btn">
-							<button type="button" class="obutton on">X</button>
-						</p>
+						<input type="radio" name="btn_ox" id="3" style="display:none"/>
+						<label for="3" class="test-ox-btn m_r10" onclick="ctr_QA(3);">O</label>
+						<input type="radio" name="btn_ox" id="4" style="display:none"/>
+						<label for="4" class="test-ox-btn" onclick="ctr_QA(4,'x');">X</label>
 					</div>
 				</div>
 				<div class="question_box">
 					<p>Question. 03</p>
 					<h1>튀김이나 고열량 식품을 즐겨먹는다.</h1>
-					<div>
-						<p class="test-ox-btn">
-							<button type="button" class="obutton  m_r10">O</button>
-						</p>
-						<p class="test-ox-btn">
-							<button type="button" class="obutton on">X</button>
-						</p>
-					</div>
+					<input type="radio" name="btn_ox" id="5" style="display:none"/>
+					<label for="5" class="test-ox-btn m_r10" onclick="ctr_QA(5);">O</label>
+					<input type="radio" name="btn_ox" id="6" style="display:none"/>
+					<label for="6" class="test-ox-btn" onclick="ctr_QA(6,'x');">X</label>
 				</div>
 				<div class="question_box">
 					<p>Question. 04</p>
 					<h1>입냄새가 심하게 난다.</h1>
-					<div>
-						<p class="test-ox-btn">
-							<button type="button" class="obutton on m_r10">O</button>
-						</p>
-						<p class="test-ox-btn">
-							<button type="button" class="obutton">X</button>
-						</p>
-					</div>
+					<input type="radio" name="btn_ox" id="7" style="display:none"/>
+					<label for="7" class="test-ox-btn m_r10" onclick="ctr_QA(7);">O</label>
+					<input type="radio" name="btn_ox" id="8" style="display:none"/>
+					<label for="8" class="test-ox-btn" onclick="ctr_QA(8,'x');">X</label>
 				</div>
 				<div class="question_box">
 					<p>Question. 06</p>
 					<h1>간건강 관련하여 가족 중에 질환을 앓은 사람이 있다.</h1>
 					<div>
-						<p class="test-ox-btn">
-							<button type="button" class="obutton on m_r10">O</button>
-						</p>
-						<p class="test-ox-btn">
-							<button type="button" class="obutton">X</button>
-						</p>
+						<input type="radio" name="btn_ox" id="9" style="display:none"/>
+						<label for="9" class="test-ox-btn m_r10" onclick="ctr_QA(9);">O</label>
+						<input type="radio" name="btn_ox" id="10" style="display:none"/>
+						<label for="10" class="test-ox-btn" onclick="ctr_QA(10,'x');">X</label>
 					</div>
 				</div>
 				<div class="question_box">
 					<p>Question. 06</p>
 					<h1>아침에 일어날 때 기운이 넘친다.</h1>
 					<div>
-						<p class="test-ox-btn">
-							<button type="button" class="obutton on m_r10">O</button>
-						</p>
-						<p class="test-ox-btn">
-							<button type="button" class="obutton">X</button>
-						</p>
+						<input type="radio" name="btn_ox" id="11" style="display:none"/>
+						<label for="11" class="test-ox-btn m_r10" onclick="ctr_QA(11);">O</label>
+						<input type="radio" name="btn_ox" id="12" style="display:none"/>
+						<label for="12" class="test-ox-btn" onclick="ctr_QA(12,'x');">X</label>
 					</div>
 				</div>
 				<div class="question_box">
 					<p>Question. 07</p>
 					<h1>여행 중에도 쉽게 지치지 않는다.</h1>
 					<div>
-						<p class="test-ox-btn">
-							<button type="button" class="obutton  m_r10">O</button>
-						</p>
-						<p class="test-ox-btn">
-							<button type="button" class="obutton on">X</button>
-						</p>
+						<input type="radio" name="btn_ox" id="13" style="display:none"/>
+						<label for="13" class="test-ox-btn m_r10" onclick="ctr_QA(13);">O</label>
+						<input type="radio" name="btn_ox" id="14" style="display:none"/>
+						<label for="14" class="test-ox-btn" onclick="ctr_QA(14,'x');">X</label>
 					</div>
 				</div>
 				<div class="question_box">
 					<p>Question. 08</p>
 					<h1>술을 많이 마시지 않고, 마셔도 금방 깨는 편이다.</h1>
 					<div>
-						<p class="test-ox-btn">
-							<button type="button" class="obutton on m_r10">O</button>
-						</p>
-						<p class="test-ox-btn">
-							<button type="button" class="obutton">X</button>
-						</p>
+						<input type="radio" name="btn_ox" id="15" style="display:none"/>
+						<label for="15" class="test-ox-btn m_r10" onclick="ctr_QA(15);">O</label>
+						<input type="radio" name="btn_ox" id="16" style="display:none"/>
+						<label for="16" class="test-ox-btn" onclick="ctr_QA(16,'x');">X</label>
 					</div>
 				</div>
 				<div class="question_box">
 					<p>Question. 09</p>
 					<h1>음식을 골고루 챙겨먹는 편이다.</h1>
-					<div>
-						<p class="test-ox-btn">
-							<button type="button" class="obutton on m_r10">O</button>
-						</p>
-						<p class="test-ox-btn">
-							<button type="button" class="obutton">X</button>
-						</p>
-					</div>
+					<input type="radio" name="btn_ox" id="17" style="display:none"/>
+					<label for="17" class="test-ox-btn m_r10" onclick="ctr_QA(17);">O</label>
+					<input type="radio" name="btn_ox" id="18" style="display:none"/>
+					<label for="18" class="test-ox-btn" onclick="ctr_QA(18,'x');">X</label>
 				</div>
 				<div class="question_box">
 					<p>Question. 10</p>
 					<h1>스트레스를 잘 받지 않는 편이다.</h1>
 					<div>
-						<p class="test-ox-btn">
-							<button type="button" class="obutton  m_r10">O</button>
-						</p>
-						<p class="test-ox-btn">
-							<button type="button" class="obutton on">X</button>
-						</p>
+						<input type="radio" name="btn_ox" id="19" style="display:none"/>
+						<label for="19" class="test-ox-btn m_r10" onclick="ctr_QA(19);">O</label>
+						<input type="radio" name="btn_ox" id="20" style="display:none"/>
+						<label for="20" class="test-ox-btn" onclick="ctr_QA(20,'x');">X</label>
 					</div>
 				</div>
 
 			</div>
-			<a class="selfcheck_btn m_t30 m_b30" href="#" onclick="open_pop()">결과보기</a>
+			<!-- <a class="selfcheck_btn m_t30 m_b30" href="#" onclick="open_pop()">결과보기</a>-->
 		<div class="test-result-laypop" style="display: none">
 			<button type="button" class="btn_close" onclick="close_pop()">X</button>
 			<div class="test-result-txtbox">

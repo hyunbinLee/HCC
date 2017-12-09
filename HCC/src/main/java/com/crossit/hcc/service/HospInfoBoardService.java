@@ -1,9 +1,11 @@
 package com.crossit.hcc.service;
 
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import javax.xml.transform.stream.StreamSource;
 
 import com.crossit.hcc.vo.HospInfoBoardReplVO;
 import com.crossit.hcc.vo.HospInfoBoardVO;
@@ -58,10 +60,6 @@ public interface HospInfoBoardService {
 	
 	// 회원별 신고 횟수 증가
 	public void updateblameCount(HttpSession session);
-	
-	
-	
-	
 	
 	
 	

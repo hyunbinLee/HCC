@@ -40,7 +40,8 @@
 		              <div id="list_box">
                   		  <div id="adult">성인</div>
                   		  <div id="teenager">소아/청소년</div>
-                  		  <div class="write"><a href="./hospInfoBoard_write">글쓰기</a></div>
+                  		  <div class="write"><a href="./hospInfoBoard_write">글쓰기</a> 
+                  		  			<a href="./toApiTest">api테스트</a></div>
              		  </div>
               		  <table>
 		                  <thead>

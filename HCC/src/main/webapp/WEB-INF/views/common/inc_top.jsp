@@ -6,7 +6,7 @@
 
 <div class="header_wrap m_b30">
 		<c:url value="/main" var="main"></c:url>
-		<c:url value="/selfDiagno_detail" var="self"></c:url>
+		<c:url value="/selfDiagno" var="self"></c:url>
 		<c:url value="/hospInfoBoard" var="hosp"></c:url>
 		<c:url value="/fmbList" var="fmbList"></c:url>
 		<c:url value="/noticeList" var="noticeList"></c:url>
