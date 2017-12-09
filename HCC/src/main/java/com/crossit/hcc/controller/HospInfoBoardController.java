@@ -1,15 +1,35 @@
 package com.crossit.hcc.controller;
 
+import java.io.DataInputStream;
+import java.io.PrintWriter;
+import java.net.URL;
+import java.net.URLConnection;
+import java.net.URLEncoder;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
+import java.util.Vector;
 
+import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import javax.xml.transform.stream.StreamSource;
 
 import org.apache.ibatis.session.SqlSession;
+import org.jdom2.Document;
+import org.jdom2.Element;
+import org.jdom2.input.SAXBuilder;
+import org.omg.CORBA_2_3.portable.InputStream;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -21,10 +41,15 @@ import com.crossit.hcc.service.HospInfoBoardServiceImpl;
 import com.crossit.hcc.vo.HospInfoBoardVO;
 import com.crossit.hcc.vo.HospInfoListVO;
 import com.crossit.hcc.vo.HospInfoVO;
+import com.crossit.hcc.vo.ItemList;
+import com.crossit.hcc.vo.School;
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 @Controller
 public class HospInfoBoardController {
 
+	
 	@Autowired
 	private HospInfoBoardServiceImpl HospInfoBoardService;
 	
@@ -62,7 +87,63 @@ public class HospInfoBoardController {
 			return mav;
 		}
 	
-	
+		@RequestMapping(value = "/toApiTest", method = RequestMethod.GET)
+		public ModelAndView toApiTest(HttpServletRequest request) throws Exception{
+			ModelAndView mav = new ModelAndView("/board/apiTest");
+			
+			return mav;
+		}
+		
+		@RequestMapping(value = "/apiTest", method = RequestMethod.GET)
+		public ModelAndView apiTest(HttpServletRequest request) throws Exception{
+			ModelAndView mav = new ModelAndView("/board/apiTestResult");
+			
+			String hospNm = request.getParameter("hospNm");
+			
+			String rvalUrl = "http://apis.data.go.kr/B551182/hospInfoService/getHospBasisList?serviceKey=FHx3MZ5wfeyTMxpRxvpPc2EcmTn4Ypw%2BNGg8QXPHk0wbqRe47DQhFDrsM8ZzPDxpywj3IavwroLPuyPBK2Mvsg%3D%3D&yadmNm="+hospNm+"";
+			
+			URL url = new URL(rvalUrl);
+			URLConnection conn = url.openConnection(); // URL 연결
+			conn.setRequestProperty("accept-language", "ko"); // 언어설정
+			
+			// XML 자료 가져오기
+			SAXBuilder builder = new SAXBuilder(); 
+			Document doc = builder.build(conn.getInputStream());
+			
+			// itemlist 하위에 우편번호와 주소값을 가지고 있다.
+			Element itemlist = doc.getRootElement().getChild("itemlist");
+			List list = itemlist.getChildren();
+			
+			mav.addObject("list", list);
+
+
+			/*
+			try{
+				SAXBuilder parser = new SAXBuilder(); // 문서의 빌드화
+				parser.setIgnoringElementContentWhitespace(true);
+				Document doc = parser.build(rvalUrl); // xml파일을 부른다.
+				Element root = doc.getRootElement(); // xml파일의 첫번째 태그를 부른다.
+				List newAddressList = root.getChildren("newAddressList"); // 루트의 하위 요소를 구함.
+				List cmmMsgHeader = root.getChildren("cmmMsgHeader");
+				if(newAddressList.size() == 0)
+				{
+					mav.addObject(cmmMsgHeader.get(0));
+				}
+				else
+				{
+					mav.addObject(cmmMsgHeader.get(0));
+					for(int i=0; i<newAddressList.size(); i++)
+						mav.addObject(newAddressList.get(i));
+				}
+			} catch(Exception e) {
+				System.out.println("apiTest 실패");
+			}
+			*/
+			
+			return mav;
+		}
+		
+		
 	// 병원정보공유 게시판 상세 페이지 - 유저에 따라 다르게 보여지는 코드 추가해야함 
 	@RequestMapping(value = "/hospInfoBoard_detail", method = RequestMethod.GET)
 	public ModelAndView toHospInfoBoardDet(HttpServletRequest request) throws Exception{
@@ -87,22 +168,9 @@ public class HospInfoBoardController {
 	// 글 등록
 	@RequestMapping(value = "/writeHospInfo", method = RequestMethod.GET) 
 	 public ModelAndView writeHospInfo(HttpSession session, HttpServletRequest request) throws Exception{ 
-		/*
-		// xml 데이터를 response 받을 API 주소
-		String uri = "API 주소";
 		
-		// RestTemplate 생성
-		RestTemplate restTemplate = new RestTemplate();
 		
-		// 오브젝트로 결과값 받아오기
-		HospInfoListVO hospInfoList = restTemplate.getForObject(uri, HospInfoListVO.class);
-		
-		// 회원 정보 리스트
-		List<HospInfoVO> result = hospInfoList.getHospInfo();
-		
-		// model addAttribute("result", result);
-		//return "memberList";
-	*/
+	
 		ModelAndView mav = new ModelAndView("redirect:/hospInfoBoard");
 		
 		HospInfoBoardService.writeHospInfo(request, session);
