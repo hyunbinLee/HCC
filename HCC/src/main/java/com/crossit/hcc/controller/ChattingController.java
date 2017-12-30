@@ -1,5 +1,6 @@
 package com.crossit.hcc.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,44 +17,47 @@ import com.crossit.hcc.util.SessionHandler;
 
 @Controller
 public class ChattingController {
-	
-	
+
 	@Autowired
 	private SessionHandler s_handler;
-	
-	@RequestMapping(value = "/chatting",method=RequestMethod.POST)
-	public ModelAndView chat(ModelAndView mv,@RequestParam String s_userid){
-		
+
+	@RequestMapping(value = "/chatting", method = RequestMethod.POST)
+	public ModelAndView chat(ModelAndView mv, @RequestParam String s_userid) {
+
 		mv.setViewName("chat/chattingview");
-		UserDetail user = (UserDetail)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-		mv.addObject("userid",user.getUsername());
-		mv.addObject("s_userid",s_userid);
+		UserDetail user = (UserDetail) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		mv.addObject("userid", user.getUsername());
+		mv.addObject("s_userid", s_userid);
 
 		return mv;
 	}
-	
-	@RequestMapping(value = "/loginuserlist",method=RequestMethod.GET)
-	public ModelAndView loginuserlist(ModelAndView mv){
-		
+
+	@RequestMapping(value = "/loginuserlist", method = RequestMethod.GET)
+	public ModelAndView loginuserlist(ModelAndView mv) {
+
 		mv.setViewName("chat/userchoiceview");
-		
-		List<SessionInformation> result = s_handler.getAllSessions();
-		String [] userList = new String[result.size()];
-		
-		for(int i=0; i<result.size();i++){
-		UserDetail user = (UserDetail) result.get(i).getPrincipal();
-		userList[i]=user.getUsername();
+
+		List<SessionInformation> result = s_handler.getAllSessions();// 모든 유저 목록  받아오기
+		ArrayList<String> userList = new ArrayList<String>();
+		UserDetail user = (UserDetail) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+
+		for (int i = 0; i < result.size(); i++) {
+
+			UserDetail tmp = (UserDetail) result.get(i).getPrincipal();
+
+			if (tmp.getUsername().equals(user.getUsername()))// 자기 자신을 빼고 리스트에 넣기.
+				continue;
+
+			userList.add(tmp.getUsername());
 		}
-		
-		UserDetail user = (UserDetail)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-		
-		mv.addObject("currentuserid",user.getUsername());
-		
-		if(user.getUsername().equals(userList[0]))
+
+		mv.addObject("currentuserid", user.getUsername());
+
+		if (userList.size()==0)
 			mv.addObject("userList", null);
 		else
-			mv.addObject("userList",userList);
-		
+			mv.addObject("userList", userList);
+
 		return mv;
 	}
 
