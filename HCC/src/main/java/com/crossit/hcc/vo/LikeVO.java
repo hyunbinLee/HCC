@@ -5,6 +5,7 @@ import java.sql.Timestamp;
 public class LikeVO {
 	int like_seq;
 	int like_code;
+	char like_gubun;
 	int like_reg_seq;
 	Timestamp like_reg_date;
 	
@@ -19,6 +20,12 @@ public class LikeVO {
 	}
 	public void setLike_code(int like_code) {
 		this.like_code = like_code;
+	}
+	public char getLike_gubun() {
+		return like_gubun;
+	}
+	public void setLike_gubun(char like_gubun) {
+		this.like_gubun = like_gubun;
 	}
 	public int getLike_reg_seq() {
 		return like_reg_seq;

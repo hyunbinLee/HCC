@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 
 import com.crossit.hcc.vo.LikeVO;
 import com.crossit.hcc.vo.NoticeVO;
+import com.crossit.hcc.vo.UnlikeVO;
 
 @Service
 @Configurable
@@ -107,6 +108,17 @@ public class NoticeMapper {
 		return sqlSessionTemplate.selectOne("com.crossit.hcc.dao.NoticeMapper.checkLike", params);
 	}
 	
+	public UnlikeVO checkUnlike(String unlike_seq, String unlike_code, String unlike_reg_seq) {
+		// TODO Auto-generated method stub
+		HashMap<String, String> params = new HashMap<String, String>();
+		params.put("param1", unlike_seq);
+		params.put("param2", unlike_code);
+		params.put("param3", unlike_reg_seq);
+		
+		
+		return sqlSessionTemplate.selectOne("com.crossit.hcc.dao.NoticeMapper.checkUnlike", params);
+	}
+	
 	public void addLikeList(String like_seq, String like_code, String like_reg_seq) {
 		// TODO Auto-generated method stub
 		HashMap<String, String> params = new HashMap<String, String>();
@@ -122,4 +134,20 @@ public class NoticeMapper {
 		
 		sqlSessionTemplate.update("com.crossit.hcc.dao.NoticeMapper.updateNoticeLike",like_seq);
 	}
+	
+	
+	public void addUnlikeList(String unlike_seq,String unlike_code, String unlike_reg_seq) {
+		HashMap<String, String> params = new HashMap<String, String>();
+		params.put("param1", unlike_seq);
+		params.put("param2", unlike_code);
+		params.put("param3", unlike_reg_seq);
+		
+		sqlSessionTemplate.insert("com.crossit.hcc.dao.NoticeMapper.addUnlikeList",params);
+	}
+	
+	public void updateNoticeUnlike(String unlike_seq) {
+		
+		sqlSessionTemplate.update("com.crossit.hcc.dao.NoticeMapper.updateNoticeUnlike", unlike_seq);
+	}
+	
 }

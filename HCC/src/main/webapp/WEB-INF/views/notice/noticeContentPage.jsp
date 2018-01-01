@@ -66,7 +66,13 @@
                     
                   </div>
                   <div class="post_bottom_bad">
-                                         싫어요
+                  	<c:if test="${unlikeStatus == false }">
+                  		<a href="./unlikeAction?seq=${fmb.notice_seq }&code=1">싫어요</a>
+                  	</c:if>
+                  	
+                  	<c:if test="${unlikeStatus == true}">
+						싫어요                  	
+                  	</c:if>
                   </div>
                   <div class="post_bottom_text" id="post_bottom_text">
                        <a href="javascript:Open();">댓글열기</a>
