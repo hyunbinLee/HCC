@@ -153,19 +153,28 @@ public class NoticeController {
 		
 		model.addAttribute("fmb", noticeDao.getNoticeContent(seq));
 		
-		String like_seq = request.getParameter("seq");
-		String like_code = request.getParameter("code");
+		String like_unlike_seq = request.getParameter("seq");
+		String like_unlike_code = request.getParameter("code");
 		
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 	    UserDetail userdetail = (UserDetail)auth.getPrincipal();
 		
-		String like_reg_seq = "" + userdetail.getUser().getUser_seq();
+		String like_unlike_reg_seq = "" + userdetail.getUser().getUser_seq();
 		
+		//좋아요 상태 확인
 		boolean likeStatus = false;
-		if(noticeDao.checkLike(like_seq, like_code, like_reg_seq) != null) {
+		if(noticeDao.checkLike(like_unlike_seq, like_unlike_code, like_unlike_reg_seq) != null) {
 			likeStatus = true;
-		};
+		}
 		model.addAttribute("likeStatus", likeStatus);
+		
+		//싫어요 상태 확인
+		boolean unlikeStatus = false;
+		if(noticeDao.checkUnlike(like_unlike_seq, like_unlike_code, like_unlike_reg_seq) != null) {
+			unlikeStatus = true;
+		}
+		
+		model.addAttribute("unlikeStatus", unlikeStatus);
 		
 		return "notice/noticeContentPage";
 	}
@@ -219,5 +228,23 @@ public class NoticeController {
 		
 		
 		return "redirect:noticeContentPage?seq="+like_seq+"&code=1&regSeq=11";
+	}
+	
+	@RequestMapping(value="/unlikeAction", method=RequestMethod.GET)
+	public String unlike(HttpServletRequest request)
+	{
+		String unlike_seq = request.getParameter("seq");
+		String unlike_code = request.getParameter("code");
+		
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+	    UserDetail userdetail = (UserDetail)auth.getPrincipal();
+		
+		String unlike_reg_seq = "" + userdetail.getUser().getUser_seq();
+		
+		
+		noticeDao.addUnlikeList(unlike_seq, unlike_code, unlike_reg_seq);
+		noticeDao.updateNoticeUnlike(unlike_seq);
+		
+		return "redirect:noticeContentPage?seq="+unlike_seq+"&code=1&regSeq=11";
 	}
 }

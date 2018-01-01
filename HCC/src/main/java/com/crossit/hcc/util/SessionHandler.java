@@ -24,7 +24,8 @@ public class SessionHandler {
 		for (Object principal : principals) {
 			
 			result.addAll(sessionRegistry.getAllSessions(principal, false));
-
+			
+			
 		}
 
 		return result;

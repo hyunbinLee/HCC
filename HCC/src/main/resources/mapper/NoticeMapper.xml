@@ -40,6 +40,7 @@
 		,  notice_status
 		,  notice_cnt
 		,  notice_like_cnt
+		,  notice_unlike_cnt
 		,  notice_reg_seq
 		,  notice_reg_date
 		,  notice_upd_date
@@ -50,6 +51,7 @@
 		,  #{param2}
 		,  'N'
 		,  'Y'
+		,  0
 		,  0
 		,  0
 		,  #{param3}
@@ -105,7 +107,17 @@
 		from hcc_like_tb
 		where like_seq = #{param1}
 		and like_code = #{param2}
+		and like_gubun = 'N'
 		and like_reg_seq = #{param3}
+	</select>
+	
+	<select id="checkUnlike" resultType="com.crossit.hcc.vo.UnlikeVO" parameterType="HashMap">
+		select *
+		from hcc_unlike_tb
+		where unlike_seq = #{param1}
+		and unlike_code = #{param2}
+		and unlike_gubun = 'N'
+		and unlike_reg_seq = #{param3}
 	</select>
 	
 	<insert id="addLikeList" parameterType="HashMap">
@@ -114,6 +126,7 @@
 		(
 			like_seq,
 			like_code,
+			like_gubun,
 			like_reg_seq,
 			like_reg_date
 		)
@@ -121,13 +134,39 @@
 		(
 			#{param1},
 			#{param2},
+			'N',
 			#{param3},
 			NOW()
-		);
+		)
 	</insert>
 	<update id="updateNoticeLike">
 		update hcc_notice_tb
 		set notice_like_cnt = notice_like_cnt+1
+		where notice_seq = #{param1}
+	</update>
+	
+	<insert id="addUnlikeList" parameterType="HashMap">
+		insert
+		into hcc_unlike_tb
+		(
+			unlike_seq,
+			unlike_code,
+			unlike_gubun,
+			unlike_reg_seq,
+			unlike_reg_date
+		)
+		values
+		(
+			#{param1},
+			#{param2},
+			'N',
+			#{param3},
+			NOW()
+		)
+	</insert>
+	<update id="updateNoticeUnlike">
+		update hcc_notice_tb
+		set notice_unlike_cnt = notice_unlike_cnt + 1
 		where notice_seq = #{param1}
 	</update>
 </mapper>	

@@ -62,13 +62,13 @@
 		set fmb_status = 'N' 
 		where fmb_seq = #{param1}
 	</update>
-	<update id="updateList">
+	<update id="updateList" parameterType="HashMap">
 		update 
 		  hcc_fmb_tb 
-		set fmb_title = #{param2}
-		,   fmb_content = #{param3}
+		set fmb_title = #{title}
+		,   fmb_content = #{content}
 		,   fmb_upd_date = NOW() 
-		where fmb_seq = #{param1}
+		where fmb_seq = #{seq}
 	</update>
 	<update id="likeList">
 		update hcc_fmb_tb 
@@ -96,4 +96,42 @@
     	set fmb_cnt = fmb_cnt + 1
     	WHERE fmb_seq = #{param1}
     </update>
+    
+<!-- 댓글 작성 문 -->
+    	<insert id="replyWrite" parameterType="HashMap">
+		insert 
+		into hcc_fmb_reply_tb
+		(
+		   fmb_seq
+		,  fmb_reply_comment
+		,  fmb_reply_reg_seq
+		,  fmb_reply_reg_date
+		) 
+		values
+		(
+		   #{seq}
+		,  #{comment}
+		,  #{user_seq}
+		,  NOW()
+		)
+		</insert>
+<!--  댓글 삭제 문 -->
+		<delete id="deleteReply">
+		delete
+		from hcc_fmb_reply_tb
+		where fmb_reply_seq = #{seq}
+		</delete>
+<!--  댓글보기 -->
+		<select id="getReplyContent" resultType="com.crossit.hcc.vo.HCCFmb_replyVO"><!-- ??? -->
+		select * 
+		from hcc_fmb_reply_tb 
+		where fmb_seq = #{param1}
+	</select>
+<!--  게시판 댓글 갯수 -->
+		<select id="countReply" resultType="int">
+		select f.*, (select count(*) 
+					 from hcc_fmb_reply_tb r
+					 where r.fmb_seq = f.fmb_seq) as count
+		from hcc_fmb_tb f
+		</select>
 </mapper>
