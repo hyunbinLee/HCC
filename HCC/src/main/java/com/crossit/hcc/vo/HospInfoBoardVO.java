@@ -6,6 +6,8 @@ public class HospInfoBoardVO {
 	private String hospital_info_title;
 	private String hospital_info_content;
 	private double hospital_info_score;
+	private String hospital_info_hospnm;
+	private char hospital_info_class;
 	private String hospital_info_type;
 	private char hospital_info_status;
 	private char hospital_info_cnt;
@@ -57,6 +59,22 @@ public class HospInfoBoardVO {
 	
 	public void setHospital_info_score(double hospital_info_score) {
 		this.hospital_info_score = hospital_info_score;
+	}
+	
+	public String getHospital_info_hospnm() {
+		return hospital_info_hospnm;
+	}
+	
+	public void setHospital_info_hospnm(String hospital_info_hospnm) {
+		this.hospital_info_hospnm = hospital_info_hospnm;
+	}
+	
+	public char getHospital_info_class() {
+		return hospital_info_class;
+	}
+	
+	public void setHospital_info_class(char hospital_info_class) {
+		this.hospital_info_class = hospital_info_class;
 	}
 	
 	public String getHospital_info_type() {

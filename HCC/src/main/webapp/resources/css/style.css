@@ -164,7 +164,7 @@ ul, ol, dl, dt, dd, li {list-style:none;}
   
   /***************** 게시판 ************************/
  /*contents*/
-#contents{width: 70%;height: 750px;margin: 0 auto}
+#contents{width: 80%;height: 750px;margin: 0 auto}
 /*공통*/
 
 #search{width: 70%;height: 200px;float: left}
@@ -174,13 +174,15 @@ ul, ol, dl, dt, dd, li {list-style:none;}
 table>thead>tr>td{height: 50px;border-bottom: 0.5px solid #ccc}
 table>tbody>tr>td{height: 50px;}
 .num{text-align: center;width: 5%;}
-.title{text-align: center;width: 40%}
+.title{text-align: center;width: 35%}
 .grade{text-align: center;width: 15%}
-.name{text-align: center;width: 10%}
+.name{text-align: center;width: 15%}
 .day{text-align: center;width: 20%;}
-.re{text-align: center;width: 10%;}
+.show{text-align: center;width: 5%;}
+.re{text-align: center;width: 5%;}
 .number{width: 50px;text-align: center}
 .rank_num{text-align: right}
+
 /*search부분*/
 .search_box{margin-top: 1%;padding-bottom:12%;border: 0.5px solid #cccccc;background-color: #e8e7e7;}
 .search_box>div>input:nth-child(1){margin-left: 20px;margin-top: 20px;}
@@ -219,12 +221,12 @@ table{width: 100%;border-collapse: collapse}
 
 /*write*/
 .write_page{width: 70%;height: 300px;float: left;margin-top: 2%;}
-.write_top{height: 50px;background-color: white;margin-top: 2%;border-bottom: 1px solid black}
+.write_top{height: 50px; width:10%; background-color: white;margin-top: 2%;border-bottom: 1px solid black; margin-right: 100px;}
 .write_mid{height: 300px;line-height: 200px;border-bottom: 1px solid black}
 .write_bottom{height: 40px;border-bottom: 1px solid black;}
-.write_input{width: 38%;height: 35px;left: 25%;position: absolute;}
+.write_input{width: 30%;height: 35px;left: 25%;position: absolute;}
 .write_input2{width: 49%;height: 35px;left: 15%;position: absolute;}
-#write_select{margin-left: 10px;width: 120px;height: 35px;font-size: 1.02em}
+#write_select{margin-left: 10px;width: 120px;height: 35px;font-size: 1.02em;}
 .content{width: 100%;height: 280px;margin-top: 1%;}
 .status{margin-top: 1%;}
 .reg{width: 12%;height: 40px;text-align: center;line-height: 40px;float: right; }

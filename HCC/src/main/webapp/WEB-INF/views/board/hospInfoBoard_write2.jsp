@@ -11,19 +11,16 @@
 
 <script language="javascript">
 
-	var windowObj;
-
 	function popup() {
+
 		var star = document.form.star.value;
 		var type = document.form.type.value;
 		var title = document.form.title.value;
 		var content = document.form.content.value;
-		var url = "./apiTest?star="+star+"&type="+type+"&title="+title+"&content="+content;
-		var settings ='toolbar=0,directories=0,status=no,menubar=0,scrollbars=auto,resizable=no,height=400,width=450,left=0,top=0';
-
-		windowObj = window.open(url,'popup', settings);
+		var url = "./toApiTest?star="+star+"&type="+type+"&title="+title+"&content="+content;
+		
+		window.open(url,'popup','scrollbars=no,resizable=no,width=800,height=600');
 	}
-	
 </script>
 </head>
 <body>
@@ -48,17 +45,20 @@
 						<option value="1.0" <c:if test="${star.equals('1.0')}">selected</c:if>>★☆☆☆☆</option>
 						<option value="0.0" <c:if test="${star.equals('0.0')}">selected</c:if>>☆☆☆☆☆</option>
 					</select>
-					<input type="text" id="title" name="title" class="write_input"	placeholder="${title}"> 
+					<input type="text" id="title" name="title" class="write_input" placeholder="${title}"> 
 				</div>
 				
 				<div class="write_top">
 				
 					타입
 					<select name="type" id="type">
-						<option value="A" <c:if test="${type.equals('A')}">selected</c:if>>성인</option>
-						<option value="C" <c:if test="${type.equals('C')}">selected</c:if>>소아청소년</option>
+						<option value="A" <c:if test="${type.equals('0.0')}">selected</c:if>>성인</option>
+						<option value="C" <c:if test="${type.equals('0.0')}">selected</c:if>>소아청소년</option>
 					</select>
 					  
+				</div>  
+				<div class="write_top">
+					<!-- 
 					진료과
 					<select name="class" id="class">
 		                      <option value="A">내과</option>
@@ -83,18 +83,22 @@
 		                      <option value="T">심장혈관병원</option>
 		                      <option value="U">암관련과</option>
 		              </select>
-		         </div>
-		         <div class="write_top">
+		             
+		                         병원이름
+		              <input type="text" id="hospnm" name="hospnm" class="write_input"	placeholder="병원이름"> 
+		                -->
 		                
-		              <input type="text" id="hospNm" name="hospNm" class="write_input" readonly> 
+		              
 		              <input type="button" value="병원검색" onclick="popup();" />
+		              
+		              <a href="#" onClick="javascript:popup()"> 클릭 </a>
 		              
 		         </div>
 		                  
 
 				<div class="write_mid">
 					<textarea cols="50" rows="40" id="content" name="content" class="content"
-						placeholder="${content}"></textarea>
+						placeholder="내용"></textarea>
 				</div>
 				<div class="write_bottom">
 					<div class="reg">

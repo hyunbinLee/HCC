@@ -1,5 +1,6 @@
 package com.crossit.hcc.service;
 
+import java.io.UnsupportedEncodingException;
 import java.util.List;
 import java.util.Map;
 
@@ -12,13 +13,18 @@ import com.crossit.hcc.vo.HospInfoBoardVO;
 
 public interface HospInfoBoardService {
 
-
+		
 	// 게시글 수 조회
 	public int getHospInfoCount();
 
 	// 리스트 출력
-	public List<HospInfoBoardVO> selectHospInfoBoardList(HttpServletRequest request);	
+	public List<HospInfoBoardVO> selectHospInfoBoardList(int start, int end);
 
+	
+	// 검색 후 리스트 출력
+	public List<HospInfoBoardVO> searchHospInfo(int start, int end, HttpServletRequest request) throws UnsupportedEncodingException;
+	
+	
 	// Top5 출력
 	public List<HospInfoBoardVO> selectHospInfoTop5List(HttpServletRequest request);
 

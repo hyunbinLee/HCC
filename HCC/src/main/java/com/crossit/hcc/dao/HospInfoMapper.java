@@ -136,6 +136,44 @@ public class HospInfoMapper{
 		sqlSessionTemplate.update("com.crossit.hcc.dao.HospInfoMapper.updateblameCount", userseq);
 	}
 
+	
+	
+	
+	//-----------------검색 후 결과출력------------------// 
+	public List<HospInfoBoardVO> searchHospInfo1(Map<String, Object> map) {
+		return sqlSessionTemplate.selectList("com.crossit.hcc.dao.HospInfoMapper.searchHospInfo1", map);
+	}
+	
+	public List<HospInfoBoardVO> searchHospInfo2(Map<String, Object> map) {
+		return sqlSessionTemplate.selectList("com.crossit.hcc.dao.HospInfoMapper.searchHospInfo2", map);
+	}
+	
+	public List<HospInfoBoardVO> searchHospInfo3(Map<String, Object> map) {
+		return sqlSessionTemplate.selectList("com.crossit.hcc.dao.HospInfoMapper.searchHospInfo3", map);
+	}
+	
+	public List<HospInfoBoardVO> searchHospInfo4(Map<String, Object> map) {
+		return sqlSessionTemplate.selectList("com.crossit.hcc.dao.HospInfoMapper.searchHospInfo4", map);
+	}
+	
+	public List<HospInfoBoardVO> searchHospInfo5(Map<String, Object> map) {
+		return sqlSessionTemplate.selectList("com.crossit.hcc.dao.HospInfoMapper.searchHospInfo5", map);
+	}
+	
+	public List<HospInfoBoardVO> searchHospInfo6(Map<String, Object> map) {
+		return sqlSessionTemplate.selectList("com.crossit.hcc.dao.HospInfoMapper.searchHospInfo6", map);
+	}
+	
+	public List<HospInfoBoardVO> searchHospInfo7(Map<String, Object> map) {
+		return sqlSessionTemplate.selectList("com.crossit.hcc.dao.HospInfoMapper.searchHospInfo7", map);
+	}
+	
+	
+	
+	
+
+
+	
 
 	
 

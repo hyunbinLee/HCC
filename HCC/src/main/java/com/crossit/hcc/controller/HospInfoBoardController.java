@@ -1,5 +1,6 @@
 package com.crossit.hcc.controller;
 
+import java.io.BufferedInputStream;
 import java.io.DataInputStream;
 import java.io.PrintWriter;
 import java.net.URL;
@@ -21,8 +22,6 @@ import javax.xml.transform.stream.StreamSource;
 
 import org.apache.ibatis.session.SqlSession;
 import org.jdom2.Document;
-import org.jdom2.Element;
-import org.jdom2.input.SAXBuilder;
 import org.omg.CORBA_2_3.portable.InputStream;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -35,9 +34,14 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.servlet.ModelAndView;
+import org.xmlpull.v1.XmlPullParser;
+import org.xmlpull.v1.XmlPullParserFactory;
 
 import com.crossit.hcc.service.HospInfoBoardService;
 import com.crossit.hcc.service.HospInfoBoardServiceImpl;
+import com.crossit.hcc.service.PagingService;
+import com.crossit.hcc.service.PagingServiceImpl;
+import com.crossit.hcc.util.PageNavigation;
 import com.crossit.hcc.vo.HospInfoBoardVO;
 import com.crossit.hcc.vo.HospInfoListVO;
 import com.crossit.hcc.vo.HospInfoVO;
@@ -58,119 +62,301 @@ public class HospInfoBoardController {
 	
 	private static final Logger logger = LoggerFactory.getLogger(LoginController.class);
 	
+	private PagingService pagingService;
 	
-	// 병원정보공유 글쓰기 페이지
-	@RequestMapping(value = "/hospInfoBoard_write", method = RequestMethod.GET)
-	public ModelAndView toHospInfoBoardWrite(HttpSession session, HttpServletRequest request) throws Exception{
-		ModelAndView mav = new ModelAndView("/board/hospInfoBoard_write");
-		
-		return mav;
-	}
-	/*
-	// 병원정보공유 게시판 
+	
+	
+	
+	
+	//----------------------------------페이지 이동----------------------------------//
+	
+	// 병원정보공유 게시판리스트 - 페이징처리
 	@RequestMapping(value = "/hospInfoBoard", method = RequestMethod.GET)
 	public ModelAndView selectHospInfoBoardList(HttpServletRequest request, @RequestParam(value="page", required=false) String page) throws Exception{
 		ModelAndView mav = new ModelAndView("/board/hospInfoBoard_ajax");
 
-		mav.addObject("list", HospInfoBoardService.hospInfoList(request, page));
+		if(page != null) {
+			mav.addObject("page", page);
+		} else {
+			mav.addObject("page", "1");
+		}
+		
+		// 페이지당 5개의 글
+		pagingService = new PagingServiceImpl(5);
+		
+		int hospInfoCount = HospInfoBoardService.getHospInfoCount();
+		pagingService.paging(page, hospInfoCount);
+		
+		mav.addObject("startPage", pagingService.startPageNo());
+		mav.addObject("endPage", pagingService.endPageNo());
+		mav.addObject("list", HospInfoBoardService.selectHospInfoBoardList(pagingService.getStart(), pagingService.getEnd()));
+		mav.addObject("lastPage", pagingService.getFinalPageNo());
 		
 		return mav;
-	}
-	*/
-	// 병원정보공유 게시판 
-		@RequestMapping(value = "/hospInfoBoard", method = RequestMethod.GET)
-		public ModelAndView selectHospInfoBoardList(HttpServletRequest request, @RequestParam(value="page", required=false) String page) throws Exception{
-			ModelAndView mav = new ModelAndView("/board/hospInfoBoard");
-
-			mav.addObject("list", HospInfoBoardService.selectHospInfoBoardList(request));
-			
-			return mav;
-		}
+	}	
 	
-		@RequestMapping(value = "/toApiTest", method = RequestMethod.GET)
-		public ModelAndView toApiTest(HttpServletRequest request) throws Exception{
-			ModelAndView mav = new ModelAndView("/board/apiTest");
-			
-			return mav;
-		}
-		
-		@RequestMapping(value = "/apiTest", method = RequestMethod.GET)
-		public ModelAndView apiTest(HttpServletRequest request) throws Exception{
-			ModelAndView mav = new ModelAndView("/board/apiTestResult");
-			
-			String hospNm = request.getParameter("hospNm");
-			
-			String rvalUrl = "http://apis.data.go.kr/B551182/hospInfoService/getHospBasisList?serviceKey=FHx3MZ5wfeyTMxpRxvpPc2EcmTn4Ypw%2BNGg8QXPHk0wbqRe47DQhFDrsM8ZzPDxpywj3IavwroLPuyPBK2Mvsg%3D%3D&yadmNm="+hospNm+"";
-			
-			URL url = new URL(rvalUrl);
-			URLConnection conn = url.openConnection(); // URL 연결
-			conn.setRequestProperty("accept-language", "ko"); // 언어설정
-			
-			// XML 자료 가져오기
-			SAXBuilder builder = new SAXBuilder(); 
-			Document doc = builder.build(conn.getInputStream());
-			
-			// itemlist 하위에 우편번호와 주소값을 가지고 있다.
-			Element itemlist = doc.getRootElement().getChild("itemlist");
-			List list = itemlist.getChildren();
-			
-			mav.addObject("list", list);
-
-
-			/*
-			try{
-				SAXBuilder parser = new SAXBuilder(); // 문서의 빌드화
-				parser.setIgnoringElementContentWhitespace(true);
-				Document doc = parser.build(rvalUrl); // xml파일을 부른다.
-				Element root = doc.getRootElement(); // xml파일의 첫번째 태그를 부른다.
-				List newAddressList = root.getChildren("newAddressList"); // 루트의 하위 요소를 구함.
-				List cmmMsgHeader = root.getChildren("cmmMsgHeader");
-				if(newAddressList.size() == 0)
-				{
-					mav.addObject(cmmMsgHeader.get(0));
-				}
-				else
-				{
-					mav.addObject(cmmMsgHeader.get(0));
-					for(int i=0; i<newAddressList.size(); i++)
-						mav.addObject(newAddressList.get(i));
-				}
-			} catch(Exception e) {
-				System.out.println("apiTest 실패");
-			}
-			*/
-			
-			return mav;
-		}
-		
-		
-	// 병원정보공유 게시판 상세 페이지 - 유저에 따라 다르게 보여지는 코드 추가해야함 
+	// 병원정보공유 상세 페이지로 이동 - 유저에 따라 다르게 보여지는 코드 추가해야함 
 	@RequestMapping(value = "/hospInfoBoard_detail", method = RequestMethod.GET)
 	public ModelAndView toHospInfoBoardDet(HttpServletRequest request) throws Exception{
 		ModelAndView mav = new ModelAndView("/board/hospInfoBoard_detail");
-		
+			
 		mav.addObject("detail", HospInfoBoardService.returnDetail(request));			
 		mav.addObject("comment", HospInfoBoardService.returnComment(request));		
-		
+			
 		return mav;
 	}
 	
-	// 병원정보공유 게시판 수정 페이지로 이동
+	// 병원정보공유 글쓰기 페이지로 이동
+	@RequestMapping(value = "/hospInfoBoard_write", method = RequestMethod.GET)
+	public ModelAndView toHospInfoBoardWrite(HttpSession session, HttpServletRequest request) throws Exception{
+		ModelAndView mav = new ModelAndView("/board/hospInfoBoard_write");
+			
+		return mav;
+	}
+		
+	// 병원정보공유 수정 페이지로 이동
 	@RequestMapping(value = "/hospInfoBoard_modify", method = RequestMethod.GET)
 	public ModelAndView toHospInfoBoardModify(HttpServletRequest request) throws Exception{
 		ModelAndView mav = new ModelAndView("/board/hospInfoBoard_modify");
 
 		mav.addObject("detail", HospInfoBoardService.returnDetail(request));
-	
+		
 		return mav;
 	}
+	
+	//-----------------------------------검색-----------------------------------//
+	@RequestMapping(value = "/searchHospInfo", method = RequestMethod.GET)
+	public ModelAndView searchHospInfo(HttpServletRequest request, @RequestParam(value="page", required=false) String page) throws Exception{
+		ModelAndView mav = new ModelAndView("/board/hospInfoBoard_ajax");
+		
+		String searchWord = request.getParameter("searchWord");
+		searchWord = new String(searchWord.getBytes("8859_1"),"utf-8");
+		
+		if(page != null) {
+			mav.addObject("page", page);
+		} else {
+			mav.addObject("page", "1");
+		}
+		
+		// 페이지당 5개의 글
+		pagingService = new PagingServiceImpl(5);
+		
+		int hospInfoCount = HospInfoBoardService.getHospInfoCount();
+		pagingService.paging(page, hospInfoCount);
+		
+		mav.addObject("startPage", pagingService.startPageNo());
+		mav.addObject("endPage", pagingService.endPageNo());
+		mav.addObject("list", HospInfoBoardService.searchHospInfo(pagingService.getStart(), pagingService.getEnd(), request));
+		mav.addObject("lastPage", pagingService.getFinalPageNo());
+		mav.addObject("searchType", request.getParameter("searchType"));
+		mav.addObject("searchCase", request.getParameter("searchCase"));
+		mav.addObject("searchWord", searchWord);
+		
+		return mav;
+		
+	}
+	
+	
+	
+	
+	
+	//----------------------------------API TEST----------------------------------//
+	/*
+		@RequestMapping(value = "/toApiTest", method = RequestMethod.GET)
+		public ModelAndView toApiTest(HttpServletRequest request, @RequestParam(value="page", required=false) String page) throws Exception{
+			ModelAndView mav = new ModelAndView("/board/apiTest");
+			
+			String title = request.getParameter("title");
+			title = new String(title.getBytes("8859_1"),"utf-8");
+			String content = request.getParameter("content");
+			content = new String(content.getBytes("8859_1"),"utf-8");
+			
+			int numOfRows = 10; // 한 페이지의 레코드 수
+			int startPage, endPage;
+			int count = 0;
+			
+			if(page != null) {
+				mav.addObject("page", page);
+			} else {
+				mav.addObject("page", "1");
+			}
+			
+			String newZipcodeUrl = "http://apis.data.go.kr/B551182/hospInfoService/getHospBasisList";
+			String serviceKey = "NrK5GPwGddQbJdK1iHrfmju2qMbDYuYfgy7bmM6ZRB6BZKNJ3cuZgfKx1GUeogmIGkDhN%2FSe9sxo0AmyAr1CIw%3D%3D";
+			
+			String apiUrl = newZipcodeUrl + "?serviceKey=" + serviceKey + "&pageNo=" + 1 + "&numOfRows=" + 10;
+			
+			try {
+				URL url = new URL(apiUrl);
+				
+				XmlPullParserFactory factory = XmlPullParserFactory.newInstance();
+				factory.setNamespaceAware(true);
+				XmlPullParser xpp = factory.newPullParser();
+				BufferedInputStream bis = new BufferedInputStream(url.openStream());
+				xpp.setInput(bis, "utf-8");
+				
+				String tag = null;
+				int event_type = xpp.getEventType();
+				
+				ArrayList<String> list = new ArrayList<String>();
+				String yadmNm = null;				
+				
+				while(event_type != XmlPullParser.END_DOCUMENT) {
+						if(event_type == XmlPullParser.START_TAG) {
+							tag = xpp.getName();
+							System.out.print(tag+"//");
+							count++;
+						} else if(event_type == XmlPullParser.TEXT) {
+							System.out.print(xpp.getText()+"//");
+							if(tag.equals("yadmNm")) {
+								yadmNm = xpp.getText();
+							}
+						} else if(event_type == XmlPullParser.END_TAG) {
+							tag = xpp.getName();
+							System.out.print(tag+"//");
+							if(tag.equals("item")) {
+								list.add(yadmNm);
+							}
+						}
+						event_type = xpp.next();
+					}
+				mav.addObject("list", list);
+				
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			
+			mav.addObject("star", request.getParameter("star"));
+			mav.addObject("type", request.getParameter("type"));
+			mav.addObject("title", title);
+			mav.addObject("content", content);
+			
+			return mav;
+		}
+		*/
+		@RequestMapping(value = "/apiTest", method = RequestMethod.GET)
+		public ModelAndView apiTest(HttpServletRequest request, HttpServletResponse response, @RequestParam(value="page", required=false) String page) throws Exception{
+			response.setCharacterEncoding("UTF-8");
+			
+			ModelAndView mav = new ModelAndView("/board/apiTest");
+			
+			String encodedHospNm = null;
+			if(request.getParameter("hospNm") != null) {
+				String hospNm = request.getParameter("hospNm");
+				hospNm = new String(hospNm.getBytes("8859_1"),"utf-8");
+				encodedHospNm = URLEncoder.encode(hospNm, "UTF-8");
+				mav.addObject("hospNm", hospNm);
+			}
+			
+			String title = request.getParameter("title");
+			if(title != null) title = new String(title.getBytes("8859_1"),"utf-8");
+			String content = request.getParameter("content");
+			if(content != null) content = new String(content.getBytes("8859_1"),"utf-8");
+			
+			int numOfRows = 10; // 한 페이지의 레코드 수
+			int startPage, endPage;
+			int totalCount = 0;
+			
+			if(page != null) {
+				mav.addObject("page", page);
+			} else {
+				mav.addObject("page", "1");
+			}
+			
+			String newZipcodeUrl = "http://apis.data.go.kr/B551182/hospInfoService/getHospBasisList";
+			String serviceKey = "NrK5GPwGddQbJdK1iHrfmju2qMbDYuYfgy7bmM6ZRB6BZKNJ3cuZgfKx1GUeogmIGkDhN%2FSe9sxo0AmyAr1CIw%3D%3D";
+			
+			String apiUrl;
+			if(request.getParameter("hospNm") != null) {
+				apiUrl = newZipcodeUrl + "?serviceKey=" + serviceKey + "&pageNo=" + page + "&numOfRows=" + 10 +"&yadmNm=" + encodedHospNm;
+			} else {
+				apiUrl = newZipcodeUrl + "?serviceKey=" + serviceKey + "&pageNo=" + page + "&numOfRows=" + 10;
+			}
+						
+			try {
+				URL url = new URL(apiUrl);
+				
+				XmlPullParserFactory factory = XmlPullParserFactory.newInstance();
+				factory.setNamespaceAware(true);
+				XmlPullParser xpp = factory.newPullParser();
+				BufferedInputStream bis = new BufferedInputStream(url.openStream());
+				xpp.setInput(bis, "utf-8");
+				
+				String tag = null;
+				int event_type = xpp.getEventType();
+				
+				ArrayList<String> list = new ArrayList<String>();
+				String yadmNm = null;
+				
+				while(event_type != XmlPullParser.END_DOCUMENT) {
+					if(event_type == XmlPullParser.START_TAG) {
+						tag = xpp.getName();
+					} else if(event_type == XmlPullParser.TEXT) {
+						if(tag.equals("yadmNm")) {
+							yadmNm = xpp.getText();
+						} else if(tag.equals("totalCount")) {
+							totalCount = Integer.parseInt(xpp.getText());
+						}
+					} else if(event_type == XmlPullParser.END_TAG) {
+						tag = xpp.getName();
+						if(tag.equals("item")) {
+							list.add(yadmNm);
+						}
+					}
+					event_type = xpp.next();
+				}
+				
+				// 페이지당 5개의 글
+				pagingService = new PagingServiceImpl(10);
+				pagingService.paging(page, totalCount);
+				
+				System.out.println("//"+totalCount+"//");
+				
+				mav.addObject("startPage", pagingService.startPageNo());
+				mav.addObject("endPage", pagingService.endPageNo());
+				mav.addObject("lastPage", pagingService.getFinalPageNo());
+				mav.addObject("list", list);
+								
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			
+			mav.addObject("star", request.getParameter("star"));
+			mav.addObject("type", request.getParameter("type"));
+			mav.addObject("title", title);
+			mav.addObject("content", content);
+			
+			
+			return mav;
+		}
+		
+		@RequestMapping(value = "/returnToWritePage", method = RequestMethod.GET)
+		public ModelAndView returnToWritePage(HttpServletRequest request) throws Exception{
+			ModelAndView mav = new ModelAndView("/board/hospInfoBoard_write");
+			
+			String title = request.getParameter("title");
+			if(title != null) title = new String(title.getBytes("8859_1"),"utf-8");
+			String content = request.getParameter("content");
+			if(title != null) content = new String(content.getBytes("8859_1"),"utf-8");
+			String hospNm = request.getParameter("hospNm");
+			hospNm = new String(content.getBytes("8859_1"),"utf-8");
+			
+			mav.addObject("star", request.getParameter("star"));
+			mav.addObject("type", request.getParameter("type"));
+			mav.addObject("title", title);
+			mav.addObject("content", content);
+			mav.addObject("hospNm", hospNm);
+			
+			return mav;
+		}
+	
+		
+	//----------------------------------게시글 CRUD----------------------------------//
 	
 	// 글 등록
 	@RequestMapping(value = "/writeHospInfo", method = RequestMethod.GET) 
 	 public ModelAndView writeHospInfo(HttpSession session, HttpServletRequest request) throws Exception{ 
 		
-		
-	
 		ModelAndView mav = new ModelAndView("redirect:/hospInfoBoard");
 		
 		HospInfoBoardService.writeHospInfo(request, session);
@@ -199,6 +385,11 @@ public class HospInfoBoardController {
 		
 		return mav;
 	}
+	
+	
+	
+	
+	//----------------------------------댓글 CRUD----------------------------------//
 	
 	// 댓글 등록
 	@RequestMapping(value = "/writeHospInfoRepl", method = RequestMethod.POST) 
@@ -243,6 +434,11 @@ public class HospInfoBoardController {
 			
 		return mav;
 	}
+	
+	
+	
+	
+	//----------------------------------기타 기능----------------------------------//
 	
 	// 게시글 신고
 	@RequestMapping(value = "/reportHospInfo", method = RequestMethod.GET)

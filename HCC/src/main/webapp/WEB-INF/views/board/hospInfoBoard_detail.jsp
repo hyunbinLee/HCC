@@ -41,6 +41,33 @@
 						<p>${detail.hospital_info_reg_date}</p>
 					</div>
 				</div>
+				<div class="post_top">
+					<div class="star">
+						<c:set var="star" value="${detail.hospital_info_score}" />
+						<c:choose>
+							<c:when test="${star == 5.0}">
+								<p>★★★★★</p>
+							</c:when>
+							<c:when test="${star == 4.0}">
+								<p>★★★★☆</p>
+							</c:when>
+							<c:when test="${star == 3.0}">
+								<p>★★★☆☆</p>
+							</c:when>
+							<c:when test="${star == 2.0}">
+								<p>★★☆☆☆</p>
+							</c:when><c:when test="${star == 1.0}">
+								<p>★☆☆☆☆</p>
+							</c:when>
+						</c:choose>
+					</div>
+					<div class="class">
+						${detail.hospital_info_class}
+					</div>
+					<div class="hospnm">
+						${detail.hospital_info_hospnm}
+					</div>
+				</div>
 				<div class="post_mid">${detail.hospital_info_title}</div>
 				<div class="post_bottom">
 					<div class="post_bottom_like">좋아요</div>

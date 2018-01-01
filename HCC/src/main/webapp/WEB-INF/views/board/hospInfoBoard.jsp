@@ -8,71 +8,53 @@
 
 <%@ include file="../common/inc_header.jsp"%>
 
+<script type="text/javascript">  
+    var nowpage = 1;
+	
+	function changePage(page) {
+		search(page);
+	}
+	
+	function search(page) {    
+		
+		//$("#nowpage").val(page);
+		
+		var form_data = $("#frm").serialize();
+		
+		$.ajax({
+	       // beforeSend: function(jqXHR, settings){  return checkSession();     },    	// $('.loadingDiv').show();	},
+	       // complete: function(jqXHR, textStatus){	$('.loadingDiv').hide();   }, 
+	        complete: function(jqXHR, textStatus){   }, 
+	        type: 'post',
+	        dataType: "html",
+	        url: './noticeList',
+	        data: form_data,
+	        success: function(data, textStatus , jqXHR){
+				$('#list_div').html(data);
+	        },
+	        error: function(jqXHR, textStatus, error){
+	        	alert(error) ;
+	        } 
+	    });  
+	}
+	
+	$(function(){
+		search(nowpage);
+	});
+	
+		
+</script> 
+
 </head>
 <body>
-
-<div class="wrap">
+	<div class="wrap">
 
 		<!-- Top Menu -->
 		<%@ include file="../common/inc_top.jsp"%>
-	
+ 
 			
-			<div id="contents">
-		          <div id="search">
-		              <div class="search_nav">
-		                  <p>검색</p>
-		              </div>
-		              <div class="search_box">
-		                  <div>
-		                     <input type="checkbox" value="제목"> 제목
-		                     <input type="checkbox" value="작성자"> 작성자
-		                  </div>
-		                  <select name="select" id="select">
-		                      <option value="흉부외과">흉부외과</option>
-		                      <option value="흉부외과">정형외과</option>
-		                      <option value="흉부외과">이빈인후과</option>
-		                      <option value="흉부외과">내과</option>
-		                  </select>
-		                  <input type="text" placeholder="검색어 입력" class="search">
-		                  <input type="button" id="search_btn" value="검색" >
-		              </div>
-		              
-		              <div id="list_box">
-                  		  <div id="adult">성인</div>
-                  		  <div id="teenager">소아/청소년</div>
-                  		  <div class="write"><a href="./hospInfoBoard_write">글쓰기</a> 
-                  		  			<a href="./toApiTest">api테스트</a></div>
-             		  </div>
-              		  <table>
-		                  <thead>
-		                      <tr>
-		                          <td class="num"><b>번호</b></td>
-		                          <td class="title"><b>제목</b></td>
-		                          <td class="grade"><b>평점</b></td>
-		                          <td class="name"><b>이름</b></td>
-		                          <td class="day"><b>날짜</b></td>
-		                          <td class="re"><b>추천수</b></td>
-	                      	  </tr>
-	                  	  </thead>
-	                  	  
-                  		  <tbody>
-                  		  	<c:forEach items="${list}" var="list"> 
-		                      <tr>
-		                          <td class="num"><b>${list.hospital_info_seq}</b></td>
-		                          <td class="title"><b><a
-										href="./hospInfoBoard_detail?boardseq=${list.hospital_info_seq}">${list.hospital_info_title}</a></b></td>
-		                          <td class="grade"><b>${list.hospital_info_score}</b></td>
-		                          <td class="name"><b></b></td>
-		                          <td class="day"><b>${list.hospital_info_reg_date}</b></td>
-		                          <td class="re"><b>${list.hospital_info_like_cnt}</b></td>
-		                      </tr>
-		                    </c:forEach>
-                  		</tbody>
-              		</table>
-			  </div>
-			  
-			  <%@ include file="../common/inc_right.jsp"%>
-          </div>
-	</div>
+			<div id="list_div"></div>
+
+		</div>
 </body>
 </html>

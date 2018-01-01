@@ -1,31 +1,52 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="com.crossit.hcc.dao.SelfDiagnoImpl">
+<mapper namespace="com.crossit.hcc.dao.SelfDiagnoMapper">
 
-	<!-- 상세 페이지 - 게시글 등록 -->
-	<insert id="insertSelfDiagno" parameterType="hashmap">
+	
+	<insert id="insertSelfDiagno_backache" parameterType="hashmap">
 		INSERT INTO 
-		hcc_self_diagno_tb
+		hcc_selfdiagno_backache_tb
 		(
-			self_diagno_uer_seq, 
-			self_diagno_date, 
-			self_diagno_q1,
-			self_diagno_q2,
-			self_diagno_q3,
-			self_diagno_q4,
-			self_diagno_q5,
-			self_diagno_q6,
-			self_diagno_q7,
-			self_diagno_q8,
-			self_diagno_q9,
-			self_diagno_q10,
-			self_diagno_result
+			backache_user_seq,
+			backache_date,
+			backache_q1,
+			backache_q2,
+			backache_q3,
+			backache_q4,
+			backache_result
 		)
 		VALUES 
 		(
-			#{userseq}, 
-			SYSDATE,
+			#{user_seq}, 
+			NOW(),
+			#{q1}, 
+			#{q2}, 
+			#{q3}, 
+			#{q4}, 
+			#{result}
+		)
+	</insert>	
+	
+	<insert id="insertSelfDiagno_acutestomachache" parameterType="hashmap">
+		INSERT INTO 
+		hcc_selfdiagno_backache_tb
+		(
+			backache_user_seq,
+			backache_date,
+			backache_q1,
+			backache_q2,
+			backache_q3,
+			backache_q4,
+			backache_q5,
+			backache_q6,
+			backache_q7,
+			backache_result
+		)
+		VALUES 
+		(
+			#{user_seq}, 
+			NOW(),
 			#{q1}, 
 			#{q2}, 
 			#{q3}, 
@@ -33,9 +54,25 @@
 			#{q5}, 
 			#{q6}, 
 			#{q7}, 
-			#{q8}, 
-			#{q9}, 
-			#{resultCase}
+			#{result}
+		)
+	</insert>	
+	
+	<insert id="insertSelfDiagno_total" parameterType="hashmap">
+		INSERT INTO 
+		hcc_selfdiagno_result_tb
+		(
+			selfdiagno_result_user_seq,
+			selfdiagno_result_case,
+			selfdiagno_result_result,
+			selfdiagno_result_date
+		)
+		VALUES 
+		(
+			#{user_seq}, 
+			#{case},
+			#{result},
+			NOW()
 		)
 	</insert>	
 </mapper>

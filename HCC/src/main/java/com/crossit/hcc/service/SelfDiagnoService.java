@@ -6,5 +6,7 @@ import javax.servlet.http.HttpSession;
 public interface SelfDiagnoService {
 
 
-	public void insertSelfDiagno(HttpSession session, HttpServletRequest request);
+	public void insertSelfDiagno_backache(HttpSession session, HttpServletRequest request);
+	
+	public void insertSelfDiagno_acutestomachache(HttpSession session, HttpServletRequest request);
 }

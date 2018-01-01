@@ -31,29 +31,66 @@ public class HospInfoBoardServiceImpl implements HospInfoBoardService{
 	private SqlSessionTemplate sqlSession;
 	
 	@Autowired
-	private HospInfoMapper HospInfoMapper;
-
-	//HospInfoMapper HospInfoMapper = new HospInfoMapper();
-	PageNavigation paging;
-	int currentPageNo;
-	int recordsPerPage;
-	int start;
-	int end;
-		
-		
+	private HospInfoMapper HospInfoMapper;	
 	
+
+
 	
 	// 게시글 수 조회
 	@Override
 	public int getHospInfoCount() {
 		return HospInfoMapper.getHospInfoCount();
 	}
-
-	// 리스트 출력
+	
+	// 리스트 출력 - 페이징처리
 	@Override
-	public List<HospInfoBoardVO> selectHospInfoBoardList(HttpServletRequest request) {		
-		return HospInfoMapper.selectHospInfoBoardList();
+	public List<HospInfoBoardVO> selectHospInfoBoardList(int start, int end) {		
+		return HospInfoMapper.getHospInfoList(start, end);
 	}
+	
+	
+	
+	// 검색 후 결과 출력
+	public List<HospInfoBoardVO> searchHospInfo(int start, int end, HttpServletRequest request) throws UnsupportedEncodingException {
+		
+		String searchType = request.getParameter("searchType");
+		char searchCase = request.getParameter("searchCase").charAt(0);
+		String searchWord = request.getParameter("searchWord");
+		searchWord = new String(searchWord.getBytes("8859_1"),"utf-8");
+		
+		
+		Map<String,Object> map = new HashMap<String, Object>(); 
+		
+		map.put("searchCase", searchCase);
+		map.put("searchWord", searchWord);
+		map.put("start", start);
+		map.put("end", end);
+			
+		if(searchWord == "") { 
+			if(searchCase == 'Z') { // 검색키워드X, 진료과목선택 X
+				return HospInfoMapper.getHospInfoList(start, end);
+			} else { // 검색키워드 X, 진료과목선택 O
+				return HospInfoMapper.searchHospInfo1(map);
+			}
+		} else { // 검색키워드 O
+			if(searchType.equals("title") && searchCase == 'Z') { // 제목만 검색, 진료과목선택 X
+				return HospInfoMapper.searchHospInfo2(map);
+			} else if(searchType.equals("title") && searchCase != 'Z') { // 제목만 검색, 진료과목선택 O
+				return HospInfoMapper.searchHospInfo3(map);
+			} else if(searchType.equals("name") && searchCase == 'Z') { // 작성자만 검색, 진료과목선택 X
+				return HospInfoMapper.searchHospInfo4(map);
+			} else if(searchType.equals("name") && searchCase != 'Z') { // 작성자만 검색, 진료과목선택 O
+				return HospInfoMapper.searchHospInfo5(map);
+			} else if(searchType.equals("all") && searchCase == 'Z') { // 제목+작성자 검색, 진료과목선택 X
+				return HospInfoMapper.searchHospInfo6(map);
+			} else { // 제목+작성자 검색, 진료과목선택 O
+				return HospInfoMapper.searchHospInfo7(map);
+			}
+		}
+			
+		
+	}
+	
 	
 	// Top5 출력
 	@Override
@@ -91,19 +128,24 @@ public class HospInfoBoardServiceImpl implements HospInfoBoardService{
 	    int userseq = v1.getUser_seq();
 	    
 	    String title = request.getParameter("title");
-		title =new String(title.getBytes("8859_1"),"utf-8");
+		title = new String(title.getBytes("8859_1"),"utf-8");
 		
 		String content = request.getParameter("content");
-		content =new String(content.getBytes("8859_1"),"utf-8");
+		content = new String(content.getBytes("8859_1"),"utf-8");
 		
+		String hospnm = request.getParameter("hospnm");
+		hospnm = new String(content.getBytes("8859_1"),"utf-8");
 				
 		Map<String,Object> map = new HashMap<String, Object>(); 
 			
 		map.put("title", title); // 제목
 		map.put("content",  content); // 내용
 		map.put("writerseq", userseq); // 작성자seq
-		map.put("star", request.getParameter("star")); //별점
-			
+		map.put("star", request.getParameter("star")); // 별점
+		map.put("hospnm", hospnm); // 병원이름
+		map.put("class", request.getParameter("class")); // 진료과
+		map.put("type", request.getParameter("type")); // 타입(성인, 소아)
+		
 		HospInfoMapper.writeHospInfo(map);
 	}
 		
@@ -232,102 +274,6 @@ public class HospInfoBoardServiceImpl implements HospInfoBoardService{
 		HospInfoMapper.updateblameCount(userseq);
 	}
 		
-		
-
-	
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-	
-	
-	
-	// 페이징처리 한 리스트 출력
-	public Map<String,Object> hospInfoList(HttpServletRequest request,
-			@RequestParam(value = "page", required = false) String page)
-	{	
-		
-		Map<String,Object> map = new HashMap<String, Object>(); 
-		
-		HospInfoBoardServiceImpl pagingImpl = new HospInfoBoardServiceImpl(page);
-		
-		int start = pagingImpl.getStart();
-		int end = pagingImpl.getEnd();
-		
-		//전체 게시물 수
-		pagingImpl.setNumberOfRecords(HospInfoMapper.getHospInfoCount());
-		
-		//마지막 페이지 번호
-		pagingImpl.makePaging();
-		
-		map.put("page", page);
-		map.put("startPage", pagingImpl.getStartPageNo());
-		map.put("endPage", pagingImpl.getEndPageNo());
-		map.put("list",HospInfoMapper.getHospInfoList(start, end));
-		map.put("lastPage", pagingImpl.getFinalPageNo());
-
-		return map;
-	}
-	
-	
-    public List<BoardVO> selectRecordsPerPage(int offset, int noOfRecords) {
-        return HospInfoMapper.selectRecordsPerPage(offset, noOfRecords);
-    }
-    public HospInfoBoardServiceImpl(){
-    	
-    }
-	public HospInfoBoardServiceImpl(String page) {
-		try {
-			currentPageNo = Integer.parseInt(page);
-		} catch (NumberFormatException e) {
-			currentPageNo = 1;
-		}
-		
-		if(page != null) {
-			currentPageNo = Integer.parseInt(page);
-		}
-		recordsPerPage = 5; //페이지당 5개의 게시물
-		
-		paging = new PageNavigation(currentPageNo, recordsPerPage);
-		
-		//호출할 페이지 레코드 번호
-		start = (currentPageNo -1)* paging.getRecordsPerPage() +1;
-		end = currentPageNo * paging.getRecordsPerPage();
-	}
-	public int getStart() {
-		return start;
-	}
-	public int getEnd() {
-		return end;
-	}
-	public void setNumberOfRecords(int numberOfRecords) {
-		paging.setNumberOfRecords(numberOfRecords);
-	}
-	public int getFinalPageNo() {
-		return paging.getFinalPageNo();
-	}
-	public void makePaging() {
-		paging.makePaging();
-	}
-	public int getStartPageNo() {
-		return paging.getStartPageNo();
-	}
-	public int getEndPageNo() {
-		return paging.getEndPageNo();
-	}
-	
 	
 
 }

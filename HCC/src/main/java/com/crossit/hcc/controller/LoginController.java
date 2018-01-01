@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.crossit.hcc.dao.BoardMapperImpl;
+import com.crossit.hcc.dao.HospInfoMapper;
 import com.crossit.hcc.dao.NoticeMapper;
 
 
@@ -20,6 +21,9 @@ import com.crossit.hcc.dao.NoticeMapper;
 @Controller
 public class LoginController {
 
+	@Autowired
+	private HospInfoMapper hibDao;
+	
 	@Autowired
 	private BoardMapperImpl boardDao;
 	
@@ -44,6 +48,7 @@ public class LoginController {
 		//logger.info("Welcome login! {}", session.getId());
 		
 		int start=1,end=5;
+		model.addAttribute("hib", hibDao.getHospInfoList(start, end));
 		model.addAttribute("fmb",boardDao.getfmbList(start, end));
 		model.addAttribute("notice",noticeDao.getNoticeList(start, end));
 		return "main";

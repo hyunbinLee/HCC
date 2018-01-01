@@ -7,188 +7,477 @@
 <%@ include file="../../common/inc_common.jsp"%>
 
 <%@ include file="../../common/inc_header.jsp"%>
-  
-  <script>
-  	var box_cnt=2;
-	function ctr_QA(add_num,ox){
-		if(ox=='x'){
-			var ab=add_num-1;
-			$('label[for='+ab+']').removeClass('on');
-			$('label[for='+add_num+']').addClass('on');
-			addBox();
-		}else{
-			var ab=add_num+1;
-			$('label[for='+ab+']').removeClass('on');
-			$('label[for='+add_num+']').addClass('on');
-			open_pop();
+
+<script>
+
+	function div_q1(v) {
+		if(v == "y") {
+			document.getElementById('q2').style.display = "none";
+			document.getElementById('q3').style.display = "none";
+			document.getElementById('q4').style.display = "none";
+			document.getElementById('q5').style.display = "none";
+			document.getElementById('q6').style.display = "none";
+			document.getElementById('q7').style.display = "none";
+			document.getElementById('B').style.display = "none";
+			document.getElementById('C').style.display = "none";
+			document.getElementById('D').style.display = "none";
+			document.getElementById('E').style.display = "none";
+			document.getElementById('F').style.display = "none";
+			document.getElementById('G').style.display = "none";
+			document.getElementById('H').style.display = "none";
+			document.getElementById('q2').reset();
+			document.getElementById('q3').reset();
+			document.getElementById('q4').reset();
+			document.getElementById('q5').reset();
+			document.getElementById('q6').reset();
+			document.getElementById('q7').reset();
+			
+			document.getElementById('A').style.display = "";
+			document.getElementById('result').value = "A";
+			document.getElementById('but').style.display = "";
+		} else if(v == "n") {
+			document.getElementById('q3').style.display = "none";
+			document.getElementById('q4').style.display = "none";
+			document.getElementById('q5').style.display = "none";
+			document.getElementById('q6').style.display = "none";
+			document.getElementById('q7').style.display = "none";
+			document.getElementById('A').style.display = "none";
+			document.getElementById('B').style.display = "none";
+			document.getElementById('C').style.display = "none";
+			document.getElementById('D').style.display = "none";
+			document.getElementById('E').style.display = "none";
+			document.getElementById('F').style.display = "none";
+			document.getElementById('G').style.display = "none";
+			document.getElementById('H').style.display = "none";
+			document.getElementById('q3').reset();
+			document.getElementById('q4').reset();
+			document.getElementById('q5').reset();
+			document.getElementById('q6').reset();
+			document.getElementById('q7').reset();
+			
+			document.getElementById('q2').style.display = "";
 		}
 	}
-  		
-
-	function open_pop() {
-		$('.back_screen').show();
-		$('.test-result-laypop').show();
-		$('html, body').css({
-			'overflow' : 'hidden'
-		});
-
-		$('#element').on('scroll touchmove mousewheel', function(event) {
-			event.preventDefault();
-			event.stopPropagation();
-			return false;
-		});
+	
+	function div_q2(v) {
+		if(v == "y") {
+			document.getElementById('q3').style.display = "none";
+			document.getElementById('q5').style.display = "none";
+			document.getElementById('q6').style.display = "none";
+			document.getElementById('q7').style.display = "none";
+			document.getElementById('A').style.display = "none";
+			document.getElementById('B').style.display = "none";
+			document.getElementById('C').style.display = "none";
+			document.getElementById('D').style.display = "none";
+			document.getElementById('E').style.display = "none";
+			document.getElementById('F').style.display = "none";
+			document.getElementById('G').style.display = "none";
+			document.getElementById('H').style.display = "none";
+			document.getElementById('q3').reset();
+			document.getElementById('q5').reset();
+			document.getElementById('q6').reset();
+			document.getElementById('q7').reset();
+			
+			document.getElementById('q4').style.display = "";
+		} else if(v == "n") {
+			document.getElementById('q4').style.display = "none";
+			document.getElementById('q5').style.display = "none";
+			document.getElementById('q6').style.display = "none";
+			document.getElementById('q7').style.display = "none";
+			document.getElementById('A').style.display = "none";
+			document.getElementById('B').style.display = "none";
+			document.getElementById('C').style.display = "none";
+			document.getElementById('D').style.display = "none";
+			document.getElementById('E').style.display = "none";
+			document.getElementById('F').style.display = "none";
+			document.getElementById('G').style.display = "none";
+			document.getElementById('H').style.display = "none";
+			document.getElementById('q4').reset();
+			document.getElementById('q5').reset();
+			document.getElementById('q6').reset();
+			document.getElementById('q7').reset();
+			
+			document.getElementById('q3').style.display = "";
+		}
 	}
-	function close_pop() {
-		if (confirm("저장 하시겠습니까?")) {
-			location.href = "마이페이지"
-			$('.test-result-laypop').hide();
-			$('.back_screen').hide();
-			$('html, body').css({
-				'overflow' : 'auto'
-			});
-			$('#element').off('scroll touchmove mousewheel');
-		} else {
-			$('.test-result-laypop').hide();
-			$('.back_screen').hide();
-			$('html, body').css({
-				'overflow' : 'auto'
-			});
-			$('#element').off('scroll touchmove mousewheel');
+	
+	function div_q3(v) {
+		if(v == "y") {
+			document.getElementById('q4').style.display = "none";
+			document.getElementById('q5').style.display = "none";
+			document.getElementById('q6').style.display = "none";
+			document.getElementById('q7').style.display = "none";
+			document.getElementById('A').style.display = "none";
+			document.getElementById('B').style.display = "none";
+			document.getElementById('D').style.display = "none";
+			document.getElementById('E').style.display = "none";
+			document.getElementById('F').style.display = "none";
+			document.getElementById('G').style.display = "none";
+			document.getElementById('H').style.display = "none";
+			document.getElementById('q4').reset();
+			document.getElementById('q5').reset();
+			document.getElementById('q6').reset();
+			document.getElementById('q7').reset();
+			
+			document.getElementById('C').style.display = "";
+			document.getElementById('result').value = "C";
+			document.getElementById('but').style.display = "";
+		} else if(v == "n") {
+			document.getElementById('q4').style.display = "none";
+			document.getElementById('q5').style.display = "none";
+			document.getElementById('q6').style.display = "none";
+			document.getElementById('q7').style.display = "none";
+			document.getElementById('A').style.display = "none";
+			document.getElementById('C').style.display = "none";
+			document.getElementById('D').style.display = "none";
+			document.getElementById('E').style.display = "none";
+			document.getElementById('F').style.display = "none";
+			document.getElementById('G').style.display = "none";
+			document.getElementById('H').style.display = "none";
+			document.getElementById('q4').reset();
+			document.getElementById('q5').reset();
+			document.getElementById('q6').reset();
+			document.getElementById('q7').reset();
+			
+			document.getElementById('B').style.display = "";
+			document.getElementById('result').value = "B";
+			document.getElementById('but').style.display = "";
+		}
+	}
+	
+	function div_q4(v) {
+		if(v == "y") {
+			document.getElementById('q3').style.display = "none";
+			document.getElementById('q5').style.display = "none";
+			document.getElementById('q6').style.display = "none";
+			document.getElementById('q7').style.display = "none";
+			document.getElementById('A').style.display = "none";
+			document.getElementById('B').style.display = "none";
+			document.getElementById('C').style.display = "none";
+			document.getElementById('D').style.display = "none";
+			document.getElementById('E').style.display = "none";
+			document.getElementById('F').style.display = "none";
+			document.getElementById('G').style.display = "none";
+			document.getElementById('q3').reset();
+			document.getElementById('q5').reset();
+			document.getElementById('q6').reset();
+			document.getElementById('q7').reset();
+			
+			document.getElementById('H').style.display = "";
+			document.getElementById('result').value = "H";
+			document.getElementById('but').style.display = "";
+		} else if(v == "n") {
+			document.getElementById('q3').style.display = "none";
+			document.getElementById('q6').style.display = "none";
+			document.getElementById('q7').style.display = "none";
+			document.getElementById('A').style.display = "none";
+			document.getElementById('B').style.display = "none";
+			document.getElementById('C').style.display = "none";
+			document.getElementById('D').style.display = "none";
+			document.getElementById('E').style.display = "none";
+			document.getElementById('F').style.display = "none";
+			document.getElementById('G').style.display = "none";
+			document.getElementById('H').style.display = "none";
+			document.getElementById('q3').reset();
+			document.getElementById('q6').reset();
+			document.getElementById('q7').reset();
+			
+			document.getElementById('q5').style.display = "";
+		}
+	}
+	
+	function div_q5(v) {
+		if(v == "y") {
+			document.getElementById('q3').style.display = "none";
+			document.getElementById('q6').style.display = "none";
+			document.getElementById('A').style.display = "none";
+			document.getElementById('B').style.display = "none";
+			document.getElementById('C').style.display = "none";
+			document.getElementById('D').style.display = "none";
+			document.getElementById('E').style.display = "none";
+			document.getElementById('F').style.display = "none";
+			document.getElementById('G').style.display = "none";
+			document.getElementById('H').style.display = "none";
+			document.getElementById('q3').reset();
+			document.getElementById('q6').reset();
+			
+			document.getElementById('q7').style.display = "";
+		} else if(v == "n") {
+			document.getElementById('q3').style.display = "none";
+			document.getElementById('q7').style.display = "none";
+			document.getElementById('A').style.display = "none";
+			document.getElementById('B').style.display = "none";
+			document.getElementById('C').style.display = "none";
+			document.getElementById('D').style.display = "none";
+			document.getElementById('E').style.display = "none";
+			document.getElementById('F').style.display = "none";
+			document.getElementById('G').style.display = "none";
+			document.getElementById('H').style.display = "none";
+			document.getElementById('q3').reset();
+			document.getElementById('q7').reset();
+			
+			document.getElementById('q6').style.display = "";
 		}
 	}
 
-	function addBox(){
- 		$('.question_box:nth-child('+box_cnt+')').css('display','block');
- 		box_cnt+=1;
- 	}
-
+	function div_q6(v) {
+		if(v == "y") {
+			document.getElementById('q3').style.display = "none";
+			document.getElementById('q7').style.display = "none";
+			document.getElementById('A').style.display = "none";
+			document.getElementById('B').style.display = "none";
+			document.getElementById('C').style.display = "none";
+			document.getElementById('D').style.display = "none";
+			document.getElementById('F').style.display = "none";
+			document.getElementById('G').style.display = "none";
+			document.getElementById('H').style.display = "none";
+			document.getElementById('q3').reset();
+			document.getElementById('q7').reset();
+			
+			document.getElementById('E').style.display = "";
+			document.getElementById('result').value = "E";
+			document.getElementById('but').style.display = "";
+		} else if(v == "n") {
+			document.getElementById('q3').style.display = "none";
+			document.getElementById('q7').style.display = "none";
+			document.getElementById('A').style.display = "none";
+			document.getElementById('B').style.display = "none";
+			document.getElementById('C').style.display = "none";
+			document.getElementById('E').style.display = "none";
+			document.getElementById('F').style.display = "none";
+			document.getElementById('G').style.display = "none";
+			document.getElementById('H').style.display = "none";
+			document.getElementById('q3').reset();
+			document.getElementById('q7').reset();
+			
+			document.getElementById('D').style.display = "";
+			document.getElementById('result').value = "D";
+			document.getElementById('but').style.display = "";
+		}
+	}
+	
+	function div_q7(v) {
+		if(v == "y") {
+			document.getElementById('q3').style.display = "none";
+			document.getElementById('q6').style.display = "none";
+			document.getElementById('A').style.display = "none";
+			document.getElementById('B').style.display = "none";
+			document.getElementById('C').style.display = "none";
+			document.getElementById('D').style.display = "none";
+			document.getElementById('E').style.display = "none";
+			document.getElementById('F').style.display = "none";
+			document.getElementById('H').style.display = "none";
+			document.getElementById('q3').reset();
+			document.getElementById('q6').reset();
+			
+			document.getElementById('G').style.display = "";
+			document.getElementById('result').value = "G";
+			document.getElementById('but').style.display = "";
+		} else if(v == "n") {
+			document.getElementById('q3').style.display = "none";
+			document.getElementById('q6').style.display = "none";
+			document.getElementById('A').style.display = "none";
+			document.getElementById('B').style.display = "none";
+			document.getElementById('C').style.display = "none";
+			document.getElementById('D').style.display = "none";
+			document.getElementById('E').style.display = "none";
+			document.getElementById('G').style.display = "none";
+			document.getElementById('H').style.display = "none";
+			document.getElementById('q3').reset();
+			document.getElementById('q6').reset();
+			
+			document.getElementById('F').style.display = "";
+			document.getElementById('result').value = "F";
+			document.getElementById('but').style.display = "";
+		}
+	}
 </script>
-
 </head>
 <body>
 	<div class="wrap">
 	
+	<form action="./insertSelfDiagno_acutestomachache">
 	    <!-- Top Menu -->
 		<%@ include file="../../common/inc_top.jsp"%>
 		
+		<div id="q1">
+		<tr>
+			<td>
+				Q1. 급성복통이 있으면서 다음 항목 중 한가지라도 해당하거나 동반되는 사항이 있습니까?
+						- 38도 이상의 발열이 있는 경우
+						- 수일간 음식 섭취를 전혀 못함
+						- 지속적인 구토 또는 변비 동반
+						- 소변을 자주 보거나 배뇨 시 통증이 있음
+						- 아파서 배를 만지기 어려움
+						- 최근 외상이 있은 후 시작된 통증
+						- 참기 힘든 심한 통증이 지속됨
+						- 혈변
+						- 급격한 혈압 저하
+						- 체중 감소
+			</td>
+			<td>
+				<input name="q1" type="radio" value="y" onclick="div_q1(this.value);"/>
+				<input name="q1" type="radio" value="n" onclick="div_q1(this.value);"/>
+			</td>
+		</tr>
+		</div>
 		
+		<div id="q2" style="display:none">
+		<tr>
+			<td>
+				Q2. 지속적인 통증
+			</td>
+			<td>
+				<input name="q2" type="radio" value="y" onclick="div_q2(this.value);"/>
+				<input name="q2" type="radio" value="n" onclick="div_q2(this.value);"/>
+			</td>
+		</tr>
 		</div>
-		<div class="question_area">
-				<!--문제 순서대로 on 클래스가 추가 삭제됨.-->
-				<div class="question_box">
-					<p>Question. 01</p>
-					<h1>술을 마신 뒤에 예전만큼 잘 깨지 않는다.</h1>
-					<div>
-						<input type="radio" name="btn_ox" id="1" style="display:none"/>
-						<label for="1" class="test-ox-btn m_r10" onclick="ctr_QA(1);">O</label>
-						<input type="radio" name="btn_ox" id="2" style="display:none"/>
-						<label for="2" class="test-ox-btn" onclick="ctr_QA(2,'x');">X</label>
-					</div>
-				</div>
-				<div class="question_box">
-					<p>Question. 02</p>
-					<h1>아침에 일어나기가 힘들다.</h1>
-					<div>
-						<input type="radio" name="btn_ox" id="3" style="display:none"/>
-						<label for="3" class="test-ox-btn m_r10" onclick="ctr_QA(3);">O</label>
-						<input type="radio" name="btn_ox" id="4" style="display:none"/>
-						<label for="4" class="test-ox-btn" onclick="ctr_QA(4,'x');">X</label>
-					</div>
-				</div>
-				<div class="question_box">
-					<p>Question. 03</p>
-					<h1>튀김이나 고열량 식품을 즐겨먹는다.</h1>
-					<input type="radio" name="btn_ox" id="5" style="display:none"/>
-					<label for="5" class="test-ox-btn m_r10" onclick="ctr_QA(5);">O</label>
-					<input type="radio" name="btn_ox" id="6" style="display:none"/>
-					<label for="6" class="test-ox-btn" onclick="ctr_QA(6,'x');">X</label>
-				</div>
-				<div class="question_box">
-					<p>Question. 04</p>
-					<h1>입냄새가 심하게 난다.</h1>
-					<input type="radio" name="btn_ox" id="7" style="display:none"/>
-					<label for="7" class="test-ox-btn m_r10" onclick="ctr_QA(7);">O</label>
-					<input type="radio" name="btn_ox" id="8" style="display:none"/>
-					<label for="8" class="test-ox-btn" onclick="ctr_QA(8,'x');">X</label>
-				</div>
-				<div class="question_box">
-					<p>Question. 06</p>
-					<h1>간건강 관련하여 가족 중에 질환을 앓은 사람이 있다.</h1>
-					<div>
-						<input type="radio" name="btn_ox" id="9" style="display:none"/>
-						<label for="9" class="test-ox-btn m_r10" onclick="ctr_QA(9);">O</label>
-						<input type="radio" name="btn_ox" id="10" style="display:none"/>
-						<label for="10" class="test-ox-btn" onclick="ctr_QA(10,'x');">X</label>
-					</div>
-				</div>
-				<div class="question_box">
-					<p>Question. 06</p>
-					<h1>아침에 일어날 때 기운이 넘친다.</h1>
-					<div>
-						<input type="radio" name="btn_ox" id="11" style="display:none"/>
-						<label for="11" class="test-ox-btn m_r10" onclick="ctr_QA(11);">O</label>
-						<input type="radio" name="btn_ox" id="12" style="display:none"/>
-						<label for="12" class="test-ox-btn" onclick="ctr_QA(12,'x');">X</label>
-					</div>
-				</div>
-				<div class="question_box">
-					<p>Question. 07</p>
-					<h1>여행 중에도 쉽게 지치지 않는다.</h1>
-					<div>
-						<input type="radio" name="btn_ox" id="13" style="display:none"/>
-						<label for="13" class="test-ox-btn m_r10" onclick="ctr_QA(13);">O</label>
-						<input type="radio" name="btn_ox" id="14" style="display:none"/>
-						<label for="14" class="test-ox-btn" onclick="ctr_QA(14,'x');">X</label>
-					</div>
-				</div>
-				<div class="question_box">
-					<p>Question. 08</p>
-					<h1>술을 많이 마시지 않고, 마셔도 금방 깨는 편이다.</h1>
-					<div>
-						<input type="radio" name="btn_ox" id="15" style="display:none"/>
-						<label for="15" class="test-ox-btn m_r10" onclick="ctr_QA(15);">O</label>
-						<input type="radio" name="btn_ox" id="16" style="display:none"/>
-						<label for="16" class="test-ox-btn" onclick="ctr_QA(16,'x');">X</label>
-					</div>
-				</div>
-				<div class="question_box">
-					<p>Question. 09</p>
-					<h1>음식을 골고루 챙겨먹는 편이다.</h1>
-					<input type="radio" name="btn_ox" id="17" style="display:none"/>
-					<label for="17" class="test-ox-btn m_r10" onclick="ctr_QA(17);">O</label>
-					<input type="radio" name="btn_ox" id="18" style="display:none"/>
-					<label for="18" class="test-ox-btn" onclick="ctr_QA(18,'x');">X</label>
-				</div>
-				<div class="question_box">
-					<p>Question. 10</p>
-					<h1>스트레스를 잘 받지 않는 편이다.</h1>
-					<div>
-						<input type="radio" name="btn_ox" id="19" style="display:none"/>
-						<label for="19" class="test-ox-btn m_r10" onclick="ctr_QA(19);">O</label>
-						<input type="radio" name="btn_ox" id="20" style="display:none"/>
-						<label for="20" class="test-ox-btn" onclick="ctr_QA(20,'x');">X</label>
-					</div>
-				</div>
-
-			</div>
-			<!-- <a class="selfcheck_btn m_t30 m_b30" href="#" onclick="open_pop()">결과보기</a>-->
-		<div class="test-result-laypop" style="display: none">
-			<button type="button" class="btn_close" onclick="close_pop()">X</button>
-			<div class="test-result-txtbox">
-				<dl>
-					<dt>테스트 결과</dt>
-					<dd class="test-result-txtbox-def">
-						내 나이는 24세, <strong>신체 나이는 24세!</strong>
-					</dd>
-					<dd class="test-result-txtbox-txt">
-						꽉 찬 수분으로 촉촉한 피부를 가지고 있는 당신은 매끈매끈, 물광 피부 돌고래입니다.<br>물속을 헤엄치는
-						돌고래 처럼 촉촉한 피부결을 가지고 있습니다.<br>지금 당신은 주변 친구들의 부러움을 사는 물광 피부를
-						뽐내고 있군요.<br>지금처럼 매끈함과 촉촉함을 유지한다면 시간을 거스르는 물광 피부를 유지할 수 있습니다!
-					</dd>
-				</dl>
-			</div>
+		
+		<div id="q3" style="display:none">
+		<tr>
+			<td>
+				Q3. 통증부위가 우상복부 혹은 옆구리입니까?
+			</td>
+			<td>
+				<input name="q3" type="radio" value="y" onclick="div_q3(this.value);"/>
+				<input name="q3" type="radio" value="n" onclick="div_q3(this.value);"/>
+			</td>
+		</tr>
 		</div>
+		
+		<div id="q4" style="display:none">
+		<tr>
+			<td>
+				Q4. 통증 부위가 복부 전체입니까?
+			</td>
+			<td>
+				<input name="q4" type="radio" value="y" onclick="div_q4(this.value);"/>
+				<input name="q4" type="radio" value="n" onclick="div_q4(this.value);"/>
+			</td>
+		</tr>
+		</div>
+		
+		<div id="q5" style="display:none">
+		<tr>
+			<td>
+				Q5. 누르면 통증이 심해집니까?
+			</td>
+			<td>
+				<input name="q5" type="radio" value="y" onclick="div_q5(this.value);"/>
+				<input name="q5" type="radio" value="n" onclick="div_q5(this.value);"/>
+			</td>
+		</tr>
+		</div>
+		
+		<div id="q6" style="display:none">
+		<tr>
+			<td>
+				Q6. 통증부위가 명치 혹은 옆구리 입니까?
+			</td>
+			<td>
+				<input name="q6" type="radio" value="y" onclick="div_q6(this.value);"/>
+				<input name="q6" type="radio" value="n" onclick="div_q6(this.value);"/>
+			</td>
+		</tr>
+		</div>
+		
+		<div id="q7" style="display:none">
+		<tr>
+			<td>
+				Q7. 통증부위가 하복부 혹은 우상복부입니까?
+			</td>
+			<td>
+				<input name="q7" type="radio" value="y" onclick="div_q7(this.value);"/>
+				<input name="q7" type="radio" value="n" onclick="div_q7(this.value);"/>
+			</td>
+		</tr>
+		</div>
+		
+		<div id="A" style="display:none">
+		<tr>
+			<td>
+				빨리 의사의 진료를 받으시기 바랍니다.
+			</td>
+		</tr>
+		</div>
+		
+		<div id="B" style="display:none">
+		<tr>
+			<td>
+				담석증
+			</td>
+		</tr>
+		</div>
+		
+		<div id="C" style="display:none">
+		<tr>
+			<td>
+				요로결석
+			</td>
+		</tr>
+		</div>
+		
+		<div id="D" style="display:none">
+		<tr>
+			<td>
+				역류성식도염
+				소화성궤양
+				심근경색
+			</td>
+		</tr>
+		</div>
+		
+		<div id="E" style="display:none">
+		<tr>
+			<td>
+				신우신염
+			</td>
+		</tr>
+		</div>
+		
+		<div id="F" style="display:none">
+		<tr>
+			<td>
+				대장염
+				게실염
+				급성충수염
+				국소회장염
+				배란통 (여성)
+				자궁외임신 (여성)
+				난관염 (여성)
+			</td>
+		</tr>
+		</div>
+		
+		<div id="G" style="display:none">
+		<tr>
+			<td>
+				급성담낭염
+			</td>
+		</tr>
+		</div>
+		
+		<div id="H" style="display:none">
+		<tr>
+			<td>
+				복막염
+				대장염
+			</td>
+		</tr>
+		</div>
+		
+		<input type="hidden" name="result" id="result">
+		
+		<div id="but" style="display:none">
+			<button type="button" onclick="javascript:location.href='./selfDiagno_acutestomachache'"> 다시 </button>
+			<input type="submit" value="저장" id="reg_btn">
+		</div>
+		
+		
+	</form>
 	</div>
-	<div class="back_screen" style="display: none"></div>
+			
+
 </body>
 </html>

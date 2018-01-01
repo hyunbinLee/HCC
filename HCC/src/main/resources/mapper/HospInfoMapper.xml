@@ -6,32 +6,32 @@
 	<!-- String이나 hashmap으로 넘겨야 if문 쓸 수 있음 -->
 
 	<select id="selectHospInfoBoardList" resultType="com.crossit.hcc.vo.HospInfoBoardVO">
-		SELECT * 
-		FROM hcc_hospital_info_tb
-		WHERE hospital_info_status = 'Y'
-		ORDER BY hospital_info_reg_date DESC
+		SELECT a.*, b.user_name 
+		FROM hcc_hospital_info_tb a JOIN hcc_user_tb b
+		WHERE a.hospital_info_status = 'Y' AND b.user_status = 'Y'
+		ORDER BY a.hospital_info_reg_date DESC
 	</select>
 	
 	<select id="getHospInfoCount" resultType="int">
 		SELECT count(*)
-		FROM hcc_hospital_tb
+		FROM hcc_hospital_info_tb
 		
 	</select>
 	
 	<select id="getHospInfoList" resultType="com.crossit.hcc.vo.HospInfoBoardVO" parameterType="HashMap">
-		SELECT b.*
+		SELECT b.*, DATE_FORMAT(b.hospital_info_reg_date, "%y-%c-%d %H:%i") AS regdate
 		FROM (
 			 SELECT 
     		    @RNUM:=@RNUM+1 AS ROWNUM
     		    ,  a.*
 			 FROM 
 		    	   (SELECT @RNUM:=0) R
-		    	,  (SELECT * 
-		    	    FROM hcc_hospital_info_tb
-		    	    
-		    	    WHERE hospital_info_status = 'Y'
-		    	    
-		    	    ORDER BY hospital_info_reg_date DESC
+		    	,  (SELECT m.*, n.user_name 
+		    	    FROM hcc_hospital_info_tb m JOIN hcc_user_tb n
+		    	    WHERE m.hospital_info_status = 'Y'
+		    	    	AND n.user_status = 'Y'
+		    	    	AND (m.hospital_info_reg_seq = n.user_seq)
+		    	    ORDER BY m.hospital_info_seq DESC
 		    	    ) a 
 			 ) as b 
 		WHERE ROWNUM BETWEEN #{start} AND #{end}
@@ -55,8 +55,8 @@
 	
 	<!-- 상세 페이지 - 게시글 조회   현재 boardseq에 맞는 게시글 불러오기-->
     <select id="returnDetail" parameterType="int" resultType="com.crossit.hcc.vo.HospInfoBoardVO">
-		SELECT a.*, b.user_name
-		FROM hcc_hospital_info_tb a, hcc_user_tb b
+		SELECT a.*, b.user_name, DATE_FORMAT(a.hospital_info_reg_date, "%y-%c-%d %H:%i") AS regdate
+		FROM hcc_hospital_info_tb a JOIN hcc_user_tb b
 		WHERE a.hospital_info_seq = #{boardseq} 
 			AND a.hospital_info_reg_seq = b.user_seq 
 			AND b.user_status = 'Y' 
@@ -65,8 +65,8 @@
 	
 	<!-- 상세 페이지 - 댓글 불러오기 -->
 	<select id="returnComm" parameterType="int" resultType="com.crossit.hcc.vo.HospInfoBoardReplVO">
-		SELECT a.*, b.user_name
-		FROM hcc_hospital_info_reply_tb a, hcc_user_tb b
+		SELECT a.*, b.user_name, DATE_FORMAT(a.hospital_info_reply_reg_date, "%y-%c-%d %H:%i") AS regdate
+		FROM hcc_hospital_info_reply_tb a JOIN hcc_user_tb b
 		WHERE a.hospital_info_seq = #{boardseq} 
 		  AND a.hospital_info_reply_reg_seq = b.user_seq 
 		  AND b.user_status = 'Y' 
@@ -82,6 +82,9 @@
 			hospital_info_title, 
 			hospital_info_content, 
 			hospital_info_score, 
+			hospital_info_hospnm,
+			hospital_info_class,
+			hospital_info_type, 
 			hospital_info_reg_seq, 
 			hospital_info_reg_date
 		)
@@ -89,7 +92,10 @@
 		(
 			#{title}, 
 			#{content}, 
-			#{star}, 
+			#{star},
+			#{hospnm}, 
+			#{class},
+			#{type},
 			#{writerseq}, 
 			NOW()
 		)
@@ -232,4 +238,155 @@
 		) + 1
  		WHERE user_seq = #{userseq}
 	</update>
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	<!-- 검색 후 결과 출력 -->
+	
+	<select id="searchHospInfo1" parameterType="HashMap" resultType="com.crossit.hcc.vo.HospInfoBoardVO">
+		SELECT b.*, DATE_FORMAT(b.hospital_info_reg_date, "%y-%c-%d %H:%i") AS regdate
+		FROM (
+			 SELECT 
+    		    @RNUM:=@RNUM+1 AS ROWNUM
+    		    ,  a.*
+			 FROM 
+		    	   (SELECT @RNUM:=0) R
+		    	,  (SELECT m.*, n.user_name 
+		    	    FROM hcc_hospital_info_tb m JOIN hcc_user_tb n
+		    	    WHERE m.hospital_info_status = 'Y'
+		    	    	AND n.user_status = 'Y'
+		    	    	AND (m.hospital_info_reg_seq = n.user_seq)
+		    	    	AND	m.hospital_info_class = #{searchCase}
+		    	    ORDER BY m.hospital_info_seq DESC
+		    	    ) a 
+			 ) as b 
+		WHERE ROWNUM BETWEEN #{start} AND #{end}
+	</select>
+	
+	<select id="searchHospInfo2" parameterType="HashMap" resultType="com.crossit.hcc.vo.HospInfoBoardVO">
+		SELECT b.*, DATE_FORMAT(b.hospital_info_reg_date, "%y-%c-%d %H:%i") AS regdate
+		FROM (
+			 SELECT 
+    		    @RNUM:=@RNUM+1 AS ROWNUM,  a.*
+			 FROM 
+		    	   (SELECT @RNUM:=0) R
+		    	,  (SELECT m.*, n.user_name 
+		    	    FROM hcc_hospital_info_tb m JOIN hcc_user_tb n
+		    	    WHERE m.hospital_info_status = 'Y'
+				    	    	AND n.user_status = 'Y'
+				    	    	AND m.hospital_info_reg_seq = n.user_seq
+		    	    			AND m.hospital_info_title LIKE '%${searchWord}%'
+		    	    ORDER BY m.hospital_info_seq DESC
+		    	    ) a 
+			 ) as b 
+		WHERE ROWNUM BETWEEN #{start} AND #{end}
+	</select>			
+	
+	<select id="searchHospInfo3" parameterType="HashMap" resultType="com.crossit.hcc.vo.HospInfoBoardVO">
+		SELECT b.*, DATE_FORMAT(b.hospital_info_reg_date, "%y-%c-%d %H:%i") AS regdate
+		FROM (
+			 SELECT 
+    		    @RNUM:=@RNUM+1 AS ROWNUM,  a.*
+			 FROM 
+		    	   (SELECT @RNUM:=0) R
+		    	,  (SELECT m.*, n.user_name 
+		    	    FROM hcc_hospital_info_tb m JOIN hcc_user_tb n
+		    	    WHERE m.hospital_info_status = 'Y'
+				    	    	AND n.user_status = 'Y'
+				    	    	AND m.hospital_info_reg_seq = n.user_seq
+		    	    			AND m.hospital_info_title LIKE '%${searchWord}%' 
+		    	    			AND	m.hospital_info_class = #{searchCase}
+		    	    ORDER BY m.hospital_info_seq DESC
+		    	    ) a 
+			 ) as b 
+		WHERE ROWNUM BETWEEN #{start} AND #{end}
+	</select>	
+	
+	<select id="searchHospInfo4" parameterType="HashMap" resultType="com.crossit.hcc.vo.HospInfoBoardVO">
+		SELECT b.*, DATE_FORMAT(b.hospital_info_reg_date, "%y-%c-%d %H:%i") AS regdate
+		FROM (
+			 SELECT 
+    		    @RNUM:=@RNUM+1 AS ROWNUM,  a.*
+			 FROM 
+		    	   (SELECT @RNUM:=0) R
+		    	,  (SELECT m.*, n.user_name 
+		    	    FROM hcc_hospital_info_tb m JOIN hcc_user_tb n
+		    	    WHERE m.hospital_info_status = 'Y'
+				    	    	AND n.user_status = 'Y'
+				    	    	AND m.hospital_info_reg_seq = n.user_seq
+		    	    			AND n.user_name LIKE '%${searchWord}%'
+		    	    ORDER BY m.hospital_info_seq DESC
+		    	    ) a 
+			 ) as b 
+		WHERE ROWNUM BETWEEN #{start} AND #{end}
+	</select>
+	
+	<select id="searchHospInfo5" parameterType="HashMap" resultType="com.crossit.hcc.vo.HospInfoBoardVO">
+		SELECT b.*, DATE_FORMAT(b.hospital_info_reg_date, "%y-%c-%d %H:%i") AS regdate
+		FROM (
+			 SELECT 
+    		    @RNUM:=@RNUM+1 AS ROWNUM,  a.*
+			 FROM 
+		    	   (SELECT @RNUM:=0) R
+		    	,  (SELECT m.*, n.user_name 
+		    	    FROM hcc_hospital_info_tb m JOIN hcc_user_tb n
+		    	    WHERE m.hospital_info_status = 'Y'
+				    	    	AND n.user_status = 'Y'
+				    	    	AND m.hospital_info_reg_seq = n.user_seq
+		    	    			AND n.user_name LIKE '%${searchWord}%' 
+		    	    			AND m.hospital_info_class = #{searchCase}
+		    	    ORDER BY m.hospital_info_seq DESC
+		    	    ) a 
+			 ) as b 
+		WHERE ROWNUM BETWEEN #{start} AND #{end}
+	</select>
+		
+	<select id="searchHospInfo6" parameterType="HashMap" resultType="com.crossit.hcc.vo.HospInfoBoardVO">
+		SELECT b.*, DATE_FORMAT(b.hospital_info_reg_date, "%y-%c-%d %H:%i") AS regdate
+		FROM (
+			 SELECT 
+    		    @RNUM:=@RNUM+1 AS ROWNUM,  a.*
+			 FROM 
+		    	   (SELECT @RNUM:=0) R
+		    	,  (SELECT m.*, n.user_name 
+		    	    FROM hcc_hospital_info_tb m JOIN hcc_user_tb n
+		    	    WHERE m.hospital_info_status = 'Y'
+				    	    	AND n.user_status = 'Y'
+				    	    	AND m.hospital_info_reg_seq = n.user_seq
+		    	    			AND (m.hospital_info_title LIKE '%${searchWord}%' 
+		    	    			OR n.user_name LIKE '%${searchWord}%')
+		    	    ORDER BY m.hospital_info_seq DESC
+		    	    ) a 
+			 ) as b 
+		WHERE ROWNUM BETWEEN #{start} AND #{end}
+	</select>	    
+	
+	<select id="searchHospInfo7" parameterType="HashMap" resultType="com.crossit.hcc.vo.HospInfoBoardVO">
+		SELECT b.*, DATE_FORMAT(b.hospital_info_reg_date, "%y-%c-%d %H:%i") AS regdate
+		FROM (
+			 SELECT 
+    		    @RNUM:=@RNUM+1 AS ROWNUM,  a.*
+			 FROM 
+		    	   (SELECT @RNUM:=0) R
+		    	,  (SELECT m.*, n.user_name 
+		    	    FROM hcc_hospital_info_tb m JOIN hcc_user_tb n
+		    	    WHERE m.hospital_info_status = 'Y'
+				    	    	AND n.user_status = 'Y'
+				    	    	AND m.hospital_info_reg_seq = n.user_seq
+		    	    			AND (m.hospital_info_title LIKE '%${searchWord}%' 
+		    	    			OR n.user_name LIKE '%${searchWord}%') 
+		    	    			AND	m.hospital_info_class = #{searchCase}
+		    	    ORDER BY m.hospital_info_seq DESC
+		    	    ) a 
+			 ) as b 
+		WHERE ROWNUM BETWEEN #{start} AND #{end}
+	</select>
+				
+	
 </mapper>	

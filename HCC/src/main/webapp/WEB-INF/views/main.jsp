@@ -132,18 +132,18 @@
 
 
 			<!--병원 정보 공유 게시판-->
-			<div class="notice_board_wrap">
 			<c:url value="/hospInfoBoard" var="hospList" />
+			<div class="notice_board_wrap">
 				<div class="notice_board_title p_b5">
-					<span class="p_b5">병원정보 공유</span> <a href="${hospList }?page=1" class="right"><img src="resources/img/plus_icon.png" alt="플러스 아이콘" width="10%" height="10%"></a>
+					<span class="p_b5">병원정보 공유</span> 
+					<a href="${hospList }" class="right"><img src="resources/img/plus_icon.png" alt="플러스 아이콘" width="10%" height="10%"></a>
 				</div>
 				<div class="notice_board">
+					<c:url var="hcontenturl" value="/hospInfoBoard_detail"/>
 					<ul>
-						<li>test</li>
-						<li>test</li>
-						<li class="on">test</li>
-						<li>test</li>
-						<li>test</li>
+						<c:forEach var="list" items="${hib}">
+							<li><a href="${hcontenturl}?boardseq=${list.hospital_info_seq}">${list.hospital_info_title}</a> <span class="board_date">${list.hospital_info_reg_date }</span></li>
+						</c:forEach>
 					</ul>
 				</div>
 			</div>
