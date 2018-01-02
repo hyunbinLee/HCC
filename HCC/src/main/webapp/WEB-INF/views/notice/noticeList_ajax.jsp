@@ -102,7 +102,7 @@
 			
 			</div>
 
-			<%@ include file="../common/inc_right.jsp"%>
+			<%@ include file="../common/notice_right.jsp"%>
 		</div>
 
 </body>

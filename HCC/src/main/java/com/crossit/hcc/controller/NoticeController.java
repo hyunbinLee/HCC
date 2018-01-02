@@ -247,4 +247,13 @@ public class NoticeController {
 		
 		return "redirect:noticeContentPage?seq="+unlike_seq+"&code=1&regSeq=11";
 	}
+	
+	@RequestMapping(value = "/topofhits", method=RequestMethod.GET)
+	public String topOfHits(Model model)
+	{
+		
+		model.addAttribute("hitsList",noticeDao.getNoticeHitsList());
+		
+		return "notice/noticeList_ajax";
+	}
 }
