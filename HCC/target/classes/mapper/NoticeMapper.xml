@@ -169,4 +169,12 @@
 		set notice_unlike_cnt = notice_unlike_cnt + 1
 		where notice_seq = #{param1}
 	</update>
+	
+	<select id="getNoticeHitsList" resultType="com.crossit.hcc.vo.NoticeVO">
+		SELECT *
+		FROM hcc_notice_tb     	    
+		where notice_status = 'Y'
+		AND   notice_type ='N'
+		order by notice_cnt DESC
+	</select>
 </mapper>	

@@ -54,7 +54,7 @@ public class NoticeController {
 		pagingService.paging(page,noticeCount);
 		
 		
-		
+		model.addAttribute("hitsList",noticeDao.getNoticeHitsList());
 		model.addAttribute("startPage", pagingService.startPageNo());
 		model.addAttribute("endPage", pagingService.endPageNo());
 		model.addAttribute("fmb",noticeDao.getNoticeList(pagingService.getStart(), pagingService.getEnd()));
@@ -248,12 +248,14 @@ public class NoticeController {
 		return "redirect:noticeContentPage?seq="+unlike_seq+"&code=1&regSeq=11";
 	}
 	
-	@RequestMapping(value = "/topofhits", method=RequestMethod.GET)
-	public String topOfHits(Model model)
-	{
-		
-		model.addAttribute("hitsList",noticeDao.getNoticeHitsList());
-		
-		return "notice/noticeList_ajax";
-	}
+//	@RequestMapping(value = "/topofhits", method=RequestMethod.GET)
+//	public String topOfHits(Model model)
+//	{
+//		List<NoticeVO> vo = noticeDao.getNoticeHitsList();
+//		for(int i = 0 ; i<3; i++)
+//		System.out.println(vo.get(i).getNotice_cnt());
+//		model.addAttribute("hitsList",noticeDao.getNoticeHitsList());
+//		
+//		return "notice/noticeList_ajax";
+//	}
 }

@@ -123,9 +123,6 @@
         
       </div>
 	</div>
-<<<<<<< HEAD
-   
-=======
->>>>>>> branch 'master' of https://github.com/hyunbinLee/HCC.git
+
 </body>
 </html>
